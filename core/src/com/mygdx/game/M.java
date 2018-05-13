@@ -15,7 +15,7 @@ public class M {
 
         Item item = new HealingSpell();
 
-        GameObject player = new Player("Donny", 50, 10);
+        GameObject player = new Hero("Donny", 50, 10);
 
         player.equipArmor(armor);
 

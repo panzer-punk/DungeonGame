@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.io.Serializable;
@@ -10,21 +11,38 @@ import java.io.Serializable;
  */
 public class Terrain{
 
-    private Texture texture;
+    private Sprite sprite;
     private int movementCost;
     public String name;
+    public boolean flag;
+    private int x, y;
 
     public Terrain(int m, String n, Texture texture){
 
         movementCost = m;
-        this.texture = texture;
+        sprite = new Sprite(texture);
+        sprite.setSize(1,1);//debug code
+        name = n;
+        flag = false;
+
+    }
+
+    public Terrain(int m, String n, Sprite sprite){
+
+        movementCost = m;
+        this.sprite = sprite;
         name = n;
 
     }
 
-    public void draw(SpriteBatch batch, int x, int y){batch.draw(texture, x * 50, y * 50);}
+    public void draw(SpriteBatch batch){sprite.draw(batch);}
 
     public int getMovementCost(){return movementCost;}
-
+    public Sprite getSprite(){return sprite;}
+    public void setSprite(Sprite sprite){this.sprite = sprite;}
+    public void setXY(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
 
 }

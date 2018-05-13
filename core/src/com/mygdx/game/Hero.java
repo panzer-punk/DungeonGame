@@ -6,56 +6,81 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 /**
  * Created by Даниил on 09.09.2017.
  */
-public class Orc implements GameObject {
+public class Hero implements GameObject {
 
-    private Sprite sprite;//sprite is better
-    private String name = "Orc";
-    private Classification classification = Classification.Nonplayable;
-    private Status status = Status.OK;
-    private Direction direction = null;
-    private int hp = 25;
+    private Sprite sprite;
+    private int initiative;
+    private String name;
+    private Classification classification;
+    private Status status;
+    private Direction direction;
+    private int hp;
+    private int movementsPoints, toReset;
+    private int level;
+    private int experience;
     private int x, y;
-    private int movementPoints = 5, toReset = 5;
+    private int itemNumber;
     private Weapon weapon;
     private Armor armor;
-    private int initative = 1;
+    private Item[] backpack;
 
+    public Hero(String name, int hp, int capacity, Sprite sprite, int movementsPoints, int level, int experience){
 
+        this.name = name;
+        this.hp = hp;
+        this.sprite = sprite;
+
+        direction = null;
+        status = Status.OK;
+        classification = Classification.Playable;
+
+        itemNumber = 0;
+        backpack = new Item[capacity];
+
+        this.movementsPoints = movementsPoints;
+        this.level = level;
+        this.experience = experience;
+        toReset = movementsPoints;
+        //debug code
+        initiative = 2;
+
+    }
 
     @Override
     public void draw(SpriteBatch batch) {
-    sprite.draw(batch);
+        if(movementsPoints == 0)
+            sprite.setColor(1,1,9,80);
+        sprite.draw(batch);
+
     }
 
     @Override
-    public void makeStep(int c) {movementPoints -= c;}
+    public void makeStep(int c) {movementsPoints -= c;}
 
     @Override
     public int getMP() {
-        return movementPoints;
+        return movementsPoints;
     }
 
     @Override
-    public void resetMP() {movementPoints = toReset;}
+    public void resetMP() {movementsPoints = toReset;}
 
     @Override
-    public int getInitiative() {
-      return initative;
-    }
+    public int getInitiative() {return initiative;}
 
     @Override
     public Status getStatus() {
-        return null;
+        return status;
     }
 
     @Override
     public Classification getClassification() {
-        return null;
+        return classification;
     }
 
     @Override
     public Direction getDirection() {
-        return null;
+        return direction;
     }
 
     @Override
@@ -111,7 +136,7 @@ public class Orc implements GameObject {
     public void setXY(int x, int y) {
 
         this.x = x;
-        this.y = y;
+        this. y = y;
         sprite.setPosition(x,y);
 
     }
@@ -119,7 +144,7 @@ public class Orc implements GameObject {
     @Override
     public void show() {
 
-        System.out.println("Orc: " + hp);
+        System.out.println(name + "\n______\n" + "Health: " + hp);
 
     }
 
@@ -140,7 +165,8 @@ public class Orc implements GameObject {
     @Override
     public void putItem(Item item) {
 
-
+        if(itemNumber < backpack.length)
+            backpack[itemNumber++] = item;
 
     }
 
@@ -150,7 +176,7 @@ public class Orc implements GameObject {
         if(dealer.getWeapon().getPenetration() >= this.getArmor().getPenetration())
             hp -= dealer.getWeapon().getDamage();
 
-        System.out.println("Orc took " + dealer.getWeapon().getDamage() + " damage");
+        System.out.println("You took " + dealer.getWeapon().getDamage() + " damage");
 
     }
 
@@ -158,6 +184,7 @@ public class Orc implements GameObject {
     public Weapon getWeapon() {
         return weapon;
     }
+
 
     @Override
     public Armor getArmor() {

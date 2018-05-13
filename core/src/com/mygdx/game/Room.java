@@ -50,7 +50,7 @@ public class Room {
 
     private void setXY(int x, int y){map[x][y].setXY(x, y);}//?
 
-    public void move(int from_line, int from_column, int to_line, int to_column){
+    public boolean move(int from_line, int from_column, int to_line, int to_column){
 
         if(to_line < l && to_column < c) {
             if ((map[from_line][from_column] != null) && (map[to_line][to_column] == null)) {
@@ -60,12 +60,17 @@ public class Room {
 
                 setXY(to_line, to_column);
 
+                return true;
+
             } else {
 
-                Printer.print("Не могу перейти");
+                Printer.print("Не могу перейти\n");
 
+                return false;
             }
         }
+
+        return false;
 
     }
 
@@ -82,8 +87,14 @@ public class Room {
         for (int i = 0; i < l; i++) {
             for (int j = 0; j < c; j++) {
 
-                if(map[i][j] != null)
+                if(map[i][j] != null) {
+                    if(map[i][j].getHP() <= 0)
+                       // if (map[i][j].getClass() != Entity.class) Entity should be checked by it's class, not by HP
+                            delete(i, j);
+                    else
                     map[i][j].draw(batch);
+                }
+
 
             }
         }
@@ -92,6 +103,15 @@ public class Room {
 
     public void drawMap(SpriteBatch batch){
         tileMap.draw(batch);
+    }
+
+    public void clearTiles(){
+
+        for (int i = 0; i < l; i++)
+            for (int j = 0; j < c; j++) {
+                tileMap.getTiles()[i][j].getSprite().setColor(1, 1, 1, 1);
+                tileMap.getTiles()[i][j].flag = false;
+            }
     }
 
     public int getCapacity (){return capacity;}

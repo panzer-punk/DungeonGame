@@ -1,30 +1,40 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import java.util.ArrayList;
 
 /**
  * Created by Даниил on 09.09.2017.
  */
 public interface GameObject {
 
-    Directions watchDirection = null;
-
-    public void draw(SpriteBatch batch);
-    public int getX();
-    public int getY();
-    public void setX(int x);
-    public void setY(int y);
-    public void setXY(int x, int y);
-    public void show();
-    public void equipWeapon(Weapon weapon);
-    public void equipArmor(Armor armor);
-    public void putItem(Item item);
-    public void takeDamage(GameObject dealer);
-    public Weapon getWeapon();
-    public Armor getArmor();
-    public int getHP();
-    public String getName();
+     void draw(SpriteBatch batch);
+     void makeStep(int c);
+     int getMP();
+     void resetMP();
+     int getInitiative();
+     Status getStatus();
+     Classification getClassification();
+     Direction getDirection();
+     void setDirection(Direction direction);
+     void setClassification(Classification classification);
+     void setStatus(Status status);
+     Sprite getSprite();
+     void setSprite(Sprite sprite);
+     int getX();
+     int getY();
+     void setX(int x);
+     void setY(int y);
+     void setXY(int x, int y);
+     void show();
+     void equipWeapon(Weapon weapon);
+     void equipArmor(Armor armor);
+     void putItem(Item item);
+     void takeDamage(GameObject dealer);
+     Weapon getWeapon();
+     Armor getArmor();
+     int getHP();
+     Direction getWatchDirection();
+     String getName();
 
 }

@@ -3,13 +3,18 @@ package com.mygdx.game;
 /**
  * Created by Даниил on 09.09.2017.
  */
-public class Printer {
+public class Printer {//debug class
 
     public static void show(GameObject gameObject){
 
+        if(gameObject.getClass() == Entity.class)
+            System.out.println(gameObject.getName() + "\n X;Y: " + gameObject.getX() + ";" + gameObject.getY());
+        else
         System.out.println(gameObject.getName() + ": " + gameObject.getHP() +
                 "\n Armor: " + gameObject.getArmor().getQuality() + ", pen " + gameObject.getArmor().getPenetration() +
-                "\n Weapon: " + gameObject.getWeapon().getDamage() + ", pen " + gameObject.getWeapon().getPenetration());
+                "\n Weapon: " + gameObject.getWeapon().getDamage() + ", pen " + gameObject.getWeapon().getPenetration()+
+                "\n MP: " + gameObject.getMP()+
+                "\n X;Y: " + gameObject.getX() + ";" + gameObject.getY());
 
     }
 

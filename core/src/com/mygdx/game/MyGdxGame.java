@@ -17,12 +17,14 @@ import com.badlogic.gdx.math.collision.Ray;
 public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 	SpriteBatch batch, Obatch;
 	OrthographicCamera cam;
+	TexturePack texturePack;
+	RoomGenerator roomGenerator;
 	final Matrix4 matrix = new Matrix4();
 	final Matrix4 Omatrix = new Matrix4();
 	Texture texture;
 	GameObject[] queque;//sorted by initiative
 	InitiativeSorter sorter;
-	Room room;
+	Room room, genRoom;
 	Orc orc;
 	GameObject player, wall;
 	Map map;
@@ -38,6 +40,11 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 	public void create () {
         WeaponGenerator weaponGenerator = new WeaponGenerator();
 
+        texturePack = new TexturePack(null);
+        roomGenerator = new RoomGenerator();
+
+        genRoom = roomGenerator.generateRoom(10, 10);
+
         Weapon weapon = new IronSword();
 
         Armor armor = new LeatherArmor();
@@ -49,14 +56,16 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 		cam.far = 500;
 		matrix.setToRotation(new Vector3(1,0,0), 90);
 
-        Sprite sprite = new Sprite(new Texture("C:/Users/Даниил/Desktop/floor.png"));
+        Sprite sprite = new Sprite(texturePack.getFloor_min());
         sprite.setSize(1,1 * (Gdx.graphics.getWidth()/Gdx.graphics.getHeight()));
-		map = new Map(10, 10, new Terrain(1, "test", sprite));
-		Terrain terrain = new Terrain(2,"test", new Texture("C:/Users/Даниил/Desktop/floor1.png"));
+		//map = new Map(10, 10, new Terrain(1, "test", sprite));
+		Terrain terrain = new Terrain(2,"test", texturePack.getHole(), true);
 		sprite = terrain.getSprite();
 		sprite.setSize(1,1);
-        map.addTile(terrain, 1, 3);
-		room = new Room(10,10, map);
+		sprite.flip(false, true);
+       // map.addTile(terrain, 1, 3);
+		//room = new Room(10,10, map);
+		room = genRoom;
 
 		orc = new Orc();
 		orc.equipWeapon(weaponGenerator.createWeapon());
@@ -69,11 +78,11 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
         sprite = new Sprite(new Texture("C:/Users/Даниил/Desktop/hero.png"));
         sprite.setSize(1,1 );
         sprite.flip(false,true);
-		player = new Hero("Donny", 50, 10,sprite,10, 1,0);
+		player = new Hero("Donny", 50, 10,sprite,5, 1,0);
 		player.equipWeapon(weapon);
 		player.equipArmor(armor);
 
-		sprite = new Sprite(new Texture("C:/Users/Даниил/Desktop/wall.png"));
+		sprite = new Sprite(texturePack.getWall_1());
 		sprite.setSize(1,1);
 		wall = new Entity("Wall", sprite);
 
@@ -81,16 +90,8 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 		room.setObject(wall);
 		room.setObject(orc);
 		room.setObject(player);
-      //  texture = new Texture("C:/Users/Даниил/Desktop/floor.png");
-		room.move(0,0, 2, 2);
-	//	room.move(0, 1, 2, 1);
-    /*    for (int z = 0; z < 10; z++){
-            for (int x = 0; x< 10; x++){
-                sprites[x][z] = new Sprite(texture);
-                sprites[x][z].setPosition(x,z);
-                sprites[x][z].setSize(1,1);
-            }
-        }*/
+		//room.move(0,0, 2, 2);
+
 		batch = new SpriteBatch();
 		Gdx.input.setInputProcessor(this);
 	}
@@ -100,28 +101,16 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		cam.update();
-		//int x_ = 0 + (int)(Math.random() * room.getL());
-       // System.out.println(orc.getX());
-	//	System.out.println(x_);
-	//	int y_ = 0 + (int) (Math.random()*room.getC());
-     //   System.out.println(orc.getY());
-     //   System.out.println(y_);
 		batch.setProjectionMatrix(cam.combined);
 		batch.setTransformMatrix(matrix);
-		//room.move(orc.getX(), orc.getY(), x_, y_);
-		batch.begin();
-      /*  for (int z = 0; z < 10; z++){
-            for (int x = 0; x< 10; x++){
-                sprites[x][z].draw(batch);
 
-            }
-        }*/
+		batch.begin();
 		room.drawMap(batch);
         room.drawObjects(batch);
 		batch.end();
 
 		checkTileTouched();
-	//	update();
+
 	}
 
 	private void checkTileTouched() {
@@ -137,9 +126,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
             if (x >= 0 && x < 10 && z >= 0 && z < 10) {
                if (lastSelectedTile != null)
                     lastSelectedTile.setColor(1, 1, 1, 1);
-             //  Sprite sprite1 = sprites[x][z];
-             //  sprite1.setColor(1,0,0,1);
-            //   lastSelectedTile = sprite1;
+
                 if (x >= 0 && z >= 0 && x < room.getC()&& z < room.getL()) {
                     if (room.getObject(x, z) != null && room.getObject(x, z).getClassification() != Classification.OBJECT) {
                         sprite = room.getObject(x, z).getSprite();
@@ -152,7 +139,6 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 
                         }else {
                             lastSelectedObject = room.getObject(x, z);
-                            // lastSelectedObject.makeStep(room.getTileMap().getTiles()[x][z].getMovementCost());
                             PathFinder.drawWays(batch, room, x, z);
                         }
                     } else {
@@ -194,7 +180,6 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 	@Override
 	public void dispose () {
 		batch.dispose();
-//		img.dispose();
 	}
 
 	@Override

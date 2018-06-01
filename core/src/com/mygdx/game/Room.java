@@ -2,6 +2,9 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+
 /**
  * Created by Даниил on 11.04.2018.
  */
@@ -72,6 +75,20 @@ public class Room {
 
         return false;
 
+    }
+
+    public boolean move(LinkedList<WayPoint> wayPoints, GameObject gameObject){
+
+        Iterator<WayPoint> iterator = wayPoints.iterator();
+
+        while (iterator.hasNext()){
+
+            WayPoint w = iterator.next();
+
+
+        }
+
+        return false;
     }
 
     public void delete(int line, int column){

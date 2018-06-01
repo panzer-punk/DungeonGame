@@ -2,6 +2,9 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 /*
  * Created by Даниил on 22.04.2018.
  */
@@ -25,6 +28,26 @@ public class PathFinder {
 
     }
 
+    static LinkedList<WayPoint> moveTo(Room room, GameObject gameObject, int x, int y){
+
+        LinkedList<WayPoint> wayPoints = new LinkedList<WayPoint>();
+
+        while(gameObject.getX() != x){
+
+            wayPoints.add(new WayPoint(room.getTileMap().getTiles()[x+=1][y]));
+
+        }
+
+        while (gameObject.getY() != y){
+
+            wayPoints.add(new WayPoint(room.getTileMap().getTiles()[x+=1][y]));
+
+        }
+
+        return wayPoints;
+    }
+
+
     private static void draw(int mp, int x, int z, GameObject[][] map, Terrain[][] tileMap, SpriteBatch batch){
         //up
         if(mp >= 0 && x <= c && z <= l ){
@@ -39,7 +62,7 @@ public class PathFinder {
 
                     int a = mMP;
                     a -= tileMap[x][z - 1].getMovementCost();
-                    if(a >= 0) {
+                    if(a >= 0 && !tileMap[x][z - 1].getKillFlag()) {
                         tileMap[x][z - 1].getSprite().setColor(100, 50, 0, 45);
                         tileMap[x][z - 1].flag = true;
                         draw(a, x, z - 1, map, tileMap, batch);
@@ -51,7 +74,7 @@ public class PathFinder {
                     if (map[x][z + 1] == null) {
                         int a = mMP;
                         a -= tileMap[x][z + 1].getMovementCost();
-                        if(a >= 0) {
+                        if(a >= 0 && !tileMap[x][z + 1].getKillFlag()) {
                             tileMap[x][z + 1].getSprite().setColor(100, 50, 0, 45);
                             tileMap[x][z + 1].flag = true;
                             draw(a, x, z + 1, map, tileMap, batch);
@@ -64,7 +87,7 @@ public class PathFinder {
 
                     int a = mMP;
                     a -= tileMap[x + 1][z].getMovementCost();
-                    if(a >= 0) {
+                    if(a >= 0 && !tileMap[x + 1][z].getKillFlag()) {
                         tileMap[x + 1][z].getSprite().setColor(100, 50, 0, 45);
                         tileMap[x + 1][z].flag = true;
                         draw(a, x + 1, z, map, tileMap, batch);
@@ -78,10 +101,10 @@ public class PathFinder {
 
                         int a = mMP;
                         a -= tileMap[x - 1][z].getMovementCost();
-                        if(a >= 0) {
-                            tileMap[x - 1][z].getSprite().setColor(100, 50, 0, 45);
-                            tileMap[x - 1][z].flag = true;
-                            draw(a, x - 1, z, map, tileMap, batch);
+                        if(a >= 0 && !tileMap[x - 1][z].getKillFlag()) {
+                                tileMap[x - 1][z].getSprite().setColor(100, 50, 0, 45);
+                                tileMap[x - 1][z].flag = true;
+                                draw(a, x - 1, z, map, tileMap, batch);
                         }
                     }
 
@@ -91,10 +114,20 @@ public class PathFinder {
 
 
     }
-
+    //for making animation of movement
     static int[] getWaypointByDestination(int x_to, int z_to, int x_from, int z_from){
 
         return null;
+    }
+
+    //test method
+    static void countMove(GameObject gameObject, Room room,int x, int y){
+
+
+
+
+
+
     }
 
 }

@@ -60,7 +60,7 @@ public class Map{
 
                 if(tiles[i][j] == null) {
                   //  defaultTerrain.draw(batch, i, j);
-                    tiles[i][j] = new Terrain(defaultTerrain.getMovementCost()," ", new Texture(string));
+                    tiles[i][j] = new Terrain(defaultTerrain.getMovementCost()," ", new Texture(string), false);
                     sprite = tiles[i][j].getSprite();
                     sprite.setPosition(i, j);
                     tiles[i][j].setSprite(sprite);

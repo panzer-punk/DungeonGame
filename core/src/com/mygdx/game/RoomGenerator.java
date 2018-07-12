@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -18,7 +19,7 @@ public class RoomGenerator {
 
     private Map generateTileMap(int sizeX, int sizeY){
 
-        Map mp = new Map(sizeX, sizeY,new Terrain(1, "test", new Sprite(new Texture("C:/Users/Даниил/Desktop/floor.png"))));
+        Map mp = new Map(sizeX, sizeY,new Terrain(1, "test", new Sprite(new Texture(Gdx.files.internal("floor.png")))));
 
         for(int i = 0; i <= sizeX; i++){
             for (int j = 0; j <= sizeY; j++){
@@ -31,16 +32,16 @@ public class RoomGenerator {
                     case 3:
                     case 4:
                     case 5:
-                        mp.addTile(new Terrain(1, "test", new Sprite(new Texture("C:/Users/Даниил/Desktop/floor.png"))));
+                        mp.addTile(new Terrain(1, "test", new Sprite(new Texture(Gdx.files.internal("floor.png")))));
                         break;
                     case 6:
                     case 7:
                     case 8:
-                        mp.addTile(new Terrain(2, "test", new Sprite(new Texture("C:/Users/Даниил/Desktop/floor1.png"))));
+                        mp.addTile(new Terrain(2, "test", new Sprite(new Texture(Gdx.files.internal("floor1.png")))));
                         break;
                     case 9:
                     case 10:
-                        mp.addTile(new Terrain(1, "test", new Texture("C:/Users/Даниил/Desktop/hole.png"), true));
+                        mp.addTile(new Terrain(1, "test", new Texture(Gdx.files.internal("hole.png")), true));
                 }
 
             }

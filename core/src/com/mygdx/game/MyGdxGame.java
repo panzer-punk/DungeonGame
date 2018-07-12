@@ -70,12 +70,12 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 		orc = new Orc();
 		orc.equipWeapon(weaponGenerator.createWeapon());
 		orc.equipArmor(armor);
-        sprite = new Sprite(new Texture("C:/Users/Даниил/Desktop/orc.png"));
+        sprite = new Sprite(texturePack.getOrc());
         sprite.setSize(1,1);
         sprite.flip(false,true);
         orc.setSprite(sprite);
 
-        sprite = new Sprite(new Texture("C:/Users/Даниил/Desktop/hero.png"));
+        sprite = new Sprite(new Texture(Gdx.files.internal("player.png")));
         sprite.setSize(1,1 );
         sprite.flip(false,true);
 		player = new Hero("Donny", 50, 10,sprite,5, 1,0);

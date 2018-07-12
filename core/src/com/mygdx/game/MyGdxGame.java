@@ -96,7 +96,9 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
         sprite = new Sprite(new Texture(Gdx.files.internal("player.png")));
         sprite.setSize(1,1 );
         sprite.flip(false,true);
-		player = new Hero("Donny", 50, 10,sprite,5, 1,0, 10, 16, 14, 0);
+		player = new Hero("Donny", 50, 10,sprite,5, 1,
+				0, 10, 16, 14,
+				0);
 		player.equipWeapon(weapon);
 		player.equipArmor(armor);
 

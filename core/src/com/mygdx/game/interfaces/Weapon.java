@@ -11,8 +11,10 @@ public interface Weapon {
 
     public void show();
 
-    public int getPenetration();
+    public int getType();//1 for stabbing weapon; 0 for blunt weapon
 
     public int getDamage();
+
+    public int getDistance();
 
 }

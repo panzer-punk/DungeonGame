@@ -8,8 +8,9 @@ import com.mygdx.game.interfaces.Weapon;
  */
 public class IronSword implements Weapon {
 
-    int damage = 10;
-    int penetrationLevel = 4;
+    private int type = 1;
+    private int distance = 1;
+
 
     @Override
     public void makeDamage(GameObject dealer, GameObject gainer) {
@@ -21,17 +22,20 @@ public class IronSword implements Weapon {
     @Override
     public void show() {
 
-        System.out.println("Iron sword: " + damage +", pen: " + penetrationLevel);
+        System.out.println("Iron sword: " + type +", dis: " + distance);
 
     }
 
     @Override
-    public int getPenetration() {
-        return penetrationLevel;
+    public int getType() {
+        return type;
     }
 
     @Override
     public int getDamage() {
-        return damage;
-    }
+        return 0;
+    }//returns damage fro dice roll
+
+    @Override
+    public int getDistance() {return distance; }
 }

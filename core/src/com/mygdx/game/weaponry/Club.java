@@ -9,7 +9,8 @@ import com.mygdx.game.interfaces.Weapon;
 public class Club implements Weapon {
 
     private String name = "Club";
-    private int damage = 7;
+    private int type = 0;
+    private int distance = 1;
 
     @Override
     public void makeDamage(GameObject dealer, GameObject gainer) {
@@ -19,18 +20,17 @@ public class Club implements Weapon {
     }
 
     @Override
-    public void show() {
-
-
-    }
+    public void show() {}
 
     @Override
-    public int getPenetration() {
-        return 0;
-    }
+    public int getType() {return type; }
+
 
     @Override
     public int getDamage() {
-        return damage;
-    }
+        return 0;
+    } //returns damage from dice roll
+
+    @Override
+    public int getDistance() {return distance; }
 }

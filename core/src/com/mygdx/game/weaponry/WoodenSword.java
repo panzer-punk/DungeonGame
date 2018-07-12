@@ -9,8 +9,8 @@ import com.mygdx.game.interfaces.Weapon;
 public class WoodenSword implements Weapon {
 
     private String name = "Wooden sword";
-    private int damage = 5;
-    private int penetration = 1;
+    private int type = 1;
+    private int distance = 1;
 
     @Override
     public void makeDamage(GameObject dealer, GameObject gainer) {
@@ -26,12 +26,14 @@ public class WoodenSword implements Weapon {
     }
 
     @Override
-    public int getPenetration() {
-        return penetration;
-    }
+    public int getType() {return type; }
+
 
     @Override
     public int getDamage() {
-        return damage;
-    }
+        return 0;
+    }//returns damage from dice roll
+
+    @Override
+    public int getDistance() {return distance;}
 }

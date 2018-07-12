@@ -9,6 +9,7 @@ import com.mygdx.game.interfaces.Armor;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Item;
 import com.mygdx.game.interfaces.Weapon;
+import com.mygdx.game.tools.Dice;
 
 /**
  * Created by Даниил on 09.09.2017.
@@ -194,7 +195,7 @@ public class Hero implements GameObject {
     public void takeDamage(GameObject dealer) {
         int d = 0;
 
-        if((dealer.getSTR()) >= this.getArmorClass()) {//need a d20 roll here
+        if((dealer.getSTR() + Dice.d20()) >= this.getArmorClass()) {
             d = dealer.getWeapon().getDamage();
             hp -= d;
         }

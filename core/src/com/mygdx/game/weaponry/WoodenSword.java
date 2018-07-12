@@ -2,6 +2,7 @@ package com.mygdx.game.weaponry;
 
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Weapon;
+import com.mygdx.game.tools.Dice;
 
 /**
  * Created by Даниил on 19.09.2017.
@@ -31,7 +32,7 @@ public class WoodenSword implements Weapon {
 
     @Override
     public int getDamage() {
-        return 0;
+        return Dice.d6();
     }//returns damage from dice roll
 
     @Override

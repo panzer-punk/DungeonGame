@@ -18,9 +18,10 @@ public class Printer {//debug class
             System.out.println(gameObject.getName() + "\n X;Y: " + gameObject.getX() + ";" + gameObject.getY());
         else
         System.out.println(gameObject.getName() + ": " + gameObject.getHP() +
-                "\n Armor: " + gameObject.getArmor().getArmor() +
+                "\n Armor: " + gameObject.getArmor().getArmor() + " AC" + gameObject.getArmorClass() +
                 "\n Weapon: " + gameObject.getWeapon().getDamage()+
                 "\n MP: " + gameObject.getMP()+
+                "\n STR: " + gameObject.getSTR() + " DEX: " + gameObject.getDEX() + " CON: " + gameObject.getCON() +
                 "\n X;Y: " + gameObject.getX() + ";" + gameObject.getY());
 
     }

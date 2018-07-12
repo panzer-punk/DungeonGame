@@ -9,6 +9,7 @@ import com.mygdx.game.interfaces.Armor;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Item;
 import com.mygdx.game.interfaces.Weapon;
+import com.mygdx.game.tools.Dice;
 
 /**
  * Created by Даниил on 09.09.2017.
@@ -20,7 +21,7 @@ public class Orc implements GameObject {
     private Classification classification = Classification.Nonplayable;
     private Status status = Status.OK;
     private Direction direction = null;
-    private int hp = 25;
+    private int hp = 8;
     private int DEX = 1, STR = 2, CON = 3, AC = 13;
     private int x, y;
     private int movementPoints = 5, toReset = 5;
@@ -156,7 +157,7 @@ public class Orc implements GameObject {
     public void takeDamage(GameObject dealer) {
         int d = 0;
 
-        if((dealer.getSTR()) >= this.getArmorClass()) {//need a d20 roll here
+        if((dealer.getSTR() + Dice.d20()) >= this.getArmorClass()) {
             d = dealer.getWeapon().getDamage();
             hp -= d;
         }

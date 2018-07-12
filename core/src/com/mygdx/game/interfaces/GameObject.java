@@ -39,5 +39,12 @@ public interface GameObject {
      int getHP();
      Direction getWatchDirection();
      String getName();
+     int getStrength();
+     int getDexterity();
+     int getConstitution();
+     int getArmorClass();
+     int getDEX();
+     int getSTR();
+     int getCON();
 
 }

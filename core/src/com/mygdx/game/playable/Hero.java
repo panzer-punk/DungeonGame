@@ -22,20 +22,33 @@ public class Hero implements GameObject {
     private Status status;
     private Direction direction;
     private int hp;
+    private int strength, dexterity, constitution;
+    private int STR, DEX, CON;
     private int movementsPoints, toReset;
     private int level;
     private int experience;
     private int x, y;
+    private int armorclass;
     private int itemNumber;
     private Weapon weapon;
     private Armor armor;
     private Item[] backpack;
 
-    public Hero(String name, int hp, int capacity, Sprite sprite, int movementsPoints, int level, int experience){
+    public Hero(String name, int hp, int capacity, Sprite sprite,
+                int movementsPoints, int level, int experience,
+                int strength, int dexterity, int constitution,
+                int initiativebonus){
 
         this.name = name;
         this.hp = hp;
         this.sprite = sprite;
+        this.strength = strength;
+        this.dexterity = dexterity;
+        this.constitution = constitution;
+
+        STR = (strength - 10)/2;
+        DEX = (dexterity - 10)/2;
+        CON = (constitution - 10)/2;
 
         direction = null;
         status = Status.OK;
@@ -49,7 +62,7 @@ public class Hero implements GameObject {
         this.experience = experience;
         toReset = movementsPoints;
         //debug code
-        initiative = 2;
+        initiative = initiativebonus + DEX;
 
     }
 
@@ -179,11 +192,13 @@ public class Hero implements GameObject {
 
     @Override
     public void takeDamage(GameObject dealer) {
+        int d = 0;
 
-        if(dealer.getWeapon().getPenetration() >= this.getArmor().getPenetration())
-            hp -= dealer.getWeapon().getDamage();
-
-        System.out.println("You took " + dealer.getWeapon().getDamage() + " damage");
+        if((dealer.getSTR()) >= this.getArmorClass()) {//need a d20 roll here
+            d = dealer.getWeapon().getDamage();
+            hp -= d;
+        }
+        System.out.println("You took " + d + " damage");
 
     }
 
@@ -211,5 +226,38 @@ public class Hero implements GameObject {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int getStrength() {
+        return strength;
+    }
+
+    @Override
+    public int getDexterity() {
+        return dexterity;
+    }
+
+    @Override
+    public int getConstitution() {
+        return constitution;
+    }
+
+    @Override
+    public int getArmorClass() {return (armor.getArmorClass() + DEX + 10); }
+
+    @Override
+    public int getDEX() {
+        return DEX;
+    }
+
+    @Override
+    public int getSTR() {
+        return STR;
+    }
+
+    @Override
+    public int getCON() {
+        return CON;
     }
 }

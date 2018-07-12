@@ -21,11 +21,12 @@ public class Orc implements GameObject {
     private Status status = Status.OK;
     private Direction direction = null;
     private int hp = 25;
+    private int DEX = 1, STR = 2, CON = 3, AC = 13;
     private int x, y;
     private int movementPoints = 5, toReset = 5;
     private Weapon weapon;
     private Armor armor;
-    private int initative = 1;
+    private int initative = 3;
 
 
 
@@ -153,12 +154,13 @@ public class Orc implements GameObject {
 
     @Override
     public void takeDamage(GameObject dealer) {
+        int d = 0;
 
-        if(dealer.getWeapon().getPenetration() >= this.getArmor().getPenetration())
-            hp -= dealer.getWeapon().getDamage();
-
-        System.out.println("Orc took " + dealer.getWeapon().getDamage() + " damage");
-
+        if((dealer.getSTR()) >= this.getArmorClass()) {//need a d20 roll here
+            d = dealer.getWeapon().getDamage();
+            hp -= d;
+        }
+        System.out.println("You took " + d + " damage");
     }
 
     @Override
@@ -184,5 +186,41 @@ public class Orc implements GameObject {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int getStrength() {
+        return 0;
+    }
+
+    @Override
+    public int getDexterity() {
+        return 0;
+    }
+
+    @Override
+    public int getConstitution() {
+        return 0;
+    }
+
+    @Override
+    public int getArmorClass() {
+        return AC;
+    }
+
+
+    @Override
+    public int getDEX() {
+        return DEX;
+    }
+
+    @Override
+    public int getSTR() {
+        return STR;
+    }
+
+    @Override
+    public int getCON() {
+        return CON;
     }
 }

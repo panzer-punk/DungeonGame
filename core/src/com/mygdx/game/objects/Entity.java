@@ -110,4 +110,39 @@ public class Entity implements GameObject {
 
     @Override
     public String getName() {return name;}
+
+    @Override
+    public int getStrength() {
+        return 0;
+    }
+
+    @Override
+    public int getDexterity() {
+        return 0;
+    }
+
+    @Override
+    public int getConstitution() {
+        return 0;
+    }
+
+    @Override
+    public int getArmorClass() {
+        return 0;
+    }
+
+    @Override
+    public int getDEX() {
+        return 0;
+    }
+
+    @Override
+    public int getSTR() {
+        return 0;
+    }
+
+    @Override
+    public int getCON() {
+        return 0;
+    }
 }

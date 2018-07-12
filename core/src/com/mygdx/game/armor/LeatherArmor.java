@@ -7,34 +7,23 @@ import com.mygdx.game.interfaces.Armor;
  */
 public class LeatherArmor implements Armor {
 
-    int penetration = 3;
-    int quality = 10;
+    private final int armor = 3;
+    private final int armorclass = 1;
 
     @Override
-    public int getPenetration() {
-
-        return penetration;
-    }
-
-    @Override
-    public void takeDamage(int dmg) {
-
-        if(quality > 0)
-            quality -= dmg;
-        else if(penetration > 0)
-            penetration--;
-
-    }
-
-    @Override
-    public int getQuality() {
-        return quality;
+    public int getArmor() {
+        return armor;
     }
 
     @Override
     public void show() {
 
-        System.out.println("Leather Armor: " + penetration + ", quality: " + quality);
+        System.out.println("Leather Armor: " + ", armor: " + armor);
 
+    }
+
+    @Override
+    public int getArmorClass() {
+        return armorclass;
     }
 }

@@ -85,7 +85,9 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 		//room = new Room(10,10, map);
 		room = genRoom;
 
-		orc = new Orc();
+		orc = new Orc("Orc", 8,2,null,3,1,
+				0,15,10,12,
+				0, Classification.Nonplayable);
 		orc.equipWeapon(weaponGenerator.createWeapon());
 		orc.equipArmor(armor);
         sprite = new Sprite(texturePack.getOrc());
@@ -98,7 +100,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
         sprite.flip(false,true);
 		player = new Hero("Donny", 10, 10,sprite,5, 1,
 				0, 10, 16, 14,
-				0);
+				0, Classification.Playable);
 		player.equipWeapon(weapon);
 		player.equipArmor(armor);
 

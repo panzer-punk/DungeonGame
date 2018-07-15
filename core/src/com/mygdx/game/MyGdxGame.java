@@ -65,7 +65,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 
         Weapon weapon = new IronSword();
 
-        Armor armor = new LeatherArmor();
+        Armor armor = new LeatherArmor(3,1,"LeatherArmor");
 
 		cam = new OrthographicCamera(10 * 1.3f, 10 *(Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()));
 		cam.position.set(5,5,10);

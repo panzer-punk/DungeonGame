@@ -7,34 +7,19 @@ import com.mygdx.game.tools.Dice;
 /**
  * Created by Даниил on 19.09.2017.
  */
-public class WoodenSword implements Weapon {
+public class WoodenSword extends WeaponryStuff {
 
-    private String name = "Wooden sword";
-    private int type = 1;
-    private int distance = 1;
+    public WoodenSword(String label, int type, int distance) {
+        super(label, type, distance);
+    }
 
     @Override
     public void makeDamage(GameObject dealer, GameObject gainer) {
 
-        gainer.takeDamage(dealer);
-
     }
-
-    @Override
-    public void show() {
-        //can be empty
-
-    }
-
-    @Override
-    public int getType() {return type; }
-
 
     @Override
     public int getDamage() {
         return Dice.d6();
-    }//returns damage from dice roll
-
-    @Override
-    public int getDistance() {return distance;}
+    }
 }

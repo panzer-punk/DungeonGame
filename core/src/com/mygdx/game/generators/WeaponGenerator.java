@@ -19,14 +19,14 @@ public class WeaponGenerator {
         switch (rand){
 
             case 1:
-                weapon = new IronSword();
+                weapon = new IronSword("Iron Sword",1,1);
             break;
 
             case 2:
-                weapon = new WoodenSword();
+                weapon = new WoodenSword("Wooden Sword", 1, 1);
                 break;
             case 3:
-                weapon = new Club();
+                weapon = new Club("Club", 0,1);
                 break;
         }
 

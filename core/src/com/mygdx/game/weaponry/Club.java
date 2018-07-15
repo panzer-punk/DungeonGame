@@ -7,31 +7,20 @@ import com.mygdx.game.tools.Dice;
 /**
  * Created by Даниил on 19.09.2017.
  */
-public class Club implements Weapon {
+public class Club extends WeaponryStuff {
 
-    private String name = "Club";
-    private int type = 0;
-    private int distance = 1;
+
+    public Club(String label, int type, int distance) {
+        super(label, type, distance);
+    }
 
     @Override
     public void makeDamage(GameObject dealer, GameObject gainer) {
 
-        gainer.takeDamage(dealer);
-
     }
-
-    @Override
-    public void show() {}
-
-    @Override
-    public int getType() {return type; }
-
 
     @Override
     public int getDamage() {
         return Dice.d4();
-    } //returns damage from dice roll
-
-    @Override
-    public int getDistance() {return distance; }
+    }
 }

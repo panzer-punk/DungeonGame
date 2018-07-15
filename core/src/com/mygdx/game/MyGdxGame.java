@@ -63,9 +63,9 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 
         genRoom = roomGenerator.generateRoom(10, 10);
 
-        Weapon weapon = new IronSword();
+        Weapon weapon = new IronSword("Iron Sword", 1,1);//Создавать оружие и броню ТОЛЬКО В ГЕНЕРАТОРАХ (это тестовый код)
 
-        Armor armor = new LeatherArmor(3,1,"LeatherArmor");
+        Armor armor = new LeatherArmor(3,1,"LeatherArmor");//тестовый код
 
 		cam = new OrthographicCamera(10 * 1.3f, 10 *(Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()));
 		cam.position.set(5,5,10);

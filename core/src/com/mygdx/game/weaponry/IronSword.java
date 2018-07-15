@@ -7,36 +7,20 @@ import com.mygdx.game.tools.Dice;
 /**
  * Created by Даниил on 09.09.2017.
  */
-public class IronSword implements Weapon {
+public class IronSword extends WeaponryStuff {
 
-    private int type = 1;
-    private int distance = 1;
 
+    public IronSword(String label, int type, int distance) {
+        super(label, type, distance);
+    }
 
     @Override
     public void makeDamage(GameObject dealer, GameObject gainer) {
 
-        gainer.takeDamage(dealer);
-
-    }
-
-    @Override
-    public void show() {
-
-        System.out.println("Iron sword: " + type +", dis: " + distance);
-
-    }
-
-    @Override
-    public int getType() {
-        return type;
     }
 
     @Override
     public int getDamage() {
         return Dice.d8();
-    }//returns damage fro dice roll
-
-    @Override
-    public int getDistance() {return distance; }
+    }
 }

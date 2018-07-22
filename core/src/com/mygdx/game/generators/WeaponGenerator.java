@@ -16,7 +16,7 @@ public class WeaponGenerator {
 
         Weapon weapon = null;
 
-        int rand = (int) ((Math.random()*3) + 1);
+        int rand = (int) ((Math.random()*5) + 1);
 
         switch (rand){
 

@@ -34,7 +34,7 @@ public class WeaponGenerator {
                 weapon = new IronClub("IronClub", 0,1);
                 break;
             case 5:
-                weapon = new Spear("Spear", 1,0);
+                weapon = new Spear("Spear", 1,2);
                 break;
         }
 

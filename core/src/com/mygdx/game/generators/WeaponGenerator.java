@@ -1,8 +1,14 @@
 package com.mygdx.game.generators;
 
-import com.mygdx.game.interfaces.Weapon;
+
 import com.mygdx.game.weaponry.Club;
+import com.mygdx.game.weaponry.IronClub;
 import com.mygdx.game.weaponry.IronSword;
+
+
+import com.mygdx.game.weaponry.Spear;
+import com.mygdx.game.interfaces.Weapon;
+
 import com.mygdx.game.weaponry.WoodenSword;
 
 /**
@@ -14,7 +20,7 @@ public class WeaponGenerator {
 
         Weapon weapon = null;
 
-        int rand = (int) ((Math.random()*3) + 1);
+        int rand = (int) ((Math.random()*5) + 1);
 
         switch (rand){
 
@@ -27,6 +33,12 @@ public class WeaponGenerator {
                 break;
             case 3:
                 weapon = new Club("Club", 0,1);
+                break;
+            case 4:
+                weapon = new IronClub("IronClub", 0,1);
+                break;
+            case 5:
+                weapon = new Spear("Spear", 1,2);
                 break;
         }
 

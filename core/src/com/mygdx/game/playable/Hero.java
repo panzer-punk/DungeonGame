@@ -24,4 +24,8 @@ public class Hero extends Doll {
         super(name, hp, capacity, sprite, movementsPoints, level, experience, strength, dexterity, constitution, initiativebonus, classification);
 
     }
+
+    private Hero(){
+
+    }
 }

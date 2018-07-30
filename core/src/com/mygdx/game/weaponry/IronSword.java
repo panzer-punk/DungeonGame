@@ -14,6 +14,10 @@ public class IronSword extends WeaponryStuff {
         super(label, type, distance);
     }
 
+    public IronSword(){
+        super("IronSword",1,1);
+    }
+
     @Override
     public void makeDamage(GameObject dealer, GameObject gainer) {
 

@@ -18,6 +18,10 @@ public abstract class WeaponryStuff implements Weapon {
         this.distance = distance;
     }
 
+    public WeaponryStuff(){
+
+    }
+
     @Override
     public final String getLabel(){
         return label;

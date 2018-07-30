@@ -13,6 +13,12 @@ public class WoodenSword extends WeaponryStuff {
         super(label, type, distance);
     }
 
+    public WoodenSword(){
+
+        super("Wooden Sword", 1, 1);
+
+    }
+
     @Override
     public void makeDamage(GameObject dealer, GameObject gainer) {
 

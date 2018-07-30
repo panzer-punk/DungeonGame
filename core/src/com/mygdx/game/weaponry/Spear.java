@@ -14,6 +14,12 @@ public class Spear extends WeaponryStuff {
         super(label, type, distance);
     }
 
+    public Spear(){ //Default
+
+	   super("Spear",1,2);
+
+    }
+
     @Override
     public void makeDamage(GameObject dealer, GameObject gainer) {
 

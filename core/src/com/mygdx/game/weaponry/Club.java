@@ -14,6 +14,10 @@ public class Club extends WeaponryStuff {
         super(label, type, distance);
     }
 
+    public Club(){
+        super("Club",0,1);
+    }
+
     @Override
     public void makeDamage(GameObject dealer, GameObject gainer) {
 

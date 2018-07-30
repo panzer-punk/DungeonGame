@@ -18,10 +18,6 @@ public class Club extends WeaponryStuff {
         super("Club",0,1);
     }
 
-    @Override
-    public void makeDamage(GameObject dealer, GameObject gainer) {
-
-    }
 
     @Override
     public int getDamage() {

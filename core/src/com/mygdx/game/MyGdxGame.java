@@ -156,9 +156,10 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
                         Printer.show(room.getObject(x,z));
 
                         if(lastSelectedObject != null && lastSelectedObject != room.getObject(x,z) && lastSelectedObject.getMP() > 0){
-                            room.getObject(x, z).takeDamage(lastSelectedObject);
-                            lastSelectedObject.makeStep(1);
-                            lastSelectedObject = null;
+                           // room.getObject(x, z).takeDamage(lastSelectedObject);
+							lastSelectedObject.getWeapon().makeDamage(lastSelectedObject, room.getObject(x,z));
+                            lastSelectedObject.makeStep(1);//makeStep(-1000) чтобы закончить ход
+                            unselect();
 
                         }else {
                             lastSelectedObject = room.getObject(x, z);
@@ -170,8 +171,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
                         if(lastSelectedObject != null && lastSelectedObject.getMP() > 0){
                            if(room.getTileMap().getTiles()[x][z].flag == true && room.move(lastSelectedObject.getX(), lastSelectedObject.getY(), x, z)) {
 							   lastSelectedObject.makeStep(room.getTileMap().getTiles()[x][z].getMovementCost());
-							   lastSelectedObject = null;
-							   sprite = null;
+							   unselect();
 						   }
                         }
 
@@ -181,8 +181,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
                         lastSelectedTile = sprite;
                     }
                 }else{
-                    lastSelectedObject = null;
-                    lastSelectedTile = null;
+                    unselect();
                 }
 
             }
@@ -197,6 +196,14 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 		if(lastSelectedObject == null)
 			room.clearTiles();
 
+
+	}
+
+	public void unselect(){
+
+		lastSelectedObject = null;
+		lastSelectedTerrain = null;
+		lastSelectedTile = null;
 
 	}
 

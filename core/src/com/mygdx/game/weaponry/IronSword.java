@@ -18,10 +18,6 @@ public class IronSword extends WeaponryStuff {
         super("IronSword",1,1);
     }
 
-    @Override
-    public void makeDamage(GameObject dealer, GameObject gainer) {
-
-    }
 
     @Override
     public int getDamage() {

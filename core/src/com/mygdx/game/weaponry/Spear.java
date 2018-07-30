@@ -21,11 +21,6 @@ public class Spear extends WeaponryStuff {
     }
 
     @Override
-    public void makeDamage(GameObject dealer, GameObject gainer) {
-
-    }
-
-    @Override
     public int getDamage() {
         return Dice.d6();
     }

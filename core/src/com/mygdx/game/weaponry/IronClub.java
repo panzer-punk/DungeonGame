@@ -19,10 +19,6 @@ public class IronClub extends WeaponryStuff {
 	    super("IronClub",0,1);
         }
 
-	    @Override
-	    public void makeDamage(GameObject dealer, GameObject gainer) {
-
-	    }
 
 	    @Override
 	    public int getDamage() {

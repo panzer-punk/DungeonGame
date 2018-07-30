@@ -25,7 +25,4 @@ public class Hero extends Doll {
 
     }
 
-    private Hero(){
-
-    }
 }

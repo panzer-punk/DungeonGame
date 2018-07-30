@@ -24,8 +24,8 @@ public class Orc extends Doll {
 
     }
 
-    public Orc(){
-        super("Orc", 8,2,null,3,1,
+    public Orc(Sprite sprite){
+        super("Orc", 8,2,sprite,3,1,
                 0,15,10,12,
                 0, Classification.Nonplayable);
     }

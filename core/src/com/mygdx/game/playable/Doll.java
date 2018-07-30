@@ -1,5 +1,6 @@
 package com.mygdx.game.playable;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.enumerations.Classification;
@@ -67,9 +68,6 @@ public abstract class Doll implements GameObject {
 
     }
 
-    public Doll(){
-
-    }
 
     @Override
     public void draw(SpriteBatch batch) {

@@ -87,12 +87,13 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 		//room = new Room(10,10, map);
 		room = genRoom;
 
-		orc = new Orc();
+		sprite = new Sprite(texturePack.getOrc());
+		sprite.setSize(1,1);
+		sprite.flip(false,true);
+
+		orc = new Orc(sprite);
 		orc.equipWeapon(weaponGenerator.createWeapon());
 		orc.equipArmor(armor);
-        sprite = new Sprite(texturePack.getOrc());
-        sprite.setSize(1,1);
-        sprite.flip(false,true);
         orc.setSprite(sprite);
 
         sprite = new Sprite(texturePack.getPlayer());

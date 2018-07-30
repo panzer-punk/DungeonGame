@@ -2,6 +2,7 @@ package com.mygdx.game.weaponry;
 
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Weapon;
+import com.mygdx.game.tools.Dice;
 
 /**
  * Created by Даниил on 15.07.2018.
@@ -28,7 +29,14 @@ public abstract class WeaponryStuff implements Weapon {
     }
 
     @Override
-    public abstract void makeDamage(GameObject dealer, GameObject gainer); //Нужно заменить подсчёт урона из Doll на этот метод
+    public  void makeDamage(GameObject dealer, GameObject gainer){
+        //реализация по умолчанию
+        if((dealer.getSTR() + Dice.d20()) >= gainer.getArmorClass()) {
+            gainer.takeDamage(dealer);
+        }else
+            System.out.println("Miss");
+
+    }
 
 
     @Override

@@ -94,7 +94,7 @@ public class Entity implements GameObject {
     public void putItem(Item item) {}
 
     @Override
-    public void takeDamage(GameObject dealer) {}
+    public void takeDamage(GameObject gameObject) {}
 
     @Override
     public Weapon getWeapon() {return null;}

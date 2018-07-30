@@ -194,14 +194,15 @@ public abstract class Doll implements GameObject {
     }
 
     @Override
-    public final void takeDamage(GameObject dealer) {
-        int d = 0;
+    public  void takeDamage(GameObject dealer) {
 
-        if((dealer.getSTR() + Dice.d20()) >= this.getArmorClass()) {
-            d = dealer.getWeapon().getDamage();
-            hp -= d;
-        }
-        System.out.println("You took " + d + " damage");
+        //реализация по умолчанию
+        int d = dealer.getWeapon().getDamage();
+
+        hp -= d;
+
+        System.out.println(this.getName() + " took " + d + " damage");
+
 
     }
 

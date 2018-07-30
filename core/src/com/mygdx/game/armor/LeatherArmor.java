@@ -11,4 +11,8 @@ public class LeatherArmor extends Clothing {
     public LeatherArmor(int armor, int armorclass, String label) {
         super(armor, armorclass, label);
     }
+
+    public LeatherArmor(){
+        super(1,1,"Leather Armor");
+    }
 }

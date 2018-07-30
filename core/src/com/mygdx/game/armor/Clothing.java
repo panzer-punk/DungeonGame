@@ -7,14 +7,18 @@ import com.mygdx.game.interfaces.Armor;
  */
 public abstract class Clothing implements Armor {
 
-    private final int armor;
-    private final int armorclass;
-    private final String label;
+    private int armor;
+    private  int armorclass;
+    private  String label;
 
     protected Clothing(int armor, int armorclass, String label) {
         this.armor = armor;
         this.armorclass = armorclass;
         this.label = label;
+    }
+
+    public Clothing(){
+
     }
 
     @Override

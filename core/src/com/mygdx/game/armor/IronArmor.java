@@ -12,4 +12,8 @@ public class IronArmor extends Clothing {
 		super(armor, armorclass, label);
 	}
 
+	public IronArmor(){
+		super(3,2,"Iron Armor");
+	}
+
 }

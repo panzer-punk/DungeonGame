@@ -25,20 +25,20 @@ public class WeaponGenerator {
         switch (rand){
 
             case 1:
-                weapon = new IronSword("Iron Sword",1,1);
+                weapon = new IronSword();
             break;
 
             case 2:
-                weapon = new WoodenSword("Wooden Sword", 1, 1);
+                weapon = new WoodenSword();
                 break;
             case 3:
-                weapon = new Club("Club", 0,1);
+                weapon = new Club();
                 break;
             case 4:
-                weapon = new IronClub("IronClub", 0,1);
+                weapon = new IronClub();
                 break;
             case 5:
-                weapon = new Spear("Spear", 1,2);
+                weapon = new Spear();
                 break;
         }
 

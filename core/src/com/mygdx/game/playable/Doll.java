@@ -67,6 +67,10 @@ public abstract class Doll implements GameObject {
 
     }
 
+    public Doll(){
+
+    }
+
     @Override
     public void draw(SpriteBatch batch) {
         if(movementsPoints == 0)

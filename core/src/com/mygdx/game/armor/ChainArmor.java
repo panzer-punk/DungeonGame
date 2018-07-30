@@ -12,4 +12,8 @@ public class ChainArmor extends Clothing {
 		super(armor, armorclass, label);
 	}
 
+	public ChainArmor(){
+		super(1,2,"Chain Armor");
+	}
+
 }

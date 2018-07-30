@@ -19,6 +19,7 @@ import com.mygdx.game.build.Room;
 import com.mygdx.game.build.Terrain;
 import com.mygdx.game.build.TexturePack;
 import com.mygdx.game.enumerations.Classification;
+import com.mygdx.game.generators.ArmorGenerator;
 import com.mygdx.game.generators.RoomGenerator;
 import com.mygdx.game.generators.WeaponGenerator;
 import com.mygdx.game.interfaces.Armor;
@@ -57,15 +58,16 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 	@Override
 	public void create () {
         WeaponGenerator weaponGenerator = new WeaponGenerator();
+        ArmorGenerator armorGenerator = new ArmorGenerator();
 
         texturePack = new TexturePack(null);
         roomGenerator = new RoomGenerator();
 
         genRoom = roomGenerator.generateRoom(10, 10);
 
-        Weapon weapon = new IronSword("Iron Sword", 1,1);//Создавать оружие и броню ТОЛЬКО В ГЕНЕРАТОРАХ (это тестовый код)
+        Weapon weapon = weaponGenerator.createWeapon();//тестовый код
 
-        Armor armor = new LeatherArmor(3,1,"LeatherArmor");//тестовый код
+        Armor armor = armorGenerator.createArmor();//тестовый код
 
 		cam = new OrthographicCamera(10 * 1.3f, 10 *(Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()));
 		cam.position.set(5,5,10);
@@ -85,9 +87,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 		//room = new Room(10,10, map);
 		room = genRoom;
 
-		orc = new Orc("Orc", 8,2,null,3,1,
-				0,15,10,12,
-				0, Classification.Nonplayable);
+		orc = new Orc();
 		orc.equipWeapon(weaponGenerator.createWeapon());
 		orc.equipArmor(armor);
         sprite = new Sprite(texturePack.getOrc());

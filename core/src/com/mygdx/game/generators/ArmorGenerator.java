@@ -19,14 +19,14 @@ public class ArmorGenerator {
         switch (rand){
 
             case 1:
-                armor = new LeatherArmor(1,1,"LearherArmor");
+                armor = new LeatherArmor();
             break;
 
             case 2:
-                armor = new ChainArmor(2, 1, "ChainArmor");
+                armor = new ChainArmor();
                 break;
             case 3:
-                armor = new IronArmor(3, 2,"IronArmor");
+                armor = new IronArmor();
                 break;
         }
 

@@ -11,19 +11,33 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 public class TexturePack {
 
     TextureAtlas textures;
+    private Texture wall, floor, floor1, hole, player, orc, skeleton, spider;
 
     public TexturePack(TextureAtlas textureAtlas){
 
         textures = textureAtlas;
 
     }
+
+    public TexturePack() {//default texture pack
+
+        wall = new Texture(Gdx.files.internal("wall.png"));
+        floor = new Texture(Gdx.files.internal("floor.png"));
+        floor1 = new Texture(Gdx.files.internal("floor1.png"));
+        hole = new Texture(Gdx.files.internal("hole.png"));
+        player = new Texture(Gdx.files.internal("player.png"));
+        orc = new Texture(Gdx.files.internal("orc.png"));
+        skeleton = new Texture(Gdx.files.internal("skeleton.png"));
+        spider = new Texture(Gdx.files.internal("spider.png"));
+    }
+
     //Terrain
-    public Texture getFloor_min(){return new Texture (Gdx.files.internal("floor.png"));}//debug code
-    public Texture getFloor_mid(){return new Texture(Gdx.files.internal("floor1.png"));}//debug code
+    public Texture getFloor_min(){return floor;}//debug code
+    public Texture getFloor_mid(){return floor1;}//debug code
     public Texture getFloor_max(){return null;}
-    public Texture getHole(){return new Texture(Gdx.files.internal("hole.png"));}//debug code
+    public Texture getHole(){return hole;}//debug code
     //Entity
-    public Texture getWall_1(){return new Texture(Gdx.files.internal("wall.png"));}//debug code
+    public Texture getWall_1(){return wall;}//debug code
     public Texture getWall_2(){return null;}
     //Items
     public Texture getSword_1(){return null;}
@@ -33,7 +47,10 @@ public class TexturePack {
     public Texture getArmor_2(){return null;}
     public Texture getArmor_3(){return null;}
     //Enemies
-    public Texture getOrc(){return new Texture(Gdx.files.internal("orc.png")); }
-
+    public Texture getOrc(){return orc;}
+    public Texture getSkeleton(){return skeleton;}
+    public Texture getSpider(){return spider;}
+    //Player (debug)
+    public Texture getPlayer(){return player;}
 
 }

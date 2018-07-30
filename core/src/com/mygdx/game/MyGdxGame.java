@@ -95,7 +95,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
         sprite.flip(false,true);
         orc.setSprite(sprite);
 
-        sprite = new Sprite(new Texture(Gdx.files.internal("player.png")));
+        sprite = new Sprite(texturePack.getPlayer());
         sprite.setSize(1,1 );
         sprite.flip(false,true);
 		player = new Hero("Donny", 10, 10,sprite,5, 1,

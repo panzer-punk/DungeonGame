@@ -13,7 +13,6 @@ public class Map{
     private Terrain tiles[][];
     private Terrain defaultTerrain;//пустые поля должны быть закрашены по дефолту
     private int l, c;
-    String string = "C:/Users/Даниил/Desktop/floor.png";//debug code
     private int capacity;
 
     public Map(int l, int c, Terrain d){
@@ -59,7 +58,7 @@ public class Map{
 
                 if(tiles[i][j] == null) {
                   //  defaultTerrain.draw(batch, i, j);
-                    tiles[i][j] = new Terrain(defaultTerrain.getMovementCost()," ", new Texture(string), false);
+                    tiles[i][j] = new Terrain(defaultTerrain.getMovementCost()," ",null , false);
                     sprite = tiles[i][j].getSprite();
                     sprite.setPosition(i, j);
                     tiles[i][j].setSprite(sprite);

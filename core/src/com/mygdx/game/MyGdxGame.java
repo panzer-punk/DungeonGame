@@ -60,7 +60,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
         WeaponGenerator weaponGenerator = new WeaponGenerator();
         ArmorGenerator armorGenerator = new ArmorGenerator();
 
-        texturePack = new TexturePack(null);
+        texturePack = new TexturePack();
         roomGenerator = new RoomGenerator();
 
         genRoom = roomGenerator.generateRoom(10, 10);

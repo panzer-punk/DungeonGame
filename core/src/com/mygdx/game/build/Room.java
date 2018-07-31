@@ -23,14 +23,15 @@ public class Room {
 
     private GameObject map[][];
     private GameObject[] playableObjects; // костыль!!!
+    private LinkedList<GameObject> pObjects;
     private Map tileMap;
 
     public Room(Map m){
         map = new GameObject[l][c];
-        playableObjects = new GameObject[map.length];
         tileMap = m;
         priorityQueue = new PriorityQueue(map.length);
         currentSizePO = 0;
+        pObjects = new LinkedList<GameObject>();
     }
 
     public Room(int l, int c, Map m){
@@ -41,7 +42,7 @@ public class Room {
         tileMap = m;
         map = new GameObject[l][c];
         priorityQueue = new PriorityQueue(map.length);
-        playableObjects = new  GameObject[map.length];
+        pObjects = new LinkedList<GameObject>();
     }
 
     public PriorityQueue getInitiativeQueue(){
@@ -51,13 +52,14 @@ public class Room {
 
     public void resetMp(){
 
-        for(GameObject g : playableObjects)
+        for(GameObject g : pObjects)
             if(g != null)
                 g.resetMP();
 
     }
 
     public GameObject[] getPlayableObjects() {
+        playableObjects = pObjects.toArray(new GameObject[0]);
         return playableObjects;
     }
 
@@ -73,7 +75,7 @@ public class Room {
                         if(gameObject.getClassification() != Classification.OBJECT) {
                             gameObject.setInitiative(Dice.d20());
                             priorityQueue.insert(gameObject);
-                            playableObjects[currentSizePO++] = gameObject;
+                           pObjects.add(gameObject);
                         }
                         gameObject = null;
                         break;
@@ -130,10 +132,22 @@ public class Room {
     public void delete(int line, int column){
 
         if(map[line][column] != null) {
+            pObjects.remove(map[line][column]);
             map[line][column] = null;
             capacity++;
         }
 
+    }
+
+
+
+    public GameObject remove(int line, int column){
+
+        GameObject temp = map[line][column];
+        pObjects.remove(map[line][column]);
+        map[line][column] = null;
+        capacity++;
+        return temp;
     }
 
     public void drawObjects(SpriteBatch batch){

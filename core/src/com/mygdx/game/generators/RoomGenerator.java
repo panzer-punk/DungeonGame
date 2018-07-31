@@ -6,11 +6,20 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.build.Map;
 import com.mygdx.game.build.Room;
 import com.mygdx.game.build.Terrain;
+import com.mygdx.game.build.TexturePack;
 
 /**
  * Created by Даниил on 01.06.2018.
  */
 public class RoomGenerator {
+
+    TexturePack texturePack;
+
+    public RoomGenerator(TexturePack texturePack) {
+
+        this.texturePack = texturePack;
+
+    }
 
     public Room generateRoom(int sizeX, int sizeY){
 
@@ -22,7 +31,7 @@ public class RoomGenerator {
 
     private Map generateTileMap(int sizeX, int sizeY){
 
-        Map mp = new Map(sizeX, sizeY,new Terrain(1, "test", new Sprite(new Texture(Gdx.files.internal("floor.png")))));
+        Map mp = new Map(sizeX, sizeY,new Terrain(1, "test", new Sprite(texturePack.getFloor_min())));
 
         for(int i = 0; i <= sizeX; i++){
             for (int j = 0; j <= sizeY; j++){

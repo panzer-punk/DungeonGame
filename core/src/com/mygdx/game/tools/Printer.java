@@ -1,5 +1,6 @@
 package com.mygdx.game.tools;
 
+import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.objects.Entity;
 import com.mygdx.game.build.Room;
 import com.mygdx.game.interfaces.Armor;
@@ -14,7 +15,7 @@ public class Printer {//debug class
 
     public static void show(GameObject gameObject){
 
-        if(gameObject.getClass() == Entity.class)
+        if(gameObject.getClass() == Entity.class || gameObject.getClassification() == Classification.OBJECT)
             System.out.println(gameObject.getName() + "\n X;Y: " + gameObject.getX() + ";" + gameObject.getY());
         else
         System.out.println(gameObject.getName() + ": " + gameObject.getHP() +

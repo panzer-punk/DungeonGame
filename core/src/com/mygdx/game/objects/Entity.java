@@ -15,12 +15,17 @@ import com.mygdx.game.interfaces.Weapon;
  */
 public class Entity implements GameObject {
 
-    private Sprite sprite;
-    private String name;
-    private int x, y;
-    final Classification classification = Classification.OBJECT;
+    protected Sprite sprite;
+    protected String name;
+    protected int x, y;
+    protected final Classification classification = Classification.OBJECT;
 
-    public Entity(String n, Sprite s){name = n;sprite = s;}
+    public Entity(String n, Sprite s){
+        name = n;
+        s.setSize(1,1);
+        s.flip(false,true);
+    sprite = s;
+    }
 
     @Override
     public void draw(SpriteBatch batch) {sprite.draw(batch);}

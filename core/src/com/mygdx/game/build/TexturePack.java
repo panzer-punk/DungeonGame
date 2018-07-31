@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 public class TexturePack {
 
     TextureAtlas textures;
-    private Texture wall, floor, floor1, hole, player, orc, skeleton, spider;
+    private Texture wall, floor, floor1, hole, player, orc, skeleton, spider, door;
 
     public TexturePack(TextureAtlas textureAtlas){
 
@@ -29,6 +29,7 @@ public class TexturePack {
         orc = new Texture(Gdx.files.internal("orc.png"));
         skeleton = new Texture(Gdx.files.internal("skeleton.png"));
         spider = new Texture(Gdx.files.internal("spider.png"));
+        door = new Texture(Gdx.files.internal("door.png"));
     }
 
     //Terrain
@@ -39,6 +40,7 @@ public class TexturePack {
     //Entity
     public Texture getWall_1(){return wall;}//debug code
     public Texture getWall_2(){return null;}
+    public Texture getDoor(){return door;}
     //Items
     public Texture getSword_1(){return null;}
     public Texture getSword_2(){return null;}

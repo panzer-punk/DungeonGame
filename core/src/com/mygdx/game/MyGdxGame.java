@@ -27,6 +27,7 @@ import com.mygdx.game.generators.WeaponGenerator;
 import com.mygdx.game.interfaces.Armor;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Weapon;
+import com.mygdx.game.objects.Door;
 import com.mygdx.game.objects.Entity;
 import com.mygdx.game.playable.Hero;
 import com.mygdx.game.playable.Orc;
@@ -39,6 +40,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 	TexturePack texturePack;
 	RoomGenerator roomGenerator;
 	EnemyGenerator enemyGenerator;
+	Door door;
 	int turn;
 	final Matrix4 matrix = new Matrix4();
 	final Matrix4 Omatrix = new Matrix4();
@@ -64,10 +66,12 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
         ArmorGenerator armorGenerator = new ArmorGenerator();
 
         texturePack = new TexturePack();
-        roomGenerator = new RoomGenerator();
+        roomGenerator = new RoomGenerator(texturePack);
 
         genRoom = roomGenerator.generateRoom(10, 10);
+		room = genRoom;
         enemyGenerator = new EnemyGenerator(texturePack);
+        door = new Door(texturePack.getDoor(), room, roomGenerator.generateRoom(10,10));
 
 		cam = new OrthographicCamera(10 * 1.3f, 10 *(Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()));
 		cam.position.set(5,5,10);
@@ -82,7 +86,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 		sprite = terrain.getSprite();
 		sprite.setSize(1,1);
 		sprite.flip(false, true);
-		room = genRoom;
+
 
 		enemy = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
 		enemy1 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
@@ -96,7 +100,6 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 		player.equipArmor(armorGenerator.createArmor());
 
 		sprite = new Sprite(texturePack.getWall_1());
-		sprite.setSize(1,1);
 		wall = new Entity("Wall", sprite);
 
 
@@ -105,6 +108,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 		room.setObject(enemy1);
 		room.setObject(enemy2);
 		room.setObject(player);
+		room.setObject(door);
 		queque = room.getInitiativeQueue();
 		queque.display();
 		Printer.show(room);
@@ -159,7 +163,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
                     lastSelectedTile.setColor(1, 1, 1, 1);
 
                 if (x >= 0 && z >= 0 && x < room.getC()&& z < room.getL()) {
-                    if (room.getObject(x, z) != null && room.getObject(x, z).getClassification() != Classification.OBJECT) {
+                    if (room.getObject(x, z) != null && room.getObject(x, z).getClass() != Entity.class) {
                         sprite = room.getObject(x, z).getSprite();
                         Printer.show(room.getObject(x,z));
 
@@ -237,9 +241,34 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 				break;
 
 			case Input.Keys.I:
+				room.delete(current.getX(), current.getY());
+				current = null;
+				lastSelectedObject = null;
+				update();
 				break;
 
+				case Input.Keys.A:
+					room = door.getNextRoom(room);
+					door.changeRoom();
+					checkTurnEnded();
+					current = null;
+					lastSelectedObject = null;
+					queque = room.getInitiativeQueue();
+					break;
+					case Input.Keys.K:
+						queque.display();
+						break;
+						case Input.Keys.C:
+							Printer.show(current);
+							break;
+
+			case Input.Keys.R:
+				Printer.show(room);
+				break;
+
+
 		}
+
 		return false;
 	}
 

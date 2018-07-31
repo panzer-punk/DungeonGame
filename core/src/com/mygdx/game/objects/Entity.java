@@ -26,6 +26,11 @@ public class Entity implements GameObject {
     public void draw(SpriteBatch batch) {sprite.draw(batch);}
 
     @Override
+    public void setInitiative(int i) {
+
+    }
+
+    @Override
     public void makeStep(int c) {}
 
     @Override
@@ -35,7 +40,12 @@ public class Entity implements GameObject {
     public void resetMP() {}
 
     @Override
-    public int getInitiative() {return 0;}
+    public int getInitiativebonus() {return 0;}
+
+    @Override
+    public int getInitiative() {
+        return 0;
+    }
 
     @Override
     public Status getStatus() {return null;}

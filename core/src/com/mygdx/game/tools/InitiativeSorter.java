@@ -26,7 +26,7 @@ public class InitiativeSorter {
 
         for(int i = 0; i < gameObject.length - 1; i++){
 
-            if(gameObject[i].getInitiative() < gameObject[i + 1].getInitiative()){
+            if(gameObject[i].getInitiativebonus() < gameObject[i + 1].getInitiativebonus()){
 
                 GameObject temp = gameObject[i + 1];
                 gameObject[i + 1] = gameObject[i];

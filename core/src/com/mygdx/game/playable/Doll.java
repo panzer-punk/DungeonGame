@@ -1,6 +1,5 @@
 package com.mygdx.game.playable;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.enumerations.Classification;
@@ -10,7 +9,6 @@ import com.mygdx.game.interfaces.Armor;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Item;
 import com.mygdx.game.interfaces.Weapon;
-import com.mygdx.game.tools.Dice;
 
 /**
  * Created by Даниил on 15.07.2018.
@@ -18,12 +16,13 @@ import com.mygdx.game.tools.Dice;
 public abstract class Doll implements GameObject {
 
     private Sprite sprite;
-    private int initiative;
+    private int initiativebonus;
     private String name;
     private Classification classification;
     private Status status;
     private Direction direction;
     protected int hp;
+    private int initiative;
     private int strength, dexterity, constitution;
     private int STR, DEX, CON;
     private int movementsPoints, toReset;
@@ -66,7 +65,7 @@ public abstract class Doll implements GameObject {
         this.experience = experience;
         toReset = movementsPoints;
         //debug code
-        initiative = initiativebonus + DEX;
+        this.initiativebonus = initiativebonus + DEX;
 
     }
 
@@ -77,6 +76,18 @@ public abstract class Doll implements GameObject {
             sprite.setColor(1,1,9,80);
         sprite.draw(batch);
 
+    }
+
+    @Override
+    public void setInitiative(int i){
+
+        initiative = initiativebonus + i;
+
+    }
+
+    @Override
+    public int getInitiative(){
+        return initiative;
     }
 
     @Override
@@ -91,7 +102,7 @@ public abstract class Doll implements GameObject {
     public void resetMP() {movementsPoints = toReset;}
 
     @Override
-    public int getInitiative() {return initiative;}
+    public int getInitiativebonus() {return initiativebonus;}
 
     @Override
     public Status getStatus() {

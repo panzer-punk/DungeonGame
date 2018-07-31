@@ -12,9 +12,11 @@ import com.mygdx.game.enumerations.Status;
 public interface GameObject {
 
      void draw(SpriteBatch batch);
+     void setInitiative(int i);
      void makeStep(int c);
      int getMP();
      void resetMP();
+     int getInitiativebonus();
      int getInitiative();
      Status getStatus();
      Classification getClassification();

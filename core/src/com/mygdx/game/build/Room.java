@@ -1,8 +1,11 @@
 package com.mygdx.game.build;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
+import com.mygdx.game.tools.Dice;
 import com.mygdx.game.tools.Printer;
+import com.mygdx.game.tools.PriorityQueue;
 import com.mygdx.game.tools.WayPoint;
 
 import java.util.Iterator;
@@ -15,13 +18,19 @@ public class Room {
 
    private int capacity = 9;
    private int l = 3, c = 3;
+   private int currentSizePO;
+   private PriorityQueue priorityQueue;
 
     private GameObject map[][];
+    private GameObject[] playableObjects; // костыль!!!
     private Map tileMap;
 
     public Room(Map m){
         map = new GameObject[l][c];
+        playableObjects = new GameObject[map.length];
         tileMap = m;
+        priorityQueue = new PriorityQueue(map.length);
+        currentSizePO = 0;
     }
 
     public Room(int l, int c, Map m){
@@ -31,6 +40,25 @@ public class Room {
         capacity = l * c;
         tileMap = m;
         map = new GameObject[l][c];
+        priorityQueue = new PriorityQueue(map.length);
+        playableObjects = new  GameObject[map.length];
+    }
+
+    public PriorityQueue getInitiativeQueue(){
+
+        return priorityQueue;
+    }
+
+    public void resetMp(){
+
+        for(GameObject g : playableObjects)
+            if(g != null)
+                g.resetMP();
+
+    }
+
+    public GameObject[] getPlayableObjects() {
+        return playableObjects;
     }
 
     public void setObject(GameObject gameObject){
@@ -42,6 +70,11 @@ public class Room {
                     if(map[i][j] == null && gameObject != null) {
                         map[i][j] = gameObject;
                         map[i][j].setXY(i, j);
+                        if(gameObject.getClassification() != Classification.OBJECT) {
+                            gameObject.setInitiative(Dice.d20());
+                            priorityQueue.insert(gameObject);
+                            playableObjects[currentSizePO++] = gameObject;
+                        }
                         gameObject = null;
                         break;
                     }

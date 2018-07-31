@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -29,9 +30,7 @@ import com.mygdx.game.interfaces.Weapon;
 import com.mygdx.game.objects.Entity;
 import com.mygdx.game.playable.Hero;
 import com.mygdx.game.playable.Orc;
-import com.mygdx.game.tools.InitiativeSorter;
-import com.mygdx.game.tools.PathFinder;
-import com.mygdx.game.tools.Printer;
+import com.mygdx.game.tools.*;
 import com.mygdx.game.weaponry.IronSword;
 
 public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
@@ -40,13 +39,15 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 	TexturePack texturePack;
 	RoomGenerator roomGenerator;
 	EnemyGenerator enemyGenerator;
+	int turn;
 	final Matrix4 matrix = new Matrix4();
 	final Matrix4 Omatrix = new Matrix4();
 	Texture texture;
-	GameObject[] queque;//sorted by initiative
+	PriorityQueue queque;//sorted by initiative
 	InitiativeSorter sorter;
 	Room room, genRoom;
-	GameObject enemy;
+	GameObject enemy, enemy1, enemy2;
+	GameObject current;
 	GameObject player, wall;
 	Map map;
 	final Plane xzPlane = new Plane(new Vector3(0,1,0), 0);
@@ -84,6 +85,8 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 		room = genRoom;
 
 		enemy = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
+		enemy1 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
+		enemy2 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
 
         sprite = new Sprite(texturePack.getPlayer());
 		player = new Hero("Donny", 10, 10,sprite,5, 1,
@@ -99,14 +102,21 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 
 		room.setObject(wall);
 		room.setObject(enemy);
+		room.setObject(enemy1);
+		room.setObject(enemy2);
 		room.setObject(player);
+		queque = room.getInitiativeQueue();
+		queque.display();
+		Printer.show(room);
 		//room.move(0,0, 2, 2);
 
 		batch = new SpriteBatch();
 		Gdx.input.setInputProcessor(this);
 	}
 
-	@Override
+
+
+    @Override
 	public void render () {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -120,10 +130,21 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 		batch.end();
 
 		checkTileTouched();
+		checkTurnEnded();
 
 	}
 
-	private void checkTileTouched() {
+    private void checkTurnEnded() {
+	    if(!queque.isEmpty() && (current == null || current.getMP() <= 0 || current.getHP() <= 0)) {
+                current = queque.remove();
+        }else if (queque.isEmpty()){
+	    	room.resetMp();
+            queque.insert(room.getPlayableObjects());
+            turn++;
+        }
+    }
+
+    private void checkTileTouched() {
 
 	    if(Gdx.input.justTouched()) {
 
@@ -142,20 +163,21 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
                         sprite = room.getObject(x, z).getSprite();
                         Printer.show(room.getObject(x,z));
 
-                        if(lastSelectedObject != null && lastSelectedObject != room.getObject(x,z) && lastSelectedObject.getMP() > 0){
-                           // room.getObject(x, z).takeDamage(lastSelectedObject);
+                        if(lastSelectedObject != null && lastSelectedObject != room.getObject(x,z) && lastSelectedObject.getMP() > 0 && lastSelectedObject == current){
 							lastSelectedObject.getWeapon().makeDamage(lastSelectedObject, room.getObject(x,z));
-                            lastSelectedObject.makeStep(1);//makeStep(-1000) чтобы закончить ход
+                            lastSelectedObject.makeStep(1000);//1000 чтобы закончить ход
                             unselect();
 
                         }else {
-                            lastSelectedObject = room.getObject(x, z);
-                            PathFinder.drawWays(batch, room, x, z);
+                        	if(room.getObject(x, z) == current) {
+								lastSelectedObject = room.getObject(x, z);
+								PathFinder.drawWays(batch, room, x, z);
+							}
                         }
                     } else {
                         Map map = room.getTileMap();
                         sprite = map.getTiles()[x][z].getSprite();
-                        if(lastSelectedObject != null && lastSelectedObject.getMP() > 0){
+                        if(lastSelectedObject != null && lastSelectedObject.getMP() > 0 && lastSelectedObject == current){
                            if(room.getTileMap().getTiles()[x][z].flag == true && room.move(lastSelectedObject.getX(), lastSelectedObject.getY(), x, z)) {
 							   lastSelectedObject.makeStep(room.getTileMap().getTiles()[x][z].getMovementCost());
 							   unselect();
@@ -206,6 +228,18 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 
 	@Override
 	public boolean keyUp(int keycode) {
+		switch (keycode){
+
+			case Input.Keys.ENTER:
+				current.makeStep(1000);
+				unselect();
+				update();
+				break;
+
+			case Input.Keys.I:
+				break;
+
+		}
 		return false;
 	}
 

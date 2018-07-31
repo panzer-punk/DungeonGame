@@ -22,7 +22,8 @@ public class Printer {//debug class
                 "\n Weapon: " + gameObject.getWeapon().getLabel()+
                 "\n MP: " + gameObject.getMP()+
                 "\n STR: " + gameObject.getSTR() + " DEX: " + gameObject.getDEX() + " CON: " + gameObject.getCON() +
-                "\n X;Y: " + gameObject.getX() + ";" + gameObject.getY());
+                "\n X;Y: " + gameObject.getX() + ";" + gameObject.getY() +
+                "\n In: "+ gameObject.getInitiative());
 
     }
 

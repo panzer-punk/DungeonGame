@@ -15,9 +15,9 @@ import com.mygdx.game.interfaces.Weapon;
  */
 public class Entity implements GameObject {
 
-    private Sprite sprite;
-    private String name;
-    private int x, y;
+    protected Sprite sprite;
+    protected String name;
+    protected int x, y;
     protected final Classification classification = Classification.OBJECT;
 
     public Entity(String n, Sprite s){

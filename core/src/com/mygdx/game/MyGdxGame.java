@@ -71,7 +71,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
         genRoom = roomGenerator.generateRoom(10, 10);
 		room = genRoom;
         enemyGenerator = new EnemyGenerator(texturePack);
-        door = new Door("Door", new Sprite(texturePack.getDoor()), room, roomGenerator.generateRoom(10,10));
+        door = new Door(texturePack.getDoor(), room, roomGenerator.generateRoom(10,10));
 
 		cam = new OrthographicCamera(10 * 1.3f, 10 *(Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()));
 		cam.position.set(5,5,10);

@@ -248,12 +248,12 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 				break;
 
 				case Input.Keys.A:
-					room = door.getNextRoom(room);
-					door.changeRoom();
-					checkTurnEnded();
 					current = null;
 					lastSelectedObject = null;
+					room = door.getNextRoom(room);
+					door.changeRoom();
 					queque = room.getInitiativeQueue();
+					checkTurnEnded();
 					break;
 					case Input.Keys.K:
 						queque.display();

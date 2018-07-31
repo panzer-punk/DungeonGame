@@ -20,6 +20,7 @@ import com.mygdx.game.build.Terrain;
 import com.mygdx.game.build.TexturePack;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.generators.ArmorGenerator;
+import com.mygdx.game.generators.EnemyGenerator;
 import com.mygdx.game.generators.RoomGenerator;
 import com.mygdx.game.generators.WeaponGenerator;
 import com.mygdx.game.interfaces.Armor;
@@ -38,13 +39,14 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 	OrthographicCamera cam;
 	TexturePack texturePack;
 	RoomGenerator roomGenerator;
+	EnemyGenerator enemyGenerator;
 	final Matrix4 matrix = new Matrix4();
 	final Matrix4 Omatrix = new Matrix4();
 	Texture texture;
 	GameObject[] queque;//sorted by initiative
 	InitiativeSorter sorter;
 	Room room, genRoom;
-	Orc orc;
+	GameObject enemy;
 	GameObject player, wall;
 	Map map;
 	final Plane xzPlane = new Plane(new Vector3(0,1,0), 0);
@@ -64,10 +66,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
         roomGenerator = new RoomGenerator();
 
         genRoom = roomGenerator.generateRoom(10, 10);
-
-        Weapon weapon = weaponGenerator.createWeapon();//тестовый код
-
-        Armor armor = armorGenerator.createArmor();//тестовый код
+        enemyGenerator = new EnemyGenerator(texturePack);
 
 		cam = new OrthographicCamera(10 * 1.3f, 10 *(Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()));
 		cam.position.set(5,5,10);
@@ -78,32 +77,20 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 
         Sprite sprite = new Sprite(texturePack.getFloor_min());
         sprite.setSize(1,1 * (Gdx.graphics.getWidth()/Gdx.graphics.getHeight()));
-		//map = new Map(10, 10, new Terrain(1, "test", sprite));
 		Terrain terrain = new Terrain(2,"test", texturePack.getHole(), true);
 		sprite = terrain.getSprite();
 		sprite.setSize(1,1);
 		sprite.flip(false, true);
-       // map.addTile(terrain, 1, 3);
-		//room = new Room(10,10, map);
 		room = genRoom;
 
-		sprite = new Sprite(texturePack.getOrc());
-		sprite.setSize(1,1);
-		sprite.flip(false,true);
-
-		orc = new Orc(sprite);
-		orc.equipWeapon(weaponGenerator.createWeapon());
-		orc.equipArmor(armor);
-        orc.setSprite(sprite);
+		enemy = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
 
         sprite = new Sprite(texturePack.getPlayer());
-        sprite.setSize(1,1 );
-        sprite.flip(false,true);
 		player = new Hero("Donny", 10, 10,sprite,5, 1,
 				0, 10, 16, 14,
 				0, Classification.Playable);
-		player.equipWeapon(weapon);
-		player.equipArmor(armor);
+		player.equipWeapon(weaponGenerator.createWeapon());
+		player.equipArmor(armorGenerator.createArmor());
 
 		sprite = new Sprite(texturePack.getWall_1());
 		sprite.setSize(1,1);
@@ -111,7 +98,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 
 
 		room.setObject(wall);
-		room.setObject(orc);
+		room.setObject(enemy);
 		room.setObject(player);
 		//room.move(0,0, 2, 2);
 

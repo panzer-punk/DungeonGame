@@ -23,7 +23,7 @@ public abstract class Doll implements GameObject {
     private Classification classification;
     private Status status;
     private Direction direction;
-    private int hp;
+    protected int hp;
     private int strength, dexterity, constitution;
     private int STR, DEX, CON;
     private int movementsPoints, toReset;
@@ -43,6 +43,8 @@ public abstract class Doll implements GameObject {
 
         this.name = name;
         this.hp = hp;
+        sprite.setSize(1,1 );
+        sprite.flip(false,true);
         this.sprite = sprite;
         this.strength = strength;
         this.dexterity = dexterity;

@@ -6,7 +6,7 @@ import com.mygdx.game.MyGdxGame;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
-		System.setProperty("org.lwjgl.opengl.Display.allowSoftwareOpenGL", "true");
+		//System.setProperty("org.lwjgl.opengl.Display.allowSoftwareOpenGL", "true");
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new MyGdxGame(), config);
 	}

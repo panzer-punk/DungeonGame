@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Scene.HUD;
 import com.mygdx.game.build.Map;
 import com.mygdx.game.build.Room;
 import com.mygdx.game.build.Terrain;
@@ -32,6 +33,7 @@ import com.mygdx.game.tools.PriorityQueue;
 public class GameScreen implements Screen, InputProcessor {
     SpriteBatch batch;
     OrthographicCamera cam;
+    HUD hud;
     FillViewport viewport;
     TexturePack texturePack;
     RoomGenerator roomGenerator;
@@ -61,6 +63,8 @@ public class GameScreen implements Screen, InputProcessor {
 
         texturePack = new TexturePack();
         roomGenerator = new RoomGenerator(texturePack);
+
+
 
         genRoom = roomGenerator.generateRoom(10, 10);
         room = genRoom;
@@ -111,6 +115,7 @@ public class GameScreen implements Screen, InputProcessor {
 
         batch = new SpriteBatch();
         Gdx.input.setInputProcessor(this);
+        hud = new HUD(batch, cam.viewportWidth, cam.viewportHeight);
 
         this.game = game;
 
@@ -134,6 +139,9 @@ public class GameScreen implements Screen, InputProcessor {
         room.drawMap(batch);
         room.drawObjects(batch);
         batch.end();
+        batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
+
 
         checkTileTouched();
         checkTurnEnded();
@@ -169,6 +177,7 @@ public class GameScreen implements Screen, InputProcessor {
                     if (room.getObject(x, z) != null && room.getObject(x, z).getClass() != Entity.class) {
                         sprite = room.getObject(x, z).getSprite();
                         Printer.show(room.getObject(x,z));
+                        hud.show(room.getObject(x,z));
 
                         if(lastSelectedObject != null && lastSelectedObject != room.getObject(x,z) && lastSelectedObject.getMP() > 0 && lastSelectedObject == current){
                             lastSelectedObject.getWeapon().makeDamage(lastSelectedObject, room.getObject(x,z));
@@ -227,6 +236,7 @@ public class GameScreen implements Screen, InputProcessor {
     public void resize(int width, int height) {
 
         viewport.update(width, height);
+        hud.resize(width, height);
 
     }
 

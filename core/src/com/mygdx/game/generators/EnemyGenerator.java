@@ -1,6 +1,7 @@
 package com.mygdx.game.generators;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.armor.LeatherArmor;
 import com.mygdx.game.build.TexturePack;
 import com.mygdx.game.interfaces.Armor;
 import com.mygdx.game.interfaces.GameObject;
@@ -8,6 +9,8 @@ import com.mygdx.game.interfaces.Weapon;
 import com.mygdx.game.playable.Orc;
 import com.mygdx.game.playable.Skeleton;
 import com.mygdx.game.playable.Spider;
+import com.mygdx.game.tools.BuffPool;
+import com.mygdx.game.weaponry.SpiderBite;
 
 /**
  * Created by Даниил on 11.09.2017.
@@ -23,7 +26,7 @@ public class EnemyGenerator {
 
     }
 
-    public GameObject createEemy(Armor armor, Weapon weapon){
+    public GameObject createEemy(Armor armor, Weapon weapon, BuffPool buffPool){
 
 
         int r = (int)(Math.random()*3) + 1;
@@ -41,13 +44,17 @@ public class EnemyGenerator {
 
             case 3:
 
-                enemy = new Spider(new Sprite(texturePack.getSpider()));
+                enemy = new Spider(new Sprite(texturePack.getSpider()),buffPool);
+                enemy.equipWeapon(new SpiderBite(buffPool));
+                enemy.equipArmor(new LeatherArmor());
 
                 break;
         }
 
-        enemy.equipArmor(armor);
-        enemy.equipWeapon(weapon);
+        if(enemy.getClass() != Spider.class) {
+            enemy.equipArmor(armor);
+            enemy.equipWeapon(weapon);
+        }
 
         return  enemy;
     }

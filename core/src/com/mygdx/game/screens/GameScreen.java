@@ -26,12 +26,14 @@ import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.objects.Door;
 import com.mygdx.game.objects.Entity;
 import com.mygdx.game.playable.Hero;
+import com.mygdx.game.tools.BuffPool;
 import com.mygdx.game.tools.PathFinder;
 import com.mygdx.game.tools.Printer;
 import com.mygdx.game.tools.PriorityQueue;
 
 public class GameScreen implements Screen, InputProcessor {
     SpriteBatch batch;
+    BuffPool buffPool;
     OrthographicCamera cam;
     HUD hud;
     FillViewport viewport;
@@ -63,6 +65,7 @@ public class GameScreen implements Screen, InputProcessor {
 
         texturePack = new TexturePack();
         roomGenerator = new RoomGenerator(texturePack);
+        buffPool = new BuffPool();
 
 
 
@@ -88,9 +91,9 @@ public class GameScreen implements Screen, InputProcessor {
         sprite.flip(false, true);
 
 
-        enemy = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
-        enemy1 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
-        enemy2 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
+        enemy = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon(), buffPool);
+        enemy1 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon(), buffPool);
+        enemy2 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon(), buffPool);
 
         sprite = new Sprite(texturePack.getPlayer());
         player = new Hero("Donny", 10, 10,sprite,5, 1,
@@ -156,7 +159,14 @@ public class GameScreen implements Screen, InputProcessor {
             room.resetMp();
             queque.insert(room.getPlayableObjects());
             turn++;
+            checkBuffPool();
         }
+    }
+
+    private void checkBuffPool() {
+
+        buffPool.use();
+
     }
 
     private void checkTileTouched() {

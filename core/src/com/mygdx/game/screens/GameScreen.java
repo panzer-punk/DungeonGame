@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Plane;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.build.Map;
 import com.mygdx.game.build.Room;
@@ -31,6 +32,7 @@ import com.mygdx.game.tools.PriorityQueue;
 public class GameScreen implements Screen, InputProcessor {
     SpriteBatch batch;
     OrthographicCamera cam;
+    FillViewport viewport;
     TexturePack texturePack;
     RoomGenerator roomGenerator;
     EnemyGenerator enemyGenerator;
@@ -71,6 +73,8 @@ public class GameScreen implements Screen, InputProcessor {
         cam.near = 1;
         cam.far = 500;
         matrix.setToRotation(new Vector3(1,0,0), 90);
+        viewport = new FillViewport(cam.viewportWidth,cam.viewportHeight,cam);
+        viewport.apply(true);
 
         Sprite sprite = new Sprite(texturePack.getFloor_min());
         sprite.setSize(1,1 * (Gdx.graphics.getWidth()/Gdx.graphics.getHeight()));
@@ -221,6 +225,8 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public void resize(int width, int height) {
+
+        viewport.update(width, height);
 
     }
 

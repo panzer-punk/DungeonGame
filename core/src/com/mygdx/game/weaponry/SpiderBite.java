@@ -1,5 +1,6 @@
 package com.mygdx.game.weaponry;
 
+import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.tools.BuffPool;
 import com.mygdx.game.tools.Dice;
@@ -34,7 +35,7 @@ public class SpiderBite extends WeaponryStuff {
 
         if((dealer.getSTR() + Dice.d20()) >= gainer.getArmorClass()) {
             gainer.takeDamage(dealer);
-            if(dealer.getSTR() + Dice.d20() >= gainer.getDEX() + Dice.d20()) {
+            if(dealer.getSTR() + Dice.d20() >= gainer.getDEX() + Dice.d20() && gainer.getClassification() != Classification.OBJECT) {
                 duration = Dice.d4();
                 Printer.print("Spider poisoned (" + duration + ") " + gainer.getName());
                 buffPool.add(new Buff(gainer, duration) {

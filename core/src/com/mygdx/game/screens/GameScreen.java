@@ -73,7 +73,7 @@ public class GameScreen implements Screen, InputProcessor {
         buffPool = room.getBuffPool();
         turn = room.getTurn();
         enemyGenerator = new EnemyGenerator(texturePack);
-        door = new Door(texturePack.getDoor(), room, roomGenerator.generateRoom(10,10));
+        door = new Door(texturePack.getDoor(), room, roomGenerator.generateRoom(10,10), this);
 
         cam = new OrthographicCamera(10 * 1.3f, 10 *(Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()));
         cam.position.set(5,5,10);
@@ -193,8 +193,8 @@ public class GameScreen implements Screen, InputProcessor {
                         hud.show(room.getObject(x,z));
 
                         if(lastSelectedObject != null && lastSelectedObject != room.getObject(x,z) && lastSelectedObject.getMP() > 0 && lastSelectedObject == current){
-                            lastSelectedObject.getWeapon().makeDamage(lastSelectedObject, room.getObject(x,z));
                             lastSelectedObject.makeStep(1000);//1000 чтобы закончить ход
+                            lastSelectedObject.getWeapon().makeDamage(lastSelectedObject, room.getObject(x,z));
                             unselect();
 
                         }else {
@@ -295,15 +295,8 @@ public class GameScreen implements Screen, InputProcessor {
                 update();
                 break;
 
-            case Input.Keys.A:
-                room = door.getNextRoom(room);
-                buffPool = room.getBuffPool();
-                turn = room.getTurn();
-                door.changeRoom();
-                checkTurnEnded();
-                current = null;
-                lastSelectedObject = null;
-                queque = room.getInitiativeQueue();
+            case Input.Keys.A://использовать только для теста!
+               moveToRoom();
                 break;
             case Input.Keys.K:
                 queque.display();
@@ -319,6 +312,20 @@ public class GameScreen implements Screen, InputProcessor {
 
         }
         return false;
+    }
+
+    public void moveToRoom(){
+
+        room = door.getNextRoom(room);
+        buffPool = room.getBuffPool();
+        turn = room.getTurn();
+        queque = room.getInitiativeQueue();
+        current = null;
+        lastSelectedObject = null;
+        room.resetMp();
+        checkTurnEnded();
+
+
     }
 
     @Override

@@ -3,10 +3,8 @@ package com.mygdx.game.build;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
-import com.mygdx.game.tools.Dice;
-import com.mygdx.game.tools.Printer;
-import com.mygdx.game.tools.PriorityQueue;
-import com.mygdx.game.tools.WayPoint;
+import com.mygdx.game.tools.*;
+import com.mygdx.game.weaponry.Buff;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -20,6 +18,8 @@ public class Room {
    private int l = 3, c = 3;
    private int currentSizePO;
    private PriorityQueue priorityQueue;
+   private BuffPool buffPool;
+   private int turn;
 
     private GameObject map[][];
     private GameObject[] playableObjects; // костыль!!!
@@ -27,27 +27,52 @@ public class Room {
     private Map tileMap;
 
     public Room(Map m){
-        map = new GameObject[l][c];
-        tileMap = m;
-        priorityQueue = new PriorityQueue(map.length);
-        currentSizePO = 0;
-        pObjects = new LinkedList<GameObject>();
+       init(m);
     }
 
     public Room(int l, int c, Map m){
 
         this.l = l;
         this.c = c;
+        init(m);
+
+    }
+
+    private void init(Map m){
+        turn = 1;
         capacity = l * c;
         tileMap = m;
+        currentSizePO = 0;
+        buffPool = new BuffPool();
         map = new GameObject[l][c];
         priorityQueue = new PriorityQueue(map.length);
         pObjects = new LinkedList<GameObject>();
+
+    }
+
+    public void setTurn(int t){
+        turn = t;
+    }
+
+    public int getTurn(){
+        return turn;
     }
 
     public PriorityQueue getInitiativeQueue(){
 
         return priorityQueue;
+    }
+
+    public void addBuff(Buff buff){
+
+        buffPool.add(buff);
+
+    }
+
+    public BuffPool getBuffPool(){
+
+        return buffPool;
+
     }
 
     public void resetMp(){

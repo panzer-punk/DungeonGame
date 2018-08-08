@@ -41,7 +41,7 @@ public class GameScreen implements Screen, InputProcessor {
     RoomGenerator roomGenerator;
     EnemyGenerator enemyGenerator;
     Door door;
-    int turn = 1;
+    int turn;
     final Matrix4 matrix = new Matrix4();
     PriorityQueue queque;//sorted by initiative
     Room room, genRoom;
@@ -65,12 +65,13 @@ public class GameScreen implements Screen, InputProcessor {
 
         texturePack = new TexturePack();
         roomGenerator = new RoomGenerator(texturePack);
-        buffPool = new BuffPool();
 
 
 
         genRoom = roomGenerator.generateRoom(10, 10);
         room = genRoom;
+        buffPool = room.getBuffPool();
+        turn = room.getTurn();
         enemyGenerator = new EnemyGenerator(texturePack);
         door = new Door(texturePack.getDoor(), room, roomGenerator.generateRoom(10,10));
 
@@ -160,6 +161,7 @@ public class GameScreen implements Screen, InputProcessor {
             room.resetMp();
             queque.insert(room.getPlayableObjects());
             turn++;
+            room.setTurn(turn);
             checkBuffPool();
         }
     }
@@ -295,6 +297,8 @@ public class GameScreen implements Screen, InputProcessor {
 
             case Input.Keys.A:
                 room = door.getNextRoom(room);
+                buffPool = room.getBuffPool();
+                turn = room.getTurn();
                 door.changeRoom();
                 checkTurnEnded();
                 current = null;

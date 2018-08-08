@@ -26,16 +26,14 @@ import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.objects.Door;
 import com.mygdx.game.objects.Entity;
 import com.mygdx.game.playable.Hero;
-import com.mygdx.game.tools.BuffPool;
-import com.mygdx.game.tools.PathFinder;
-import com.mygdx.game.tools.Printer;
-import com.mygdx.game.tools.PriorityQueue;
+import com.mygdx.game.tools.*;
 
 public class GameScreen implements Screen, InputProcessor {
     SpriteBatch batch;
     BuffPool buffPool;
     OrthographicCamera cam;
     HUD hud;
+    TestTrigger trigger;
     FillViewport viewport;
     TexturePack texturePack;
     RoomGenerator roomGenerator;
@@ -72,6 +70,13 @@ public class GameScreen implements Screen, InputProcessor {
         room = genRoom;
         buffPool = room.getBuffPool();
         turn = room.getTurn();
+
+        //Код для теста
+        trigger = new TestTrigger(room, 2);
+        trigger.addPoint(new Point(5,5));
+        room.addTrigger(trigger);
+        //
+
         enemyGenerator = new EnemyGenerator(texturePack);
         door = new Door(texturePack.getDoor(), room, roomGenerator.generateRoom(10,10), this);
 

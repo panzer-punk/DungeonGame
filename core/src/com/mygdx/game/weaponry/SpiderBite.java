@@ -7,15 +7,18 @@ import com.mygdx.game.tools.Printer;
 
 public class SpiderBite extends WeaponryStuff {
     private BuffPool buffPool;
+    private Poison poison;
 
     public SpiderBite(String label, int type, int distance, BuffPool buffPool) {
         super(label, type, distance);
         this.buffPool = buffPool;
+        poison = new SpiderPoison();
     }
 
     public SpiderBite(BuffPool buffPool){
         super("SpiderBite",1,1);
         this.buffPool = buffPool;
+        poison = new SpiderPoison();
     }
 
 
@@ -34,11 +37,11 @@ public class SpiderBite extends WeaponryStuff {
             if(dealer.getSTR() + Dice.d20() >= gainer.getDEX() + Dice.d20()) {
                 duration = Dice.d4();
                 Printer.print("Spider poisoned (" + duration + ") " + gainer.getName());
-                buffPool.add(new Buff(gainer, duration, this) {
+                buffPool.add(new Buff(gainer, duration) {
                     @Override
                     public void applyProperty() {
 
-                        gainer.takeDamage(dealer);
+                        gainer.takeDamage(poison);
 
                     }
                 });

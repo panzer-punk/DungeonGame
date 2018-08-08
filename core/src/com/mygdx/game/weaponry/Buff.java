@@ -6,10 +6,9 @@ import com.mygdx.game.interfaces.Weapon;
 public abstract class Buff {
 
     private GameObject gameObject;
-    private Weapon weapon;
     private int duration;
 
-    public Buff(GameObject gameObject, int duration, Weapon weapon){
+    public Buff(GameObject gameObject, int duration){
 
         this.duration = duration;
         this.gameObject = gameObject;

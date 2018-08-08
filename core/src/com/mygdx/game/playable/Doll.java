@@ -210,11 +210,19 @@ public abstract class Doll implements GameObject {
     public  void takeDamage(GameObject dealer) {
 
         //реализация по умолчанию
-        int d = dealer.getWeapon().getDamage();
+       takeDamage(dealer.getWeapon());
+
+
+    }
+
+    @Override
+    public void takeDamage(Weapon weapon) {
+
+        int d = weapon.getDamage();
 
         hp -= d;
 
-        System.out.println(this.getName() + " took " + d + " damage");
+        System.out.println(this.getName() + " took " + d + " damage" + " from " + weapon.getLabel());
 
 
     }

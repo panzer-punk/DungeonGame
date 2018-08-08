@@ -27,11 +27,14 @@ public class SpiderBite extends WeaponryStuff {
     @Override
     public  void makeDamage(final GameObject dealer, final GameObject gainer){
 
+        int duration;
+
         if((dealer.getSTR() + Dice.d20()) >= gainer.getArmorClass()) {
             gainer.takeDamage(dealer);
             if(dealer.getSTR() + Dice.d20() >= gainer.getDEX() + Dice.d20()) {
-                Printer.print("Spider poisoned " + gainer.getName());
-                buffPool.add(new Buff(gainer, Dice.d4(), this) {
+                duration = Dice.d4();
+                Printer.print("Spider poisoned (" + duration + ") " + gainer.getName());
+                buffPool.add(new Buff(gainer, duration, this) {
                     @Override
                     public void applyProperty() {
 

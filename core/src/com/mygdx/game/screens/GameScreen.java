@@ -41,7 +41,7 @@ public class GameScreen implements Screen, InputProcessor {
     RoomGenerator roomGenerator;
     EnemyGenerator enemyGenerator;
     Door door;
-    int turn;
+    int turn = 1;
     final Matrix4 matrix = new Matrix4();
     PriorityQueue queque;//sorted by initiative
     Room room, genRoom;
@@ -154,6 +154,7 @@ public class GameScreen implements Screen, InputProcessor {
 
     private void checkTurnEnded() {
         if(!queque.isEmpty() && (current == null || current.getMP() <= 0 || current.getHP() <= 0)) {
+           hud.showTurn(turn);
             current = queque.remove();
         }else if (queque.isEmpty()){
             room.resetMp();

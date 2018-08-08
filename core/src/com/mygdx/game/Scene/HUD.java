@@ -20,7 +20,7 @@ public class HUD {
     Label movementPoints;
     Label initiative;
     Label armorclass;
-    Label name;
+    Label name, turn;
 
     public HUD(SpriteBatch batch, float width, float height){
 
@@ -36,6 +36,7 @@ public class HUD {
         initiative = new Label("Initiative", new Label.LabelStyle(new BitmapFont(), Color.GREEN));
         armorclass = new Label("Armor class", new Label.LabelStyle(new BitmapFont(), Color.YELLOW));
         name = new Label("Name", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        turn = new Label("turn", new Label.LabelStyle(new BitmapFont(), Color.TAN));
 
         table.add(health).expandX().padTop(10);
         table.add(armorclass).expandX().padTop(10);
@@ -44,6 +45,7 @@ public class HUD {
         table.add(initiative).expandX();
         table.row();
         table.add(name).expandX();
+        table.add(turn).expandX();
 
         stage.addActor(table);
 
@@ -56,6 +58,12 @@ public class HUD {
         movementPoints.setText("" + gameObject.getMP());
         initiative.setText("" + gameObject.getInitiative());
         name.setText(gameObject.getName());
+    }
+
+    public void showTurn(int t){
+
+        this.turn.setText("" + t);
+
     }
 
     public void resize(int width, int height){

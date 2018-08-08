@@ -43,6 +43,7 @@ public class SpiderBite extends WeaponryStuff {
                     public void applyProperty() {
 
                         gainer.takeDamage(poison);
+                        this.reduceDuration();
 
                     }
                 });

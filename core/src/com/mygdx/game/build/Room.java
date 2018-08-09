@@ -116,6 +116,15 @@ public class Room {
 
     private void setXY(int x, int y){map[x][y].setXY(x, y);}//?
 
+    public void setObject(int x, int y, GameObject gameObject){
+
+        if(map[x][y] == null) {
+            map[x][y] = gameObject;
+            setXY(x,y);
+        }
+
+    }
+
     public boolean move(int from_line, int from_column, int to_line, int to_column){
 
         if(to_line < l && to_column < c) {

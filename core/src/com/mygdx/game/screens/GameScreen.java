@@ -15,7 +15,7 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Scene.HUD;
 import com.mygdx.game.build.Map;
 import com.mygdx.game.build.Room;
-import com.mygdx.game.build.Terrain;
+import com.mygdx.game.terrain.Terrain;
 import com.mygdx.game.build.TexturePack;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.generators.ArmorGenerator;

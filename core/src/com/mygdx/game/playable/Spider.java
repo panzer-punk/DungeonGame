@@ -1,6 +1,7 @@
 package com.mygdx.game.playable;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.armor.LeatherArmor;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.tools.BuffPool;
@@ -17,6 +18,7 @@ public class Spider extends Doll {
                 0, 16, 14,14,
                 3, Classification.Nonplayable);
         this.equipWeapon(new SpiderBite());
+        equipArmor(new LeatherArmor());
 
     }
 

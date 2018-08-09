@@ -9,6 +9,8 @@ import com.mygdx.game.interfaces.Armor;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Item;
 import com.mygdx.game.interfaces.Weapon;
+import com.mygdx.game.tools.BuffPool;
+import com.mygdx.game.weaponry.Buff;
 
 /**
  * Created by Даниил on 15.07.2018.
@@ -16,6 +18,7 @@ import com.mygdx.game.interfaces.Weapon;
 public abstract class Doll implements GameObject {
 
     private Sprite sprite;
+    private BuffPool buffPool;
     private int initiativebonus;
     private String name;
     private Classification classification;
@@ -56,6 +59,8 @@ public abstract class Doll implements GameObject {
         direction = null;
         status = Status.OK;
         setClassification(classification);
+
+        buffPool = new BuffPool();
 
         itemNumber = 0;
         backpack = new Item[capacity];
@@ -241,6 +246,18 @@ public abstract class Doll implements GameObject {
     @Override
     public int getHP() {
         return hp;
+    }
+
+    @Override
+    public BuffPool getBuffPool() {
+        return buffPool;
+    }
+
+    @Override
+    public void addBuff(Buff buff) {
+
+        buffPool.add(buff);
+
     }
 
     @Override

@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.enumerations.Direction;
 import com.mygdx.game.enumerations.Status;
+import com.mygdx.game.tools.BuffPool;
+import com.mygdx.game.weaponry.Buff;
 
 /**
  * Created by Даниил on 09.09.2017.
@@ -40,6 +42,8 @@ public interface GameObject {
      Weapon getWeapon();
      Armor getArmor();
      int getHP();
+     BuffPool getBuffPool();
+     void addBuff(Buff buff);
      Direction getWatchDirection();
      String getName();
      int getStrength();

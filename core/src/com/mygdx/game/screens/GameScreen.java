@@ -27,10 +27,7 @@ import com.mygdx.game.objects.Door;
 import com.mygdx.game.objects.Entity;
 import com.mygdx.game.playable.Hero;
 import com.mygdx.game.playable.Spider;
-import com.mygdx.game.tools.BuffPool;
-import com.mygdx.game.tools.PathFinder;
-import com.mygdx.game.tools.Printer;
-import com.mygdx.game.tools.PriorityQueue;
+import com.mygdx.game.tools.*;
 
 public class GameScreen implements Screen, InputProcessor {
     SpriteBatch batch;
@@ -93,9 +90,9 @@ public class GameScreen implements Screen, InputProcessor {
         sprite.flip(false, true);
 
 
-        enemy = new Spider(new Sprite(texturePack.getSpider()), buffPool);
+        enemy = new Spider(new Sprite(texturePack.getSpider()));
         enemy.equipArmor(armorGenerator.createArmor());
-        enemy1 = new Spider(new Sprite(texturePack.getSpider()), buffPool);;
+        enemy1 = new Spider(new Sprite(texturePack.getSpider()));
         enemy1.equipArmor(armorGenerator.createArmor());
         //enemy2 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon(), buffPool);
 
@@ -165,7 +162,7 @@ public class GameScreen implements Screen, InputProcessor {
             queque.insert(room.getPlayableObjects());
             turn++;
             room.setTurn(turn);
-            checkBuffPool();
+            //checkBuffPool();
         }
     }
 
@@ -203,6 +200,7 @@ public class GameScreen implements Screen, InputProcessor {
                         }else {
                             if(room.getObject(x, z) == current) {
                                 lastSelectedObject = room.getObject(x, z);
+                                lastSelectedObject.getBuffPool().use();
                                 PathFinder.drawWays(batch, room, x, z);
                             }
                         }

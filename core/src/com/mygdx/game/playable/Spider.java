@@ -11,12 +11,12 @@ public class Spider extends Doll {
         super(name, hp, capacity, sprite, movementsPoints, level, experience, strength, dexterity, constitution, initiativebonus, classification);
     }
 
-    public Spider (Sprite sprite, BuffPool buffPool){
+    public Spider (Sprite sprite){
 
         super("Spider", 10, 0, sprite, 10, 1,
                 0, 16, 14,14,
                 3, Classification.Nonplayable);
-        this.equipWeapon(new SpiderBite(buffPool));
+        this.equipWeapon(new SpiderBite());
 
     }
 

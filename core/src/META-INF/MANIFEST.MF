@@ -1,3 +1,4 @@
 Manifest-Version: 1.0
+Class-Path: mygdx.game.desktop
 Main-Class: com.mygdx.game.desktop.DesktopLauncher
 

@@ -31,7 +31,6 @@ import com.mygdx.game.tools.*;
 
 public class GameScreen implements Screen, InputProcessor {
     SpriteBatch batch;
-    BuffPool buffPool;
     OrthographicCamera cam;
     HUD hud;
     FillViewport viewport;
@@ -68,7 +67,6 @@ public class GameScreen implements Screen, InputProcessor {
 
         genRoom = roomGenerator.generateRoom(10, 10);
         room = genRoom;
-        buffPool = room.getBuffPool();
         turn = room.getTurn();
         enemyGenerator = new EnemyGenerator(texturePack);
         door = new Door(texturePack.getDoor(), room, roomGenerator.generateRoom(10,10), this);
@@ -164,12 +162,6 @@ public class GameScreen implements Screen, InputProcessor {
             room.setTurn(turn);
             //checkBuffPool();
         }
-    }
-
-    private void checkBuffPool() {
-
-        buffPool.use();
-
     }
 
     private void checkTileTouched() {
@@ -318,7 +310,6 @@ public class GameScreen implements Screen, InputProcessor {
     public void moveToRoom(){
 
         room = door.getNextRoom(room);
-        buffPool = room.getBuffPool();
         turn = room.getTurn();
         queque = room.getInitiativeQueue();
         current = null;

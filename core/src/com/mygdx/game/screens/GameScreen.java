@@ -195,12 +195,12 @@ public class GameScreen implements Screen, InputProcessor {
                         sprite = map.getTiles()[x][z].getSprite();
                         if(lastSelectedObject != null && lastSelectedObject.getMP() > 0 && lastSelectedObject == current){
                             if(room.getTileMap().getTiles()[x][z].flag == true && room.move(lastSelectedObject.getX(), lastSelectedObject.getY(), x, z)) {
-                                lastSelectedObject.makeStep(room.getTileMap().getTiles()[x][z].getMovementCost());
+                                lastSelectedObject.makeStep(room.getTileMap().getTiles()[x][z].getMovementPrice());
                                 unselect();
                             }
                         }
 
-                        Printer.print("" + map.getTiles()[x][z].getMovementCost()+"\n");
+                        Printer.print("" + map.getTiles()[x][z].getMovementCost()+"\n"  + map.getTiles()[x][z].getMovementPrice() + "\n");
                     }if(sprite != null) {
                         sprite.setColor(1,1,5,25);
                         lastSelectedTile = sprite;

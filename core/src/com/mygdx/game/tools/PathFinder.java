@@ -25,7 +25,7 @@ public class PathFinder {
         GameObject[][] map = room.getMap();
         Terrain[][] tileMap = room.getTileMap().getTiles();
 
-        draw(movementPoints, x, z, map, tileMap,batch);
+        draw(movementPoints, x, z, map, tileMap,batch, 0);
 
 
     }
@@ -50,11 +50,12 @@ public class PathFinder {
     }
 
 
-    private static void draw(int mp, int x, int z, GameObject[][] map, Terrain[][] tileMap, SpriteBatch batch){
+    private static void draw(int mp, int x, int z, GameObject[][] map, Terrain[][] tileMap, SpriteBatch batch, int testP){
         //up
         if(mp >= 0 && x <= c && z <= l ){
 
             int mMP = mp;
+            Terrain t;
 
             //standingPosition
 
@@ -63,11 +64,15 @@ public class PathFinder {
                 if (map[x][z - 1] == null) {
 
                     int a = mMP;
+                    int path = testP;
                     a -= tileMap[x][z - 1].getMovementCost();
                     if(a >= 0 && !tileMap[x][z - 1].getKillFlag()) {
-                        tileMap[x][z - 1].getSprite().setColor(100, 50, 0, 45);
-                        tileMap[x][z - 1].flag = true;
-                        draw(a, x, z - 1, map, tileMap, batch);
+                       t = tileMap[x][z - 1];
+                       t.getSprite().setColor(100, 50, 0, 45);
+                       t.flag = true;
+                       path += t.getMovementCost();
+                       t.setMovementPrice(path);
+                        draw(a, x, z - 1, map, tileMap, batch, path);
                     }
                 }
             }
@@ -75,11 +80,15 @@ public class PathFinder {
                 if (z != c - 1)
                     if (map[x][z + 1] == null) {
                         int a = mMP;
+                        int path = testP;
                         a -= tileMap[x][z + 1].getMovementCost();
                         if(a >= 0 && !tileMap[x][z + 1].getKillFlag()) {
-                            tileMap[x][z + 1].getSprite().setColor(100, 50, 0, 45);
-                            tileMap[x][z + 1].flag = true;
-                            draw(a, x, z + 1, map, tileMap, batch);
+                            t = tileMap[x][z + 1];
+                            t.getSprite().setColor(100, 50, 0, 45);
+                            t.flag = true;
+                            path += t.getMovementCost();
+                            t.setMovementPrice(path);
+                            draw(a, x, z + 1, map, tileMap, batch, path);
                         }
                     }
 
@@ -88,11 +97,15 @@ public class PathFinder {
                 if (map[x + 1][z] == null) {
 
                     int a = mMP;
+                    int path = testP;
                     a -= tileMap[x + 1][z].getMovementCost();
                     if(a >= 0 && !tileMap[x + 1][z].getKillFlag()) {
-                        tileMap[x + 1][z].getSprite().setColor(100, 50, 0, 45);
-                        tileMap[x + 1][z].flag = true;
-                        draw(a, x + 1, z, map, tileMap, batch);
+                        t = tileMap[x + 1][z];
+                        t.getSprite().setColor(100, 50, 0, 45);
+                        t.flag = true;
+                        path += t.getMovementCost();
+                        t.setMovementPrice(path);
+                        draw(a, x + 1, z, map, tileMap, batch, path);
                     }
                 }
             }
@@ -102,11 +115,15 @@ public class PathFinder {
                     if (map[x - 1][z] == null) {
 
                         int a = mMP;
+                        int path = testP;
                         a -= tileMap[x - 1][z].getMovementCost();
                         if(a >= 0 && !tileMap[x - 1][z].getKillFlag()) {
-                                tileMap[x - 1][z].getSprite().setColor(100, 50, 0, 45);
-                                tileMap[x - 1][z].flag = true;
-                                draw(a, x - 1, z, map, tileMap, batch);
+                            t = tileMap[x - 1][z];
+                                t.getSprite().setColor(100, 50, 0, 45);
+                                t.flag = true;
+                                path += t.getMovementCost();
+                                t.setMovementPrice(path);
+                                draw(a, x - 1, z, map, tileMap, batch, path);
                         }
                     }
 

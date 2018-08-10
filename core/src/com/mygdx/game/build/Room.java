@@ -178,6 +178,7 @@ public class Room {
             for (int j = 0; j < c; j++) {
                 tileMap.getTiles()[i][j].getSprite().setColor(1, 1, 1, 1);
                 tileMap.getTiles()[i][j].flag = false;
+                tileMap.getTiles()[i][j].setMovementPrice(0);
             }
     }
 

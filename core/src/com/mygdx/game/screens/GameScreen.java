@@ -26,14 +26,14 @@ import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.objects.Door;
 import com.mygdx.game.objects.Entity;
 import com.mygdx.game.playable.Hero;
-import com.mygdx.game.tools.PathFinder;
-import com.mygdx.game.tools.Printer;
-import com.mygdx.game.tools.PriorityQueue;
+import com.mygdx.game.tools.*;
 
 public class GameScreen implements Screen, InputProcessor {
     SpriteBatch batch;
+    BuffPool buffPool;
     OrthographicCamera cam;
     HUD hud;
+    TestTrigger trigger;
     FillViewport viewport;
     TexturePack texturePack;
     RoomGenerator roomGenerator;
@@ -68,8 +68,17 @@ public class GameScreen implements Screen, InputProcessor {
 
         genRoom = roomGenerator.generateRoom(10, 10);
         room = genRoom;
+        buffPool = room.getBuffPool();
+        turn = room.getTurn();
+
+        //Код для теста
+        trigger = new TestTrigger(room, 2);
+        trigger.addPoint(new Point(5,5));
+        room.addTrigger(trigger);
+        //
+
         enemyGenerator = new EnemyGenerator(texturePack);
-        door = new Door(texturePack.getDoor(), room, roomGenerator.generateRoom(10,10));
+        door = new Door(texturePack.getDoor(), room, roomGenerator.generateRoom(10,10), this);
 
         cam = new OrthographicCamera(10 * 1.3f, 10 *(Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()));
         cam.position.set(5,5,10);
@@ -88,9 +97,9 @@ public class GameScreen implements Screen, InputProcessor {
         sprite.flip(false, true);
 
 
-        enemy = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
-        enemy1 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
-        enemy2 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
+        enemy = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon(), buffPool);
+        enemy1 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon(), buffPool);
+        enemy2 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon(), buffPool);
 
         sprite = new Sprite(texturePack.getPlayer());
         player = new Hero("Donny", 10, 10,sprite,5, 1,
@@ -151,12 +160,21 @@ public class GameScreen implements Screen, InputProcessor {
 
     private void checkTurnEnded() {
         if(!queque.isEmpty() && (current == null || current.getMP() <= 0 || current.getHP() <= 0)) {
+           hud.showTurn(turn);
             current = queque.remove();
         }else if (queque.isEmpty()){
             room.resetMp();
             queque.insert(room.getPlayableObjects());
             turn++;
+            room.setTurn(turn);
+            checkBuffPool();
         }
+    }
+
+    private void checkBuffPool() {
+
+        buffPool.use();
+
     }
 
     private void checkTileTouched() {
@@ -180,8 +198,8 @@ public class GameScreen implements Screen, InputProcessor {
                         hud.show(room.getObject(x,z));
 
                         if(lastSelectedObject != null && lastSelectedObject != room.getObject(x,z) && lastSelectedObject.getMP() > 0 && lastSelectedObject == current){
-                            lastSelectedObject.getWeapon().makeDamage(lastSelectedObject, room.getObject(x,z));
                             lastSelectedObject.makeStep(1000);//1000 чтобы закончить ход
+                            lastSelectedObject.getWeapon().makeDamage(lastSelectedObject, room.getObject(x,z));
                             unselect();
 
                         }else {
@@ -282,13 +300,8 @@ public class GameScreen implements Screen, InputProcessor {
                 update();
                 break;
 
-            case Input.Keys.A:
-                room = door.getNextRoom(room);
-                door.changeRoom();
-                checkTurnEnded();
-                current = null;
-                lastSelectedObject = null;
-                queque = room.getInitiativeQueue();
+            case Input.Keys.A://использовать только для теста!
+               moveToRoom();
                 break;
             case Input.Keys.K:
                 queque.display();
@@ -304,6 +317,20 @@ public class GameScreen implements Screen, InputProcessor {
 
         }
         return false;
+    }
+
+    public void moveToRoom(){
+
+        room = door.getNextRoom(room);
+        buffPool = room.getBuffPool();
+        turn = room.getTurn();
+        queque = room.getInitiativeQueue();
+        current = null;
+        lastSelectedObject = null;
+        room.resetMp();
+        checkTurnEnded();
+
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.mygdx.game.weaponry;
 
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Weapon;
+import com.mygdx.game.tools.BuffPool;
 import com.mygdx.game.tools.Dice;
 
 /**
@@ -9,13 +10,13 @@ import com.mygdx.game.tools.Dice;
  */
 public class IronSword extends WeaponryStuff {
 
-
     public IronSword(String label, int type, int distance) {
         super(label, type, distance);
     }
 
     public IronSword(){
         super("IronSword",1,1);
+
     }
 
 

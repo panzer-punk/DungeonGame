@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.build.Room;
 import com.mygdx.game.interfaces.GameObject;
+import com.mygdx.game.screens.GameScreen;
 
 public class Door extends Entity {
 
@@ -12,24 +13,27 @@ public class Door extends Entity {
     private int x2, y2;
     private boolean isClone, flag;
     private Door door;
+    private GameScreen gameScreen;
 
 
-    public Door(Texture texture,Room r1, Room r2) {
+    public Door(Texture texture, Room r1, Room r2, GameScreen screen) {
         super("Door", new Sprite(texture));
         this.r1 = r1;
         this.r2 = r2;
         isClone = false;
         flag = false;
-        door = new Door(new Sprite(texture),r2,r1,true);
+        gameScreen = screen;
+        door = new Door(new Sprite(texture),r2,r1,true, screen);
 
     }
 
-    public Door(Sprite s, Room r1, Room r2, boolean isClone){
+    public Door(Sprite s, Room r1, Room r2, boolean isClone, GameScreen screen){
         super("Door", s);
         this.r1 = r1;
         this.r2 = r2;
         this.isClone = isClone;
         door = null;
+        gameScreen = screen;
     }
 
     @Override
@@ -38,6 +42,8 @@ public class Door extends Entity {
 
        GameObject temp = r1.remove(gameObject.getX(), gameObject.getY());
        r2.setObject(temp);
+       changeRoom();
+       gameScreen.moveToRoom();
 
 
     }

@@ -9,12 +9,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.interfaces.GameObject;
 
 public class HUD {
     public Stage stage;
-    private StretchViewport viewPort;
+    private Viewport viewPort;
 
     Label health;
     Label movementPoints;
@@ -24,7 +26,7 @@ public class HUD {
 
     public HUD(SpriteBatch batch, float width, float height){
 
-        viewPort = new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), new OrthographicCamera());
+        viewPort = new FillViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()*(Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()), new OrthographicCamera());
         stage = new Stage(viewPort, batch);
 
         Table table = new Table();

@@ -11,6 +11,7 @@ public class Terrain{
 
     private Sprite sprite;
     private int movementCost;
+    private int movementPrice = 0;
     public String name;
     public boolean flag;
     private  boolean killFlag;
@@ -42,6 +43,13 @@ public class Terrain{
     public void draw(SpriteBatch batch){sprite.draw(batch);}
 
     public int getMovementCost(){return movementCost;}
+    public void setMovementPrice(int m){
+
+        if(m < movementPrice || movementPrice == 0)
+        movementPrice = m;
+
+    }
+    public int getMovementPrice(){return movementPrice;}
     public Sprite getSprite(){return sprite;}
     public void setSprite(Sprite sprite){this.sprite = sprite;}
     public void setXY(int x, int y){

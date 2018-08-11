@@ -33,6 +33,7 @@ public class GameScreen implements Screen, InputProcessor {
     SpriteBatch batch;
     OrthographicCamera cam;
     HUD hud;
+    TestTrigger trigger;
     FillViewport viewport;
     TexturePack texturePack;
     RoomGenerator roomGenerator;
@@ -68,6 +69,13 @@ public class GameScreen implements Screen, InputProcessor {
         genRoom = roomGenerator.generateRoom(10, 10);
         room = genRoom;
         turn = room.getTurn();
+
+        //Код для теста
+        trigger = new TestTrigger(room, 2);
+        trigger.addPoint(new Point(5,5));
+        room.addTrigger(trigger);
+        //
+
         enemyGenerator = new EnemyGenerator(texturePack);
         door = new Door(texturePack.getDoor(), room, roomGenerator.generateRoom(10,10), this);
 
@@ -160,7 +168,7 @@ public class GameScreen implements Screen, InputProcessor {
             queque.insert(room.getPlayableObjects());
             turn++;
             room.setTurn(turn);
-            //checkBuffPool();
+         
         }
     }
 
@@ -201,12 +209,12 @@ public class GameScreen implements Screen, InputProcessor {
                         sprite = map.getTiles()[x][z].getSprite();
                         if(lastSelectedObject != null && lastSelectedObject.getMP() > 0 && lastSelectedObject == current){
                             if(room.getTileMap().getTiles()[x][z].flag == true && room.move(lastSelectedObject.getX(), lastSelectedObject.getY(), x, z)) {
-                                lastSelectedObject.makeStep(room.getTileMap().getTiles()[x][z].getMovementCost());
+                                lastSelectedObject.makeStep(room.getTileMap().getTiles()[x][z].getMovementPrice());
                                 unselect();
                             }
                         }
 
-                        Printer.print("" + map.getTiles()[x][z].getMovementCost()+"\n");
+                        Printer.print("" + map.getTiles()[x][z].getMovementCost()+"\n"  + map.getTiles()[x][z].getMovementPrice() + "\n");
                     }if(sprite != null) {
                         sprite.setColor(1,1,5,25);
                         lastSelectedTile = sprite;

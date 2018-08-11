@@ -6,6 +6,7 @@ import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.tools.*;
 import com.mygdx.game.weaponry.Buff;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -15,6 +16,7 @@ import java.util.LinkedList;
 public class Room {
 
    private int capacity = 9;
+   private Trigger[][] triggers;
    private int l = 3, c = 3;
    private int currentSizePO;
    private PriorityQueue priorityQueue;
@@ -43,6 +45,7 @@ public class Room {
         tileMap = m;
         currentSizePO = 0;
         map = new GameObject[l][c];
+        triggers = new Trigger[l][c];
         priorityQueue = new PriorityQueue(map.length);
         pObjects = new LinkedList<GameObject>();
 
@@ -54,6 +57,25 @@ public class Room {
 
     public int getTurn(){
         return turn;
+    }
+
+    private void setPoint(int x, int y, Trigger trigger ){
+
+        triggers[x][y] = trigger;
+
+    }
+
+    public void addTrigger(Trigger trigger){
+
+        Iterator<Point> iterator = trigger.getCoordinats().iterator();
+
+        while (iterator.hasNext()){
+
+            Point p = iterator.next();
+            setPoint(p.getX(), p.getY(), trigger);
+
+        }
+
     }
 
     public PriorityQueue getInitiativeQueue(){
@@ -110,6 +132,11 @@ public class Room {
 
                 map[to_line][to_column] = map[from_line][from_column];
                 map[from_line][from_column] = null;
+
+                if(triggers[to_line][to_column] != null && triggers[to_line][to_column].getRepeats() > 0)
+                    triggers[to_line][to_column].Do(map[to_line][to_column]);
+                else
+                    triggers[to_line][to_column] = null;
 
                 setXY(to_line, to_column);
 
@@ -190,6 +217,7 @@ public class Room {
             for (int j = 0; j < c; j++) {
                 tileMap.getTiles()[i][j].getSprite().setColor(1, 1, 1, 1);
                 tileMap.getTiles()[i][j].flag = false;
+                tileMap.getTiles()[i][j].setMovementPrice(0);
             }
     }
 

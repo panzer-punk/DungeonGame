@@ -7,18 +7,15 @@ import com.mygdx.game.tools.Dice;
 import com.mygdx.game.tools.Printer;
 
 public class SpiderBite extends WeaponryStuff {
-    private BuffPool buffPool;
     private Poison poison;
 
-    public SpiderBite(String label, int type, int distance, BuffPool buffPool) {
+    public SpiderBite(String label, int type, int distance) {
         super(label, type, distance);
-        this.buffPool = buffPool;
         poison = new SpiderPoison();
     }
 
-    public SpiderBite(BuffPool buffPool){
+    public SpiderBite(){
         super("SpiderBite",1,1);
-        this.buffPool = buffPool;
         poison = new SpiderPoison();
     }
 
@@ -31,6 +28,7 @@ public class SpiderBite extends WeaponryStuff {
     @Override
     public  void makeDamage(final GameObject dealer, final GameObject gainer){
 
+        BuffPool buffPool = gainer.getBuffPool();
         int duration;
 
         if((dealer.getSTR() + Dice.d20()) >= gainer.getArmorClass()) {
@@ -43,6 +41,7 @@ public class SpiderBite extends WeaponryStuff {
                     public void applyProperty() {
 
                         gainer.takeDamage(poison);
+                        this.reduceDuration();
 
                     }
                 });

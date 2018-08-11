@@ -20,7 +20,6 @@ public class Room {
    private int l = 3, c = 3;
    private int currentSizePO;
    private PriorityQueue priorityQueue;
-   private BuffPool buffPool;
    private int turn;
 
     private GameObject map[][];
@@ -45,7 +44,6 @@ public class Room {
         capacity = l * c;
         tileMap = m;
         currentSizePO = 0;
-        buffPool = new BuffPool();
         map = new GameObject[l][c];
         triggers = new Trigger[l][c];
         priorityQueue = new PriorityQueue(map.length);
@@ -85,17 +83,6 @@ public class Room {
         return priorityQueue;
     }
 
-    public void addBuff(Buff buff){
-
-        buffPool.add(buff);
-
-    }
-
-    public BuffPool getBuffPool(){
-
-        return buffPool;
-
-    }
 
     public void resetMp(){
 

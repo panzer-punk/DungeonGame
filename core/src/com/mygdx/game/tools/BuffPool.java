@@ -2,6 +2,7 @@ package com.mygdx.game.tools;
 
 import com.mygdx.game.weaponry.Buff;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class BuffPool {
@@ -28,16 +29,24 @@ public class BuffPool {
 
     public void use(){
 
-        for (Buff b : buffs){
-            if(b != null)
-            if(b.getDuration() > 0) {
+        Iterator<Buff> buffIterator = buffs.iterator();
+
+        while (buffIterator.hasNext()){
+
+            Buff b = buffIterator.next();
+
+            if(b.getDuration() > 0)
                 b.applyProperty();
-                b.reduceDuration();
-            } else
-                remove(b);
+            else {
+                buffIterator.remove();
+                buffs.remove(b);
+            }
+
 
         }
 
     }
+
+
 
 }

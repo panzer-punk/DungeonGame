@@ -26,7 +26,7 @@ public class EnemyGenerator {
 
     }
 
-    public GameObject createEemy(Armor armor, Weapon weapon, BuffPool buffPool){
+    public GameObject createEemy(Armor armor, Weapon weapon){
 
 
         int r = (int)(Math.random()*3) + 1;
@@ -44,8 +44,8 @@ public class EnemyGenerator {
 
             case 3:
 
-                enemy = new Spider(new Sprite(texturePack.getSpider()),buffPool);
-                enemy.equipWeapon(new SpiderBite(buffPool));
+                enemy = new Spider(new Sprite(texturePack.getSpider()));
+                enemy.equipWeapon(new SpiderBite());
                 enemy.equipArmor(new LeatherArmor());
 
                 break;

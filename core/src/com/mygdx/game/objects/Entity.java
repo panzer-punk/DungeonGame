@@ -9,6 +9,8 @@ import com.mygdx.game.interfaces.Armor;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Item;
 import com.mygdx.game.interfaces.Weapon;
+import com.mygdx.game.tools.BuffPool;
+import com.mygdx.game.weaponry.Buff;
 
 /**
  * Created by Даниил on 27.04.2018.
@@ -124,6 +126,16 @@ public class Entity implements GameObject {
 
     @Override
     public int getHP() {return 1;}
+
+    @Override
+    public BuffPool getBuffPool() {
+        return null;
+    }
+
+    @Override
+    public void addBuff(Buff buff) {
+
+    }
 
     @Override
     public Direction getWatchDirection() {return null;}

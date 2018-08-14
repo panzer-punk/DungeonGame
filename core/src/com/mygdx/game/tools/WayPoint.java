@@ -1,6 +1,6 @@
 package com.mygdx.game.tools;
 
-import com.mygdx.game.build.Terrain;
+import com.mygdx.game.terrain.Terrain;
 
 /**
  * Created by Даниил on 13.05.2018.

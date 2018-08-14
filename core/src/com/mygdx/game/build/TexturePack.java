@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.mygdx.game.tools.Dice;
+import sun.security.jgss.GSSCaller;
 
 /**
  * Created by Даниил on 30.05.2018.
@@ -11,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 public class TexturePack {
 
     TextureAtlas textures;
-    private Texture wall, floor, floor1, hole, player, orc, skeleton, spider, door;
+    private Texture wall, floor, floor1, hole, player, orc, skeleton, spider, door, sand, sand1, sand2, water, water1;
 
     public TexturePack(TextureAtlas textureAtlas){
 
@@ -30,12 +32,48 @@ public class TexturePack {
         skeleton = new Texture(Gdx.files.internal("skeleton.png"));
         spider = new Texture(Gdx.files.internal("spider.png"));
         door = new Texture(Gdx.files.internal("door.png"));
+        sand = new Texture(Gdx.files.internal("sand.png"));
+        sand1 = new Texture(Gdx.files.internal("sand1.png"));
+        sand2 = new Texture(Gdx.files.internal("sand2.png"));
+        water = new Texture(Gdx.files.internal("water.png"));
+        water1 = new Texture(Gdx.files.internal("water1.png"));
     }
 
     //Terrain
     public Texture getFloor_min(){return floor;}//debug code
     public Texture getFloor_mid(){return floor1;}//debug code
     public Texture getFloor_max(){return null;}
+    public Texture getSand(){
+
+        switch (Dice.d4()){
+
+            case 1:
+                return sand1;
+            case 2:
+                return sand2;
+
+                default:
+                    return sand;
+
+
+        }
+
+    }
+
+    public Texture getWater(){
+
+        switch (Dice.d4()){
+
+            case 1:
+            case 2:
+                return water1;
+                default:
+                    return water;
+
+        }
+
+    }
+
     public Texture getHole(){return hole;}//debug code
     //Entity
     public Texture getWall_1(){return wall;}//debug code

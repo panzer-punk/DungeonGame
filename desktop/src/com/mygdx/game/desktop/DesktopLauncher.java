@@ -8,6 +8,7 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		//System.setProperty("org.lwjgl.opengl.Display.allowSoftwareOpenGL", "true");
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.forceExit = true;
 		new LwjglApplication(new MyGdxGame(), config);
 	}
 }

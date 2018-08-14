@@ -2,7 +2,7 @@ package com.mygdx.game.tools;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.build.Room;
-import com.mygdx.game.build.Terrain;
+import com.mygdx.game.terrain.Terrain;
 import com.mygdx.game.interfaces.GameObject;
 
 import java.util.LinkedList;

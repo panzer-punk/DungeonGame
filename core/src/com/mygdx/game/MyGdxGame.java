@@ -1,7 +1,9 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.*;
+import com.mygdx.game.screens.EditorScreen;
 import com.mygdx.game.screens.GameScreen;
+import com.mygdx.game.screens.MainMenuScreen;
 
 public class MyGdxGame extends Game{
 
@@ -10,7 +12,7 @@ public class MyGdxGame extends Game{
 	public void create () {
 
 
-	    setScreen(new GameScreen(this));
+	    setScreen(new MainMenuScreen(this));
 
 	}
 

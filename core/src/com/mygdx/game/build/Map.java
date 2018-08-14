@@ -1,9 +1,8 @@
 package com.mygdx.game.build;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.build.Terrain;
+import com.mygdx.game.terrain.Terrain;
 
 /**
  * Created by Даниил on 13.04.2018.
@@ -58,7 +57,7 @@ public class Map{
 
                 if(tiles[i][j] == null) {
                   //  defaultTerrain.draw(batch, i, j);
-                    tiles[i][j] = new Terrain(defaultTerrain.getMovementCost()," ",null , false);
+                    tiles[i][j] = defaultTerrain;
                     sprite = tiles[i][j].getSprite();
                     sprite.setPosition(i, j);
                     tiles[i][j].setSprite(sprite);

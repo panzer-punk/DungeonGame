@@ -5,8 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.build.Map;
 import com.mygdx.game.build.Room;
-import com.mygdx.game.build.Terrain;
+import com.mygdx.game.terrain.Terrain;
 import com.mygdx.game.build.TexturePack;
+import com.mygdx.game.terrain.TerrainPack;
 
 /**
  * Created by Даниил on 01.06.2018.
@@ -14,10 +15,12 @@ import com.mygdx.game.build.TexturePack;
 public class RoomGenerator {
 
     TexturePack texturePack;
+    TerrainPack terrainPack;
 
     public RoomGenerator(TexturePack texturePack) {
 
         this.texturePack = texturePack;
+        terrainPack = new TerrainPack(texturePack);
 
     }
 
@@ -44,16 +47,16 @@ public class RoomGenerator {
                     case 3:
                     case 4:
                     case 5:
-                        mp.addTile(new Terrain(1, "test", new Sprite(new Texture(Gdx.files.internal("floor.png")))));
+                        mp.addTile(terrainPack.getFloor_min());
                         break;
                     case 6:
                     case 7:
                     case 8:
-                        mp.addTile(new Terrain(2, "test", new Sprite(new Texture(Gdx.files.internal("floor1.png")))));
+                        mp.addTile(terrainPack.getFloor_mid());
                         break;
                     case 9:
                     case 10:
-                        mp.addTile(new Terrain(1, "test", new Texture(Gdx.files.internal("hole.png")), true));
+                        mp.addTile(terrainPack.getLava());
                 }
 
             }

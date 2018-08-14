@@ -1,4 +1,4 @@
-package com.mygdx.game.build;
+package com.mygdx.game.terrain;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;

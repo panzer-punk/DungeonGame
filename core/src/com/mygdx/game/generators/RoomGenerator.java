@@ -44,6 +44,8 @@ public class RoomGenerator {
                 switch (rand){
                     case 1:
                     case 2:
+                        mp.addTile(terrainPack.getSand());
+                        break;
                     case 3:
                     case 4:
                     case 5:
@@ -55,6 +57,8 @@ public class RoomGenerator {
                         mp.addTile(terrainPack.getFloor_mid());
                         break;
                     case 9:
+                        mp.addTile(terrainPack.getWater());
+                        break;
                     case 10:
                         mp.addTile(terrainPack.getLava());
                 }

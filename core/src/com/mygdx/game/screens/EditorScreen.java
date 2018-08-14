@@ -39,7 +39,7 @@ public class EditorScreen implements Screen, InputProcessor {
     SpriteBatch batch;
     OrthographicCamera cam;
     FillViewport viewport;
-    TexturePack texturePack;
+   // TexturePack texturePack;
     final Matrix4 matrix = new Matrix4();
     final Plane xzPlane = new Plane(new Vector3(0,1,0), 0);
     final Vector3 intersection = new Vector3();
@@ -50,9 +50,9 @@ public class EditorScreen implements Screen, InputProcessor {
     GameObject lastSelectedObject = null;
     Terrain lastSelectedTerrain = null;
 
-    public EditorScreen(MyGdxGame gdxGame) {
+    public EditorScreen(MyGdxGame gdxGame, TexturePack texturePack) {
 
-        texturePack = new TexturePack();
+        //this.texturePack = texturePack;
         terrainPack = new TerrainPack(texturePack);
         gameObjectPack = new GameObjectPack(texturePack);
 
@@ -206,6 +206,7 @@ public class EditorScreen implements Screen, InputProcessor {
 
     @Override
     public void resize(int width, int height) {
+        viewport.update(width,height);
 
     }
 

@@ -1,6 +1,7 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -16,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.build.TexturePack;
 
 public class MainMenuScreen implements Screen, InputProcessor {
 
@@ -27,16 +29,16 @@ public class MainMenuScreen implements Screen, InputProcessor {
     private Table table;
     private Viewport viewport;
 
-    public MainMenuScreen(final MyGdxGame myGdxGame) {
+    public MainMenuScreen(final MyGdxGame myGdxGame, TexturePack texturePack) {
         this.myGdxGame = myGdxGame;
-        skin = new Skin(Gdx.files.internal("uiskin.json"));
+        skin = texturePack.getSkin();
         viewport = new FillViewport(Gdx.graphics.getWidth() * 1.5f, Gdx.graphics.getHeight(), new OrthographicCamera());
         stage = new Stage(viewport);
         table = new Table();
         table.top();
         table.setFillParent(true);
-        gameScreen = new GameScreen(myGdxGame);
-        editorScreen = new EditorScreen(myGdxGame);
+        gameScreen = new GameScreen(myGdxGame, texturePack, viewport.getScreenWidth(), viewport.getScreenHeight());
+        editorScreen = new EditorScreen(myGdxGame, texturePack);
         final TextButton playButton = new TextButton("Играть", skin, "default");
         final TextButton editorButton = new TextButton("Редактор", skin, "default");
         final TextButton exitButton = new TextButton("Выход", skin, "default");
@@ -45,7 +47,11 @@ public class MainMenuScreen implements Screen, InputProcessor {
             public void clicked(InputEvent event, float x, float y){
 
                 myGdxGame.setScreen(gameScreen);
-                Gdx.input.setInputProcessor(gameScreen);
+                InputMultiplexer inputMultiplexer = new InputMultiplexer();
+                inputMultiplexer.addProcessor(gameScreen);
+                inputMultiplexer.addProcessor(gameScreen.hud.stage);
+                Gdx.input.setInputProcessor(inputMultiplexer);
+
 
             }
         });

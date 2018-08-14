@@ -10,6 +10,10 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Plane;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Scene.HUD;
@@ -40,9 +44,11 @@ public class GameScreen implements Screen, InputProcessor {
     EnemyGenerator enemyGenerator;
     Door door;
     int turn;
+    int worldWidth;
+    int worldHeight;
     final Matrix4 matrix = new Matrix4();
     PriorityQueue queque;//sorted by initiative
-    Room room, genRoom;
+    Room room;
     GameObject enemy, enemy1, enemy2;
     GameObject current;
     GameObject player, wall;
@@ -57,17 +63,18 @@ public class GameScreen implements Screen, InputProcessor {
 
     MyGdxGame game;
 
-    public GameScreen(MyGdxGame game) {
+    public GameScreen(MyGdxGame game, TexturePack texturePack, int width, int height) {
         WeaponGenerator weaponGenerator = new WeaponGenerator();
         ArmorGenerator armorGenerator = new ArmorGenerator();
 
-        texturePack = new TexturePack();
+        this.texturePack = texturePack;
         roomGenerator = new RoomGenerator(texturePack);
 
+        worldWidth = 9 + Dice.d10();
+        worldHeight = 9 + Dice.d10();
 
 
-        genRoom = roomGenerator.generateRoom(10, 10);
-        room = genRoom;
+        room =  roomGenerator.generateRoom(worldWidth, worldHeight);
         turn = room.getTurn();
 
         //Код для теста
@@ -77,7 +84,7 @@ public class GameScreen implements Screen, InputProcessor {
         //
 
         enemyGenerator = new EnemyGenerator(texturePack);
-        door = new Door(texturePack.getDoor(), room, roomGenerator.generateRoom(10,10), this);
+        door = new Door(texturePack.getDoor(), room, roomGenerator.generateRoom(9 + Dice.d10(),9 + Dice.d10()), this);
 
         cam = new OrthographicCamera(10 * 1.3f, 10 *(Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()));
         cam.position.set(5,5,10);
@@ -89,7 +96,7 @@ public class GameScreen implements Screen, InputProcessor {
         viewport.apply(true);
 
         Sprite sprite = new Sprite(texturePack.getFloor_min());
-        sprite.setSize(1,1 * (Gdx.graphics.getWidth()/Gdx.graphics.getHeight()));
+        sprite.setSize(1,1 );
         Terrain terrain = new Terrain(2,"test", texturePack.getHole(), true);
         sprite = terrain.getSprite();
         sprite.setSize(1,1);
@@ -125,8 +132,7 @@ public class GameScreen implements Screen, InputProcessor {
 
         batch = new SpriteBatch();
         Gdx.input.setInputProcessor(this);
-        hud = new HUD(batch, cam.viewportWidth, cam.viewportHeight);
-
+        hud = new HUD(batch, this, texturePack.getSkin(), width, height, worldWidth, worldHeight);
         this.game = game;
 
     }
@@ -176,23 +182,29 @@ public class GameScreen implements Screen, InputProcessor {
 
         if(Gdx.input.justTouched()) {
 
+
+
             Ray pickRay = cam.getPickRay(Gdx.input.getX(), Gdx.input.getY());
             Intersector.intersectRayPlane(pickRay, xzPlane, intersection);
             int x = (int) intersection.x ;
             int z = (int) intersection.z;
             Sprite sprite;
 
-            if (x >= 0 && x < 10 && z >= 0 && z < 10) {
+            Printer.print("\n" + "L: " + room.getL() + " C: " + room.getC() + "\n"
+                    + "x: " + x + " y: "+ z + "\n"
+                    + "wW: " + worldWidth + " wH: "+ worldHeight + "\n");
+
+            if (x >= 0 && x <= worldWidth && z >= 0 && z <=worldHeight) {
                 if (lastSelectedTile != null)
                     lastSelectedTile.setColor(1, 1, 1, 1);
 
-                if (x >= 0 && z >= 0 && x < room.getC()&& z < room.getL()) {
+                if ((x >= 0 && z >= 0 )&& (x <= worldWidth && z <= worldHeight)) {
                     if (room.getObject(x, z) != null && room.getObject(x, z).getClass() != Entity.class) {
                         sprite = room.getObject(x, z).getSprite();
                         Printer.show(room.getObject(x,z));
                         hud.show(room.getObject(x,z));
 
-                        if(lastSelectedObject != null && lastSelectedObject != room.getObject(x,z) && lastSelectedObject.getMP() > 0 && lastSelectedObject == current){
+                        if(lastSelectedObject != null && lastSelectedObject != room.getObject(x,z) && lastSelectedObject.getMP() > 0 && lastSelectedObject == current && isInRange(lastSelectedObject, room.getObject(x,z))){
                             lastSelectedObject.makeStep(1000);//1000 чтобы закончить ход
                             lastSelectedObject.getWeapon().makeDamage(lastSelectedObject, room.getObject(x,z));
                             unselect();
@@ -228,6 +240,16 @@ public class GameScreen implements Screen, InputProcessor {
             update();
 
         }
+    }
+
+    private boolean isInRange(GameObject lastSelectedObject, GameObject object) {
+
+
+        if((double)(lastSelectedObject.getWeapon().getDistance()) < (Math.sqrt(Math.pow((object.getX() - lastSelectedObject.getX()),2) + Math.pow((object.getY() - lastSelectedObject.getY()),2))))
+        return false;
+        else
+            return true;
+
     }
 
     public void update(){
@@ -294,6 +316,7 @@ public class GameScreen implements Screen, InputProcessor {
                 current = null;
                 lastSelectedObject = null;
                 update();
+                checkTurnEnded();
                 break;
 
             case Input.Keys.A://использовать только для теста!
@@ -318,6 +341,8 @@ public class GameScreen implements Screen, InputProcessor {
     public void moveToRoom(){
 
         room = door.getNextRoom(room);
+        worldWidth = room.getL();
+        worldHeight = room.getC();
         turn = room.getTurn();
         queque = room.getInitiativeQueue();
         current = null;

@@ -30,6 +30,18 @@ public class TerrainPack {
 
     }
 
+   public Terrain getSand(){
+
+        return new Sand(texturePack.getSand());
+
+   }
+
+   public Terrain getWater(){
+
+       return new Water(texturePack.getWater());
+
+   }
+
     public Terrain getById(int id){
 
         Terrain t = null;
@@ -46,6 +58,13 @@ public class TerrainPack {
 
             case 3:
                 t = getLava();
+                break;
+
+            case 4:
+                t = getSand();
+                break;
+            case 5:
+                t = getWater();
                 break;
 
 

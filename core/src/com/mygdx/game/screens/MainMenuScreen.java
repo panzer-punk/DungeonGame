@@ -30,7 +30,7 @@ public class MainMenuScreen implements Screen, InputProcessor {
     public MainMenuScreen(final MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
         skin = new Skin(Gdx.files.internal("uiskin.json"));
-        viewport = new ScreenViewport();
+        viewport = new FillViewport(Gdx.graphics.getWidth() * 1.5f, Gdx.graphics.getHeight(), new OrthographicCamera());
         stage = new Stage(viewport);
         table = new Table();
         table.top();
@@ -130,6 +130,8 @@ public class MainMenuScreen implements Screen, InputProcessor {
 
     @Override
     public void resize(int width, int height) {
+
+        viewport.update(width, height);
 
     }
 

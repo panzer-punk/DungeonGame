@@ -52,7 +52,7 @@ public class PathFinder {
 
     private static void draw(int mp, int x, int z, GameObject[][] map, Terrain[][] tileMap, SpriteBatch batch, int testP){
         //up
-        if(mp >= 0 && x <= c && z <= l ){
+        if(mp >= 0 && (x <= c && z <= l) ){
 
             int mMP = mp;
             Terrain t;

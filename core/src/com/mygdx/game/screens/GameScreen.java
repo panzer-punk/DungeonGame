@@ -28,6 +28,8 @@ import com.mygdx.game.objects.Entity;
 import com.mygdx.game.playable.Hero;
 import com.mygdx.game.playable.Spider;
 import com.mygdx.game.tools.*;
+import com.mygdx.game.weaponry.rangeweapon.Arrow;
+import com.mygdx.game.weaponry.rangeweapon.Bow;
 
 public class GameScreen implements Screen, InputProcessor {
     SpriteBatch batch;
@@ -103,10 +105,12 @@ public class GameScreen implements Screen, InputProcessor {
         //enemy2 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon(), buffPool);
 
         sprite = new Sprite(texturePack.getPlayer());
+        Bow bow = new Bow();
+        bow.setShell(new Arrow(10, bow));
         player = new Hero("Donny", 10000, 10,sprite,5, 1,
                 0, 10, 16, 14,
                 0, Classification.Playable);
-        player.equipWeapon(weaponGenerator.createWeapon());
+        player.equipWeapon(bow);
         player.equipArmor(armorGenerator.createArmor());
 
         sprite = new Sprite(texturePack.getWall_1());

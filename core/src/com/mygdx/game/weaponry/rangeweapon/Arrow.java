@@ -13,7 +13,7 @@ public class Arrow extends Shell {
 
         if(amount > 0) {
             amount--;
-            System.out.println(getLabel() + " has " + amount + " rounds");
+            System.out.println(bow.getLabel() + " has " + amount + " rounds");
             return Dice.d4() + bow.getDamage();
         }
         else {

@@ -12,16 +12,14 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.build.Location;
+import com.mygdx.game.generators.*;
 import com.mygdx.game.scene.HUD;
 import com.mygdx.game.build.Map;
 import com.mygdx.game.build.Room;
 import com.mygdx.game.terrain.Terrain;
 import com.mygdx.game.build.TexturePack;
 import com.mygdx.game.enumerations.Classification;
-import com.mygdx.game.generators.ArmorGenerator;
-import com.mygdx.game.generators.EnemyGenerator;
-import com.mygdx.game.generators.RoomGenerator;
-import com.mygdx.game.generators.WeaponGenerator;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.objects.Door;
 import com.mygdx.game.objects.Entity;
@@ -45,6 +43,8 @@ public class GameScreen implements Screen, InputProcessor {
     final Matrix4 matrix = new Matrix4();
     PriorityQueue queque;//sorted by initiative
     Room room, genRoom;
+    Location location;
+    LocationGenerator locationGenerator;
     GameObject enemy, enemy1, enemy2;
     GameObject current;
     GameObject player, wall;
@@ -64,12 +64,13 @@ public class GameScreen implements Screen, InputProcessor {
         ArmorGenerator armorGenerator = new ArmorGenerator();
 
         texturePack = new TexturePack();
-        roomGenerator = new RoomGenerator(texturePack);
+       // roomGenerator = new RoomGenerator(texturePack);
+        locationGenerator = new LocationGenerator(texturePack, this);
+        location = locationGenerator.generate(5);
 
 
-
-        genRoom = roomGenerator.generateRoom(10, 10);
-        room = genRoom;
+       // genRoom = roomGenerator.generateRoom(10, 10);
+        room = location.getMainRoom();
         turn = room.getTurn();
 
         //Код для теста
@@ -79,7 +80,7 @@ public class GameScreen implements Screen, InputProcessor {
         //
 
         enemyGenerator = new EnemyGenerator(texturePack);
-        door = new Door(texturePack.getDoor(), room, roomGenerator.generateRoom(10,10), this);
+       // door = new Door(texturePack.getDoor(), room, roomGenerator.generateRoom(10,10), this);
 
         cam = new OrthographicCamera(10 * 1.3f, 10 *(Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()));
         cam.position.set(5,5,10);
@@ -301,7 +302,7 @@ public class GameScreen implements Screen, InputProcessor {
                 break;
 
             case Input.Keys.A://использовать только для теста!
-               moveToRoom();
+            //   moveToRoom();
                 break;
             case Input.Keys.K:
                 queque.display();
@@ -319,7 +320,7 @@ public class GameScreen implements Screen, InputProcessor {
         return false;
     }
 
-    public void moveToRoom(){
+    public void moveToRoom(Door door){
 
         room = door.getNextRoom(room);
         turn = room.getTurn();

@@ -1,10 +1,14 @@
-package com.mygdx.game.weaponry;
+package com.mygdx.game.weaponry.meleeweapon;
 
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.tools.BuffPool;
 import com.mygdx.game.tools.Dice;
 import com.mygdx.game.tools.Printer;
+import com.mygdx.game.weaponry.buffs.Buff;
+import com.mygdx.game.weaponry.poisons.Poison;
+import com.mygdx.game.weaponry.poisons.SpiderPoison;
+import com.mygdx.game.weaponry.WeaponryStuff;
 
 public class SpiderBite extends WeaponryStuff {
     private Poison poison;

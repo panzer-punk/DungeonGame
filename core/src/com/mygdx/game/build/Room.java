@@ -4,9 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.tools.*;
-import com.mygdx.game.weaponry.Buff;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 

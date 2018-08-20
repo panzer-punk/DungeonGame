@@ -1,6 +1,6 @@
 package com.mygdx.game.tools;
 
-import com.mygdx.game.weaponry.Buff;
+import com.mygdx.game.weaponry.buffs.Buff;
 
 import java.util.Iterator;
 import java.util.LinkedList;

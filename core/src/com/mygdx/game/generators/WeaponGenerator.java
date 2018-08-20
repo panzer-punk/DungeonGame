@@ -1,15 +1,15 @@
 package com.mygdx.game.generators;
 
 
-import com.mygdx.game.weaponry.Club;
-import com.mygdx.game.weaponry.IronClub;
-import com.mygdx.game.weaponry.IronSword;
+import com.mygdx.game.weaponry.meleeweapon.Club;
+import com.mygdx.game.weaponry.meleeweapon.IronClub;
+import com.mygdx.game.weaponry.meleeweapon.IronSword;
 
 
-import com.mygdx.game.weaponry.Spear;
+import com.mygdx.game.weaponry.meleeweapon.Spear;
 import com.mygdx.game.interfaces.Weapon;
 
-import com.mygdx.game.weaponry.WoodenSword;
+import com.mygdx.game.weaponry.meleeweapon.WoodenSword;
 
 /**
  * Created by Даниил on 11.09.2017.

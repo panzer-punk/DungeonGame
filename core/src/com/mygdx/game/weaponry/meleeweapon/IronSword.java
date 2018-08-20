@@ -1,9 +1,10 @@
-package com.mygdx.game.weaponry;
+package com.mygdx.game.weaponry.meleeweapon;
 
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Weapon;
 import com.mygdx.game.tools.BuffPool;
 import com.mygdx.game.tools.Dice;
+import com.mygdx.game.weaponry.WeaponryStuff;
 
 /**
  * Created by Даниил on 09.09.2017.

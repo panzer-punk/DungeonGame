@@ -9,8 +9,7 @@ import com.mygdx.game.interfaces.Weapon;
 import com.mygdx.game.playable.Orc;
 import com.mygdx.game.playable.Skeleton;
 import com.mygdx.game.playable.Spider;
-import com.mygdx.game.tools.BuffPool;
-import com.mygdx.game.weaponry.SpiderBite;
+import com.mygdx.game.weaponry.meleeweapon.SpiderBite;
 
 /**
  * Created by Даниил on 11.09.2017.

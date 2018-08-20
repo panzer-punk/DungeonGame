@@ -1,6 +1,7 @@
-package com.mygdx.game.weaponry;
+package com.mygdx.game.weaponry.poisons;
 
 import com.mygdx.game.tools.Dice;
+import com.mygdx.game.weaponry.WeaponryStuff;
 
 public abstract class Poison extends WeaponryStuff {
 

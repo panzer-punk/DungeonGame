@@ -10,7 +10,7 @@ import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Item;
 import com.mygdx.game.interfaces.Weapon;
 import com.mygdx.game.tools.BuffPool;
-import com.mygdx.game.weaponry.Buff;
+import com.mygdx.game.weaponry.buffs.Buff;
 
 /**
  * Created by Даниил on 15.07.2018.

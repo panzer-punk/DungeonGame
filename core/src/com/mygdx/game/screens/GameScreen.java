@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Scene.HUD;
+import com.mygdx.game.scene.HUD;
 import com.mygdx.game.build.Map;
 import com.mygdx.game.build.Room;
 import com.mygdx.game.terrain.Terrain;

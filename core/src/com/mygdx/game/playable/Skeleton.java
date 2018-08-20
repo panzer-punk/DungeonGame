@@ -5,7 +5,7 @@ import com.mygdx.game.armor.LeatherArmor;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Weapon;
-import com.mygdx.game.weaponry.IronSword;
+import com.mygdx.game.weaponry.meleeweapon.IronSword;
 
 public class Skeleton extends Doll {
     public Skeleton(String name, int hp, int capacity, Sprite sprite, int movementsPoints, int level, int experience, int strength, int dexterity, int constitution, int initiativebonus, Classification classification) {

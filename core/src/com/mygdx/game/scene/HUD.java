@@ -1,4 +1,4 @@
-package com.mygdx.game.Scene;
+package com.mygdx.game.scene;
 
 
 import com.badlogic.gdx.Gdx;
@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.interfaces.GameObject;
 

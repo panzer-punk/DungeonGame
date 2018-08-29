@@ -9,26 +9,30 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.build.Room;
+import com.mygdx.game.interfaces.Armor;
 import com.mygdx.game.interfaces.GameObject;
+import com.mygdx.game.interfaces.Item;
+import com.mygdx.game.interfaces.Weapon;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.tools.Printer;
 
-import java.awt.event.ActionListener;
+
+
 
 public class HUD {
     public Stage stage;
     private Viewport viewPort;
     public TextButton endTurnButton;
     private OrthographicCamera camera;
+   private TextArea printer;
 
     Label health;
     Label movementPoints;
@@ -49,15 +53,28 @@ public class HUD {
         table.top();
         table.setFillParent(true);
 
-        final TextButton endTurnButton = new TextButton("Конец хода",skin, "default" );
+        printer = new TextArea("",skin);
+        printer.setDisabled(true);
+        printer.setHeight(50);
+        final ScrollPane scrollPane = new ScrollPane(null, skin);
+       // scrollPane.setForceScroll(false, true);
+        scrollPane.setScrollingDisabled(true, false);
+       // scrollPane.setFlickScroll(false);
+        scrollPane.setOverscroll(false, true);
+        //scrollPane.setFadeScrollBars(false);
+        scrollPane.setWidget(printer);
+        scrollPane.getColor().a = 70;
+        scrollPane.setHeight(50);
+
+
+        final TextButton endTurnButton = new TextButton("End turn",skin, "default" );
         endTurnButton.bottom();
         endTurnButton.right();
         endTurnButton.setFillParent(false);
         endTurnButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-
-                Printer.print("Clicked");
+                
 
                 gameScreen.keyUp(Input.Keys.ENTER);
 
@@ -81,6 +98,7 @@ public class HUD {
         table.add(turn).expandX();
         table.row().fillX().expandY().fillY();
         table.add(endTurnButton).expand(true,true).bottom().left().fill(false,false);
+        table.add(scrollPane).expandX().bottom().right().size(250,125);
         stage.addActor(table);
 
     }
@@ -108,5 +126,13 @@ public class HUD {
 
 
     }
+
+
+    public void print(String message){
+
+        printer.appendText(message+"\n");
+
+    }
+
 
 }

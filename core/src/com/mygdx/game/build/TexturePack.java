@@ -18,7 +18,7 @@ public class TexturePack {
     public TexturePack(TextureAtlas textureAtlas){
 
         textures = textureAtlas;
-        skin = new Skin(Gdx.files.internal("uiskin.json"));
+        skin = new Skin(Gdx.files.internal("rusty-robot-ui.json"));
 
     }
 
@@ -38,7 +38,7 @@ public class TexturePack {
         sand2 = new Texture(Gdx.files.internal("sand2.png"));
         water = new Texture(Gdx.files.internal("water.png"));
         water1 = new Texture(Gdx.files.internal("water1.png"));
-        skin = new Skin(Gdx.files.internal("uiskin.json"));
+        skin = new Skin(Gdx.files.internal("rusty-robot-ui.json"));
     }
 
     //Terrain

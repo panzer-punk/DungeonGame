@@ -1,5 +1,6 @@
 package com.mygdx.game.tools;
 
+import com.mygdx.game.Scene.HUD;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.objects.Entity;
 import com.mygdx.game.build.Room;
@@ -13,43 +14,46 @@ import com.mygdx.game.interfaces.Weapon;
  */
 public class Printer {//debug class
 
+    static HUD hud = null;
+
     public static void show(GameObject gameObject){
 
-        if(gameObject.getClass() == Entity.class || gameObject.getClassification() == Classification.OBJECT)
+        if(gameObject.getClass() == Entity.class || gameObject.getClassification() == Classification.OBJECT) {
             System.out.println(gameObject.getName() + "\n X;Y: " + gameObject.getX() + ";" + gameObject.getY());
-        else
-        System.out.println(gameObject.getName() + ": " + gameObject.getHP() +
-                "\n Armor: " + gameObject.getArmor().getArmor() + " AC" + gameObject.getArmorClass() +
-                "\n Weapon: " + gameObject.getWeapon().getLabel()+
-                "\n MP: " + gameObject.getMP()+
-                "\n STR: " + gameObject.getSTR() + " DEX: " + gameObject.getDEX() + " CON: " + gameObject.getCON() +
-                "\n X;Y: " + gameObject.getX() + ";" + gameObject.getY() +
-                "\n In: "+ gameObject.getInitiative());
+        }
+        else {
+            System.out.println(gameObject.getName() + ": " + gameObject.getHP() +
+                    "\n Armor: " + gameObject.getArmor().getArmor() + " AC" + gameObject.getArmorClass() +
+                    "\n Weapon: " + gameObject.getWeapon().getLabel() +
+                    "\n MP: " + gameObject.getMP() +
+                    "\n STR: " + gameObject.getSTR() + " DEX: " + gameObject.getDEX() + " CON: " + gameObject.getCON() +
+                    "\n X;Y: " + gameObject.getX() + ";" + gameObject.getY() +
+                    "\n In: " + gameObject.getInitiative());
+        }
 
     }
 
     public static void show(Item item){
 
-        item.show();
+      //  item.show();
 
     }
 
     public static void show(Armor armor){
-
-        armor.show();
+//   armor.show();
 
     }
 
     public static void show(Weapon weapon){
 
-        weapon.show();
+     //   weapon.show();
 
     }
 
     public static void show(Item item[]){
 
-        for(Item singleItem : item )
-            singleItem.show();
+     //   for(Item singleItem : item )
+       //     singleItem.show();
 
     }
 
@@ -60,13 +64,13 @@ public class Printer {//debug class
         GameObject gameObject[][] = room.getMap();
 
         for (int l = 0; l < room.getL(); l++){
-            print("\n");
+           // print("\n");
             for(int c = 0; c < room.getC(); c++){
 
-                if(gameObject[l][c] != null)
-                    print(/*l+";"+ c + ": " + */" " + gameObject[l][c].getName().charAt(0));
-                else
-                    print(/*l+";"+ c + */" x");
+             //   if(gameObject[l][c] != null)
+               //     print(/*l+";"+ c + ": " + */" " + gameObject[l][c].getName().charAt(0));
+              //  else
+              //      print(/*l+";"+ c + */" x");
             }
 
           /*  if(gameObject[i] != null)
@@ -82,6 +86,13 @@ public class Printer {//debug class
     public static void print(String message){
 
         System.out.print(message);
+        hud.print(message);
+
+    }
+
+    public static void setHud(HUD h){
+
+        hud = h;
 
     }
 

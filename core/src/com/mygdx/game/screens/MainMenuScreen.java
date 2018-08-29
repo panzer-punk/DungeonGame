@@ -39,9 +39,9 @@ public class MainMenuScreen implements Screen, InputProcessor {
         table.setFillParent(true);
         gameScreen = new GameScreen(myGdxGame, texturePack, viewport.getScreenWidth(), viewport.getScreenHeight());
         editorScreen = new EditorScreen(myGdxGame, texturePack);
-        final TextButton playButton = new TextButton("Играть", skin, "default");
-        final TextButton editorButton = new TextButton("Редактор", skin, "default");
-        final TextButton exitButton = new TextButton("Выход", skin, "default");
+        final TextButton playButton = new TextButton("Play", skin, "default");
+        final TextButton editorButton = new TextButton("Editor", skin, "default");
+        final TextButton exitButton = new TextButton("Exit", skin, "default");
         playButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){

@@ -10,6 +10,7 @@ import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Item;
 import com.mygdx.game.interfaces.Weapon;
 import com.mygdx.game.tools.BuffPool;
+import com.mygdx.game.tools.Printer;
 import com.mygdx.game.weaponry.Buff;
 
 /**
@@ -227,7 +228,7 @@ public abstract class Doll implements GameObject {
 
         hp -= d;
 
-        System.out.println(this.getName() + " took " + d + " damage" + " from " + weapon.getLabel());
+       Printer.print(this.getName() + " took " + d + " damage" + " from " + weapon.getLabel());
 
 
     }

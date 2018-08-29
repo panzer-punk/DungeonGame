@@ -15,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Scene.HUD;
 import com.mygdx.game.build.Map;
@@ -38,7 +40,7 @@ public class GameScreen implements Screen, InputProcessor {
     OrthographicCamera cam;
     HUD hud;
     TestTrigger trigger;
-    FillViewport viewport;
+    Viewport viewport;
     TexturePack texturePack;
     RoomGenerator roomGenerator;
     EnemyGenerator enemyGenerator;
@@ -67,6 +69,8 @@ public class GameScreen implements Screen, InputProcessor {
         WeaponGenerator weaponGenerator = new WeaponGenerator();
         ArmorGenerator armorGenerator = new ArmorGenerator();
 
+        batch = new SpriteBatch();
+
         this.texturePack = texturePack;
         roomGenerator = new RoomGenerator(texturePack);
 
@@ -92,7 +96,7 @@ public class GameScreen implements Screen, InputProcessor {
         cam.near = 1;
         cam.far = 500;
         matrix.setToRotation(new Vector3(1,0,0), 90);
-        viewport = new FillViewport(cam.viewportWidth,cam.viewportHeight,cam);
+        viewport = new ScreenViewport();
         viewport.apply(true);
 
         Sprite sprite = new Sprite(texturePack.getFloor_min());
@@ -127,12 +131,15 @@ public class GameScreen implements Screen, InputProcessor {
         room.setObject(player);
         room.setObject(door);
         queque = room.getInitiativeQueue();
-        queque.display();
+
+        hud = new HUD(batch, this, texturePack.getSkin(), width, height, worldWidth, worldHeight);
+        Printer.setHud(hud);
+
+      //  queque.display();
         Printer.show(room);
 
-        batch = new SpriteBatch();
+
         Gdx.input.setInputProcessor(this);
-        hud = new HUD(batch, this, texturePack.getSkin(), width, height, worldWidth, worldHeight);
         this.game = game;
 
     }
@@ -152,10 +159,12 @@ public class GameScreen implements Screen, InputProcessor {
         batch.setTransformMatrix(matrix);
 
         batch.begin();
+        viewport.apply();
         room.drawMap(batch);
         room.drawObjects(batch);
         batch.end();
-        batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        //batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.getViewport().apply();
         hud.stage.draw();
 
 
@@ -190,15 +199,15 @@ public class GameScreen implements Screen, InputProcessor {
             int z = (int) intersection.z;
             Sprite sprite;
 
-            Printer.print("\n" + "L: " + room.getL() + " C: " + room.getC() + "\n"
+          /*  Printer.print("\n" + "L: " + room.getL() + " C: " + room.getC() + "\n"
                     + "x: " + x + " y: "+ z + "\n"
-                    + "wW: " + worldWidth + " wH: "+ worldHeight + "\n");
+                    + "wW: " + worldWidth + " wH: "+ worldHeight + "\n");*/
 
             if (x >= 0 && x <= worldWidth && z >= 0 && z <=worldHeight) {
                 if (lastSelectedTile != null)
                     lastSelectedTile.setColor(1, 1, 1, 1);
 
-                if ((x >= 0 && z >= 0 )&& (x <= worldWidth && z <= worldHeight)) {
+                if ((x >= 0 && z >= 0 )&& (x < worldWidth && z < worldHeight)) {
                     if (room.getObject(x, z) != null && room.getObject(x, z).getClass() != Entity.class) {
                         sprite = room.getObject(x, z).getSprite();
                         Printer.show(room.getObject(x,z));
@@ -226,7 +235,7 @@ public class GameScreen implements Screen, InputProcessor {
                             }
                         }
 
-                        Printer.print("" + map.getTiles()[x][z].getMovementCost()+"\n"  + map.getTiles()[x][z].getMovementPrice() + "\n");
+                      //  Printer.print("" + map.getTiles()[x][z].getMovementCost()+"\n"  + map.getTiles()[x][z].getMovementPrice() + "\n");
                     }if(sprite != null) {
                         sprite.setColor(1,1,5,25);
                         lastSelectedTile = sprite;
@@ -323,7 +332,7 @@ public class GameScreen implements Screen, InputProcessor {
                moveToRoom();
                 break;
             case Input.Keys.K:
-                queque.display();
+               // queque.display();
                 break;
             case Input.Keys.C:
                 Printer.show(current);

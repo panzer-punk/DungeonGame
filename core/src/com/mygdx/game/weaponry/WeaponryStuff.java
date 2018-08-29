@@ -3,6 +3,7 @@ package com.mygdx.game.weaponry;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Weapon;
 import com.mygdx.game.tools.Dice;
+import com.mygdx.game.tools.Printer;
 
 /**
  * Created by Даниил on 15.07.2018.
@@ -34,7 +35,7 @@ public abstract class WeaponryStuff implements Weapon {
         if((dealer.getSTR() + Dice.d20()) >= gainer.getArmorClass()) {
             gainer.takeDamage(dealer);
         }else
-            System.out.println("Miss");
+           Printer.print("Miss");
 
     }
 

@@ -5,6 +5,7 @@ import com.mygdx.game.armor.LeatherArmor;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Weapon;
+import com.mygdx.game.tools.Printer;
 import com.mygdx.game.weaponry.IronSword;
 
 public class Skeleton extends Doll {
@@ -37,7 +38,7 @@ public class Skeleton extends Doll {
         if(d > 0)
             hp -= d;
 
-        System.out.println(this.getName() + " took " + d + " damage");
+        Printer.print(this.getName() + " took " + d + " damage");
 
     }
 }

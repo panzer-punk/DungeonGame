@@ -74,8 +74,8 @@ public class GameScreen implements Screen, InputProcessor {
         this.texturePack = texturePack;
         roomGenerator = new RoomGenerator(texturePack);
 
-        worldWidth = 9 + Dice.d10();
-        worldHeight = 9 + Dice.d10();
+        worldWidth = 5 + Dice.d10();
+        worldHeight = 5 + Dice.d10();
 
 
         room =  roomGenerator.generateRoom(worldWidth, worldHeight);
@@ -207,7 +207,8 @@ public class GameScreen implements Screen, InputProcessor {
                 if (lastSelectedTile != null)
                     lastSelectedTile.setColor(1, 1, 1, 1);
 
-                if ((x >= 0 && z >= 0 )&& (x < worldWidth && z < worldHeight)) {
+
+                if ((x >= 0 && z >= 0 )&& (x <= room.getL() - 1 && z <= room.getC() - 1)) {
                     if (room.getObject(x, z) != null && room.getObject(x, z).getClass() != Entity.class) {
                         sprite = room.getObject(x, z).getSprite();
                         Printer.show(room.getObject(x,z));

@@ -74,7 +74,7 @@ public class HUD {
         endTurnButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                
+
 
                 gameScreen.keyUp(Input.Keys.ENTER);
 

@@ -107,9 +107,9 @@ public class HUD {
         name = new Label("Name", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         turn = new Label("turn", new Label.LabelStyle(new BitmapFont(), Color.TAN));*/
 
-        table.add(currentSprite).padTop(3).padRight(5);
+        table.add(currentSprite).padTop(3).padRight(2);
         table.add(health).padTop(3).left().bottom();
-        table.add(statusButton).expandX();
+        table.add(statusButton).expandX().right();
         table.row();
         table.add(movementPoints).expandX();
         table.add().expandX();
@@ -118,6 +118,7 @@ public class HUD {
         table.add().expandX();
         table.row().fillX().expandY().fillY();
         table.add(endTurnButton).expand(true,true).bottom().left().fill(false,false);
+        table.add().expandX();
         table.add(scrollPane).expandX().bottom().right().size(viewPort.getScreenWidth() * 0.375f,viewPort.getScreenHeight() * 0.25f);
         stage.addActor(table);
 

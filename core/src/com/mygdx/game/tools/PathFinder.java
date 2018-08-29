@@ -22,7 +22,7 @@ public class PathFinder {
         reset = movementPoints;
         c = col;
         l = lin;
-        Printer.print("PTF " + l + " "+ c);
+      //  Printer.print("PTF " + l + " "+ c);
         GameObject[][] map = room.getMap();
         Terrain[][] tileMap = room.getTileMap().getTiles();
 

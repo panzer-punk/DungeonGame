@@ -176,13 +176,14 @@ public class GameScreen implements Screen, InputProcessor {
 
     private void checkTurnEnded() {
         if(!queque.isEmpty() && (current == null || current.getMP() <= 0 || current.getHP() <= 0)) {
-           hud.showTurn(turn);
             current = queque.remove();
+            hud.showCurrent(current);
         }else if (queque.isEmpty()){
             room.resetMp();
             queque.insert(room.getPlayableObjects());
             turn++;
             room.setTurn(turn);
+            hud.showTurn(turn);
          
         }
     }
@@ -199,9 +200,9 @@ public class GameScreen implements Screen, InputProcessor {
             int z = (int) intersection.z;
             Sprite sprite;
 
-            Printer.print("\n" + "L: " + room.getL() + " C: " + room.getC() + "\n"
+           /* Printer.print("\n" + "L: " + room.getL() + " C: " + room.getC() + "\n"
                     + "x: " + x + " y: "+ z + "\n"
-                    + "wW: " + worldWidth + " wH: "+ worldHeight + "\n");
+                    + "wW: " + worldWidth + " wH: "+ worldHeight + "\n");*/
 
             if (x >= 0 && x <= room.getL() && z >= 0 && z <= room.getC()) {
                 if (lastSelectedTile != null)

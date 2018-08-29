@@ -3,6 +3,7 @@ package com.mygdx.game.build;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.tools.Dice;
 
@@ -13,6 +14,7 @@ public class TexturePack {
 
     TextureAtlas textures;
     private Texture wall, floor, floor1, hole, player, orc, skeleton, spider, door, sand, sand1, sand2, water, water1;
+    private Image inventory;
     private Skin skin;
 
     public TexturePack(TextureAtlas textureAtlas){
@@ -38,6 +40,7 @@ public class TexturePack {
         sand2 = new Texture(Gdx.files.internal("sand2.png"));
         water = new Texture(Gdx.files.internal("water.png"));
         water1 = new Texture(Gdx.files.internal("water1.png"));
+        inventory = new Image(new Texture(Gdx.files.internal("inventoryicon.png")));
         skin = new Skin(Gdx.files.internal("rusty-robot-ui.json"));
     }
 
@@ -99,5 +102,7 @@ public class TexturePack {
     public Texture getSpider(){return spider;}
     //Player (debug)
     public Texture getPlayer(){return player;}
+    //Icons
+    public Image getInventoryIcon(){return inventory;}
 
 }

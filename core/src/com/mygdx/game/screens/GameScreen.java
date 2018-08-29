@@ -199,11 +199,11 @@ public class GameScreen implements Screen, InputProcessor {
             int z = (int) intersection.z;
             Sprite sprite;
 
-          /*  Printer.print("\n" + "L: " + room.getL() + " C: " + room.getC() + "\n"
+            Printer.print("\n" + "L: " + room.getL() + " C: " + room.getC() + "\n"
                     + "x: " + x + " y: "+ z + "\n"
-                    + "wW: " + worldWidth + " wH: "+ worldHeight + "\n");*/
+                    + "wW: " + worldWidth + " wH: "+ worldHeight + "\n");
 
-            if (x >= 0 && x <= worldWidth && z >= 0 && z <=worldHeight) {
+            if (x >= 0 && x <= room.getL() && z >= 0 && z <= room.getC()) {
                 if (lastSelectedTile != null)
                     lastSelectedTile.setColor(1, 1, 1, 1);
 
@@ -223,7 +223,7 @@ public class GameScreen implements Screen, InputProcessor {
                             if(room.getObject(x, z) == current) {
                                 lastSelectedObject = room.getObject(x, z);
                                 lastSelectedObject.getBuffPool().use();
-                                PathFinder.drawWays(batch, room, x, z);
+                                PathFinder.drawWays(batch, room, x, z, room.getL(), room.getC());
                             }
                         }
                     } else {

@@ -15,13 +15,14 @@ public class PathFinder {
     static int reset;
     static int c, l;
 
-    public static void drawWays(SpriteBatch batch, Room room, int x, int z ){
+    public static void drawWays(SpriteBatch batch, Room room, int x, int z , int lin, int col){
 
         GameObject gameObject = room.getObject(x,z);
         int movementPoints = gameObject.getMP();
         reset = movementPoints;
-        c = room.getC();
-        l = room.getL();
+        c = col;
+        l = lin;
+        Printer.print("PTF " + l + " "+ c);
         GameObject[][] map = room.getMap();
         Terrain[][] tileMap = room.getTileMap().getTiles();
 
@@ -52,7 +53,7 @@ public class PathFinder {
 
     private static void draw(int mp, int x, int z, GameObject[][] map, Terrain[][] tileMap, SpriteBatch batch, int testP){
         //up
-        if(mp >= 0 && (x <= c && z <= l) ){
+        if(mp >= 0 && (x <= l && z <= c) ){
 
             int mMP = mp;
             Terrain t;
@@ -142,10 +143,12 @@ public class PathFinder {
     //test method
     static void countMove(GameObject gameObject, Room room,int x, int y){
 
+    }
 
+    public static void updateRoom(Room r){
 
-
-
+        c = r.getC();
+        l = r.getL();
 
     }
 

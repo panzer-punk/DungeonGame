@@ -43,7 +43,7 @@ public class Door extends Entity {
        GameObject temp = r1.remove(gameObject.getX(), gameObject.getY());
        r2.setObject(temp);
        changeRoom();
-       gameScreen.moveToRoom();
+       gameScreen.moveToRoom(this);
 
 
     }

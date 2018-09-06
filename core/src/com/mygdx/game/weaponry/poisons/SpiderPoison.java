@@ -1,4 +1,4 @@
-package com.mygdx.game.weaponry;
+package com.mygdx.game.weaponry.poisons;
 
 import com.mygdx.game.tools.Dice;
 

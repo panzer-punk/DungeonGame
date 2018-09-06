@@ -18,22 +18,22 @@ import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Scene.HUD;
+import com.mygdx.game.build.Location;
+import com.mygdx.game.generators.*;
+import com.mygdx.game.scene.HUD;
 import com.mygdx.game.build.Map;
 import com.mygdx.game.build.Room;
 import com.mygdx.game.terrain.Terrain;
 import com.mygdx.game.build.TexturePack;
 import com.mygdx.game.enumerations.Classification;
-import com.mygdx.game.generators.ArmorGenerator;
-import com.mygdx.game.generators.EnemyGenerator;
-import com.mygdx.game.generators.RoomGenerator;
-import com.mygdx.game.generators.WeaponGenerator;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.objects.Door;
 import com.mygdx.game.objects.Entity;
 import com.mygdx.game.playable.Hero;
 import com.mygdx.game.playable.Spider;
 import com.mygdx.game.tools.*;
+import com.mygdx.game.weaponry.rangeweapon.Arrow;
+import com.mygdx.game.weaponry.rangeweapon.Bow;
 
 public class GameScreen implements Screen, InputProcessor {
     SpriteBatch batch;
@@ -51,6 +51,8 @@ public class GameScreen implements Screen, InputProcessor {
     final Matrix4 matrix = new Matrix4();
     PriorityQueue queque;//sorted by initiative
     Room room;
+    Location location;
+    LocationGenerator locationGenerator;
     GameObject enemy, enemy1, enemy2;
     GameObject current;
     GameObject player, wall;
@@ -69,16 +71,20 @@ public class GameScreen implements Screen, InputProcessor {
         WeaponGenerator weaponGenerator = new WeaponGenerator();
         ArmorGenerator armorGenerator = new ArmorGenerator();
 
-        batch = new SpriteBatch();
 
+        batch = new SpriteBatch();
         this.texturePack = texturePack;
-        roomGenerator = new RoomGenerator(texturePack);
+       // roomGenerator = new RoomGenerator(texturePack);
+        locationGenerator = new LocationGenerator(texturePack, this);
+        location = locationGenerator.generate(5);
 
         worldWidth = 5 + Dice.d10();
         worldHeight = 5 + Dice.d10();
 
 
-        room =  roomGenerator.generateRoom(worldWidth, worldHeight);
+       // room =  roomGenerator.generateRoom(worldWidth, worldHeight);
+       // genRoom = roomGenerator.generateRoom(10, 10);
+        room = location.getMainRoom();
         turn = room.getTurn();
 
         //Код для теста
@@ -88,7 +94,7 @@ public class GameScreen implements Screen, InputProcessor {
         //
 
         enemyGenerator = new EnemyGenerator(texturePack);
-        door = new Door(texturePack.getDoor(), room, roomGenerator.generateRoom(9 + Dice.d10(),9 + Dice.d10()), this);
+       // door = new Door(texturePack.getDoor(), room, roomGenerator.generateRoom(10,10), this);
 
         cam = new OrthographicCamera(10 * 1.3f, 10 *(Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()));
         cam.position.set(5,5,10);
@@ -112,10 +118,12 @@ public class GameScreen implements Screen, InputProcessor {
         //enemy2 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon(), buffPool);
 
         sprite = new Sprite(texturePack.getPlayer());
+        Bow bow = new Bow();
+        bow.setShell(new Arrow(10, bow));
         player = new Hero("Donny", 10000, 10,sprite,5, 1,
                 0, 10, 16, 14,
                 0, Classification.Playable);
-        player.equipWeapon(weaponGenerator.createWeapon());
+        player.equipWeapon(bow);
         player.equipArmor(armorGenerator.createArmor());
 
         sprite = new Sprite(texturePack.getWall_1());
@@ -335,7 +343,7 @@ public class GameScreen implements Screen, InputProcessor {
                 break;
 
             case Input.Keys.A://использовать только для теста!
-               moveToRoom();
+            //   moveToRoom();
                 break;
             case Input.Keys.K:
                // queque.display();
@@ -353,7 +361,7 @@ public class GameScreen implements Screen, InputProcessor {
         return false;
     }
 
-    public void moveToRoom(){
+    public void moveToRoom(Door door){
 
         room = door.getNextRoom(room);
         worldWidth = room.getL();

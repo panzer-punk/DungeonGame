@@ -1,17 +1,9 @@
 package com.mygdx.game.playable;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.armor.LeatherArmor;
 import com.mygdx.game.enumerations.Classification;
-import com.mygdx.game.enumerations.Direction;
-import com.mygdx.game.enumerations.Status;
-import com.mygdx.game.interfaces.Armor;
-import com.mygdx.game.interfaces.GameObject;
-import com.mygdx.game.interfaces.Item;
-import com.mygdx.game.interfaces.Weapon;
-import com.mygdx.game.tools.Dice;
-import com.mygdx.game.weaponry.Club;
+import com.mygdx.game.weaponry.meleeweapon.Club;
 
 /**
  * Created by Даниил on 09.09.2017.

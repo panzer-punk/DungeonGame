@@ -1,6 +1,6 @@
 package com.mygdx.game.tools;
 
-import com.mygdx.game.Scene.HUD;
+import com.mygdx.game.scene.HUD;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.objects.Entity;
 import com.mygdx.game.build.Room;

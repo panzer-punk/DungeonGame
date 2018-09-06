@@ -1,4 +1,4 @@
-package com.mygdx.game.Scene;
+package com.mygdx.game.scene;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;

@@ -6,7 +6,7 @@ import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.enumerations.Direction;
 import com.mygdx.game.enumerations.Status;
 import com.mygdx.game.tools.BuffPool;
-import com.mygdx.game.weaponry.Buff;
+import com.mygdx.game.weaponry.buffs.Buff;
 
 /**
  * Created by Даниил on 09.09.2017.

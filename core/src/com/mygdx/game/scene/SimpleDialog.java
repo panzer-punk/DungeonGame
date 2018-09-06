@@ -1,4 +1,4 @@
-package com.mygdx.game.Scene;
+package com.mygdx.game.scene;
 
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 

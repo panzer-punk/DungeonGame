@@ -4,16 +4,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.tools.*;
-import com.mygdx.game.weaponry.Buff;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
  * Created by Даниил on 11.04.2018.
  */
-public class Room {
+public class Room implements Serializable {
 
    private int capacity = 9;
    private Trigger[][] triggers;

@@ -1,4 +1,4 @@
-package com.mygdx.game.weaponry;
+package com.mygdx.game.weaponry.buffs;
 
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Weapon;

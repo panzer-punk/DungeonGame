@@ -27,6 +27,7 @@ import com.mygdx.game.screens.GameScreen;
 public class HUD {
     public Stage stage;
     private Viewport viewPort;
+    private CharacterInfoDialog characterInfoDialog;
     private Image currentSprite;
     public TextButton endTurnButton;
     private OrthographicCamera camera;
@@ -51,6 +52,8 @@ public class HUD {
         stage = new Stage(viewPort, batch);
 
 
+        characterInfoDialog = new CharacterInfoDialog(skin, stage);
+
         table = new Table();
         table.top();
         table.setFillParent(true);
@@ -70,10 +73,23 @@ public class HUD {
         scrollPane.getColor().a = 70;
         scrollPane.setHeight(50);
 
-        currentSprite = new Image(new Texture(Gdx.files.internal("Player.png")));
+        currentSprite = new Image(new Texture(Gdx.files.internal("player.png")));
         currentSprite.setSize(10,10);
 
 
+
+        final TextButton statusButton = new TextButton("Info", skin, "default");
+        statusButton.right();
+        statusButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+
+                characterInfoDialog.show(gameScreen.getCurrent());
+
+                //выводить окно диалога с инвентарём (как список) и статами персонажа, который под контролем игрока
+
+            }
+        });
 
         final TextButton endTurnButton = new TextButton("End turn",skin, "default" );
         endTurnButton.bottom();
@@ -89,16 +105,6 @@ public class HUD {
             }
         });
 
-        final TextButton statusButton = new TextButton("Info", skin, "default");
-        endTurnButton.right();
-        endTurnButton.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-
-            //выводить окно диалога с инвентарём (как список) и статами персонажа, который под контролем игрока
-
-            }
-        });
 
         health = new Label("Health", new Label.LabelStyle(new BitmapFont(), Color.RED));
         movementPoints = new Label("Movement Points", new Label.LabelStyle(new BitmapFont(), Color.BLUE));

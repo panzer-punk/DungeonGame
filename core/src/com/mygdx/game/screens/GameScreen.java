@@ -107,10 +107,8 @@ public class GameScreen implements Screen, InputProcessor {
         sprite.flip(false, true);
 
 
-        enemy = new Spider(new Sprite(texturePack.getSpider()));
-        enemy.equipArmor(armorGenerator.createArmor());
-        enemy1 = new Spider(new Sprite(texturePack.getSpider()));
-        enemy1.equipArmor(armorGenerator.createArmor());
+        enemy = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
+        enemy1 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());;
         //enemy2 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon(), buffPool);
 
         sprite = new Sprite(texturePack.getPlayer());
@@ -146,6 +144,12 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public void show() {
+
+    }
+
+    public GameObject getCurrent (){
+
+        return current;
 
     }
 

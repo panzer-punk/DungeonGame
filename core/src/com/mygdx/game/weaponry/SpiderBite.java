@@ -47,7 +47,7 @@ public class SpiderBite extends WeaponryStuff {
                 });
             }
         }else
-            System.out.println("Miss");
+            Printer.print("Miss");
 
     }
 }

@@ -2,10 +2,10 @@ package com.mygdx.game.build;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.tools.Dice;
-import sun.security.jgss.GSSCaller;
 
 /**
  * Created by Даниил on 30.05.2018.
@@ -14,10 +14,13 @@ public class TexturePack {
 
     TextureAtlas textures;
     private Texture wall, floor, floor1, hole, player, orc, skeleton, spider, door, sand, sand1, sand2, water, water1;
+    private Image inventory;
+    private Skin skin;
 
     public TexturePack(TextureAtlas textureAtlas){
 
         textures = textureAtlas;
+        skin = new Skin(Gdx.files.internal("rusty-robot-ui.json"));
 
     }
 
@@ -37,12 +40,19 @@ public class TexturePack {
         sand2 = new Texture(Gdx.files.internal("sand2.png"));
         water = new Texture(Gdx.files.internal("water.png"));
         water1 = new Texture(Gdx.files.internal("water1.png"));
+        inventory = new Image(new Texture(Gdx.files.internal("inventoryicon.png")));
+        skin = new Skin(Gdx.files.internal("rusty-robot-ui.json"));
     }
 
     //Terrain
     public Texture getFloor_min(){return floor;}//debug code
     public Texture getFloor_mid(){return floor1;}//debug code
     public Texture getFloor_max(){return null;}
+
+    public Skin getSkin() {
+        return skin;
+    }
+
     public Texture getSand(){
 
         switch (Dice.d4()){
@@ -92,5 +102,7 @@ public class TexturePack {
     public Texture getSpider(){return spider;}
     //Player (debug)
     public Texture getPlayer(){return player;}
+    //Icons
+    public Image getInventoryIcon(){return inventory;}
 
 }

@@ -234,7 +234,11 @@ public class Room {
     public void setTerrainMap(Map m){tileMap = m;}
     public int getL(){return l;}
     public int getC(){return c;}
-    public GameObject getObject(int line, int column){return map[line][column];}
+    public GameObject getObject(int line, int column){
+
+        return map[line][column];
+
+    }
     public GameObject[][] getMap(){return map;}
     public Map getTileMap(){return tileMap;}
 

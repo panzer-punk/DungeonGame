@@ -61,7 +61,7 @@ public class EditorScreen implements Screen, InputProcessor {
         this.gdxGame = gdxGame;
         cam = new OrthographicCamera(10 * 1.3f, 10 *(Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()));
         cam.position.set(5,5,10);
-        cam.direction.set(-1,-1,-1);
+        cam.direction.set(0,-1,-1);
         cam.near = 1;
         cam.far = 500;
         matrix.setToRotation(new Vector3(1,0,0), 90);

@@ -42,6 +42,12 @@ public class TerrainPack {
 
    }
 
+   public Terrain getDirt(){
+
+       return new Dirt(texturePack.getDirt());
+
+   }
+
     public Terrain getById(int id){
 
         Terrain t = null;
@@ -65,6 +71,10 @@ public class TerrainPack {
                 break;
             case 5:
                 t = getWater();
+                break;
+
+            case 6:
+                t = getDirt();
                 break;
 
 

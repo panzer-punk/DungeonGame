@@ -97,8 +97,8 @@ public class GameScreen implements Screen, InputProcessor {
        // door = new Door(texturePack.getDoor(), room, roomGenerator.generateRoom(10,10), this);
 
         cam = new OrthographicCamera(10 * 1.3f, 10 *(Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()));
-        cam.position.set(5,5,10);
-        cam.direction.set(-1,-1,-1);
+        cam.position.set(5,5,5);
+        cam.direction.set(0,-1,-1);
         cam.near = 1;
         cam.far = 500;
         matrix.setToRotation(new Vector3(1,0,0), 90);

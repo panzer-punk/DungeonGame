@@ -39,7 +39,7 @@ public class RoomGenerator {
         for(int i = 0; i <= sizeX; i++){
             for (int j = 0; j <= sizeY; j++){
 
-                int rand = (int)(Math.random()*10) + 1;
+                int rand = (int)(Math.random()*13) + 1;
 
                 switch (rand){
                     case 1:
@@ -60,6 +60,10 @@ public class RoomGenerator {
                         mp.addTile(terrainPack.getWater());
                         break;
                     case 10:
+                    case 11:
+                    case 12:
+                        mp.addTile(terrainPack.getDirt());
+                    case 13:
                         mp.addTile(terrainPack.getLava());
                 }
 

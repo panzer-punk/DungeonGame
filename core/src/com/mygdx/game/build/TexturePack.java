@@ -13,7 +13,9 @@ import com.mygdx.game.tools.Dice;
 public class TexturePack {
 
     TextureAtlas textures;
-    private Texture wall, floor, floor1, hole, player, orc, skeleton, spider, door, sand, sand1, sand2, water, water1;
+    private Texture wall, floor, floor1, hole, player, orc, skeleton,
+                    spider, door, sand, sand1, sand2, water, water1,
+                    dirt, dirt1, dirt2, dirt3, dirt4;
     private Image inventory;
     private Skin skin;
 
@@ -41,7 +43,13 @@ public class TexturePack {
         water = new Texture(Gdx.files.internal("water.png"));
         water1 = new Texture(Gdx.files.internal("water1.png"));
         inventory = new Image(new Texture(Gdx.files.internal("inventoryicon.png")));
+        dirt  = new Texture(Gdx.files.internal("dirt.png"));
+        dirt1 = new Texture(Gdx.files.internal("dirt1.png"));
+        dirt2 = new Texture(Gdx.files.internal("dirt2.png"));
+        dirt3 = new Texture(Gdx.files.internal("dirt3.png"));
+        dirt4 = new Texture(Gdx.files.internal("dirt4.png"));
         skin = new Skin(Gdx.files.internal("rusty-robot-ui.json"));
+
     }
 
     //Terrain
@@ -81,6 +89,27 @@ public class TexturePack {
                     return water;
 
         }
+
+    }
+
+    public Texture getDirt(){
+
+        switch (Dice.d4()){
+
+            case 1:
+                return dirt;
+            case 2:
+                return dirt1;
+            case 3:
+                return dirt2;
+            case 4:
+                return dirt3;
+                default:
+                    return dirt4;
+
+
+        }
+
 
     }
 

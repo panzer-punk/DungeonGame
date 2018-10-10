@@ -23,6 +23,8 @@ import com.mygdx.game.generators.*;
 import com.mygdx.game.scene.HUD;
 import com.mygdx.game.build.Map;
 import com.mygdx.game.build.Room;
+import com.mygdx.game.systems.DialogManager;
+import com.mygdx.game.systems.RoomManager;
 import com.mygdx.game.terrain.Terrain;
 import com.mygdx.game.build.TexturePack;
 import com.mygdx.game.enumerations.Classification;
@@ -80,6 +82,9 @@ public class GameScreen implements Screen, InputProcessor {
 
         worldWidth = 5 + Dice.d10();
         worldHeight = 5 + Dice.d10();
+
+
+
 
 
        // room =  roomGenerator.generateRoom(worldWidth, worldHeight);
@@ -141,6 +146,7 @@ public class GameScreen implements Screen, InputProcessor {
         hud = new HUD(batch, this, texturePack.getSkin(), width, height, worldWidth, worldHeight);
         Printer.setHud(hud);
 
+
       //  queque.display();
         Printer.show(room);
 
@@ -148,10 +154,20 @@ public class GameScreen implements Screen, InputProcessor {
         Gdx.input.setInputProcessor(this);
         this.game = game;
 
+        initSystems();
+
+
     }
 
     @Override
     public void show() {
+
+    }
+
+    private void initSystems(){
+
+        DialogManager.init(hud);
+        RoomManager.init(this);
 
     }
 
@@ -361,9 +377,9 @@ public class GameScreen implements Screen, InputProcessor {
         return false;
     }
 
-    public void moveToRoom(Door door){
+    public void moveToRoom(Room room){
 
-        room = door.getNextRoom(room);
+        this.room = room;
         worldWidth = room.getL();
         worldHeight = room.getC();
         turn = room.getTurn();

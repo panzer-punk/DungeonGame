@@ -34,7 +34,7 @@ public class HUD {
     private  ScrollPane scrollPane;
     private Dialog turnDialog, infoDialog;
    private TextArea printer;
-   private Skin testSkin;
+   public Skin skin;
 
     Label health;
      Label movementPoints;
@@ -43,12 +43,15 @@ public class HUD {
      Label name, turn;*/
     Table table;
 
-
+/**
+* Необходимо пересмотреть дизайн HUD
+*/
     public HUD(SpriteBatch batch, final GameScreen gameScreen, Skin skin, int width, int height, int worldWidth, int worldHeight){
 
-        camera = new OrthographicCamera(width, height*(Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()));
+        camera = new OrthographicCamera(width, height);
 
-        viewPort = new ScreenViewport(camera);
+        viewPort = new ScreenViewport();
+        viewPort.apply(true);
         stage = new Stage(viewPort, batch);
 
 
@@ -58,7 +61,7 @@ public class HUD {
         table.top();
         table.setFillParent(true);
 
-        testSkin = skin;
+        this.skin = skin;
 
         printer = new TextArea("",skin);
         printer.setDisabled(true);

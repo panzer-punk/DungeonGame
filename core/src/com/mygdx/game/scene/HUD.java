@@ -33,19 +33,19 @@ public class HUD {
     private OrthographicCamera camera;
     private  ScrollPane scrollPane;
     private Dialog turnDialog, infoDialog;
-   private TextArea printer;
-   public Skin skin;
+    private TextArea printer;
+    public Skin skin;
 
     Label health;
-     Label movementPoints;
+    Label movementPoints;
     /* Label initiative;
      Label armorclass;
      Label name, turn;*/
     Table table;
 
-/**
-* Необходимо пересмотреть дизайн HUD
-*/
+    /**
+     * Необходимо пересмотреть дизайн HUD
+     */
     public HUD(SpriteBatch batch, final GameScreen gameScreen, Skin skin, int width, int height, int worldWidth, int worldHeight){
 
         camera = new OrthographicCamera(width, height);
@@ -66,10 +66,10 @@ public class HUD {
         printer = new TextArea("",skin);
         printer.setDisabled(true);
         printer.setHeight(50);
-       scrollPane  = new ScrollPane(null, skin);
-       // scrollPane.setForceScroll(false, true);
+        scrollPane  = new ScrollPane(null, skin);
+        // scrollPane.setForceScroll(false, true);
         scrollPane.setScrollingDisabled(true, false);
-       // scrollPane.setFlickScroll(false);
+        // scrollPane.setFlickScroll(false);
         scrollPane.setOverscroll(false, true);
         //scrollPane.setFadeScrollBars(false);
         scrollPane.setWidget(printer);
@@ -138,14 +138,11 @@ public class HUD {
        endTurnButton.setY(0);
        endTurnButton.setHeight(Gdx.graphics.getHeight() * 0.25f);
        endTurnButton.setWidth(Gdx.graphics.getWidth() * 0.17f);
-
        stage.addActor(endTurnButton);
-
        scrollPane.setX(Gdx.graphics.getWidth() - 0.375f * Gdx.graphics.getWidth());
        scrollPane.setY(0);
        scrollPane.setHeight(Gdx.graphics.getHeight() * 0.25f);
        scrollPane.setWidth(Gdx.graphics.getWidth() * 0.375f);
-
        stage.addActor(scrollPane);*/
 
 
@@ -154,7 +151,7 @@ public class HUD {
     public void show(GameObject gameObject){
 
         health.setText("" + gameObject.getHP());
-       // armorclass.setText("" + gameObject.getArmorClass());
+        // armorclass.setText("" + gameObject.getArmorClass());
         movementPoints.setText("" + gameObject.getMP());
        /* initiative.setText("" + gameObject.getInitiative());
         name.setText(gameObject.getName());*/
@@ -172,7 +169,7 @@ public class HUD {
 
     public void showTurn(final int t){
 
-       // this.turn.setText("" + t);
+        // this.turn.setText("" + t);
         turnDialog.getColor().a = 20;
         turnDialog.text("Round " + t);
         turnDialog.show(stage);
@@ -191,6 +188,7 @@ public class HUD {
     public void resize(int width, int height){
 
         viewPort.update(width, height);
+        viewPort.apply(true);
 
 
     }

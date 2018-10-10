@@ -311,6 +311,7 @@ public class GameScreen implements Screen, InputProcessor {
     public void resize(int width, int height) {
 
         viewport.update(width, height);
+        viewport.apply(true);
         hud.resize(width, height);
 
     }

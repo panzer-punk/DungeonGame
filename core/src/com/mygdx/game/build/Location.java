@@ -36,8 +36,9 @@ public class Location implements Serializable {
 
     private void add(Room room){
 
-        Door door = new Door(texturePack.getDoor(),currentRoom, room,gameScreen);
+        Door door = new Door(texturePack.getDoor(),room, currentRoom);
         currentRoom.setObject(door);
+        room.setObject(new Door(texturePack.getDoor(), currentRoom, room));
         checkNextRoom(room);
 
 
@@ -46,8 +47,9 @@ public class Location implements Serializable {
 
     private void add(Room currentRoom, Room room){
 
-        Door door = new Door(texturePack.getDoor(), currentRoom, room, gameScreen);
+        Door door = new Door(texturePack.getDoor(), room, currentRoom);
         currentRoom.setObject(door);
+        room.setObject(new Door(texturePack.getDoor(),currentRoom, room));
         checkNextRoom(room);
 
     }

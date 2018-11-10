@@ -18,19 +18,18 @@ import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.build.Location;
+import com.mygdx.game.build.*;
 import com.mygdx.game.generators.*;
+import com.mygdx.game.levels.RoomIntrance;
 import com.mygdx.game.scene.HUD;
-import com.mygdx.game.build.Map;
-import com.mygdx.game.build.Room;
 import com.mygdx.game.terrain.Terrain;
-import com.mygdx.game.build.TexturePack;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.objects.Door;
 import com.mygdx.game.objects.Entity;
 import com.mygdx.game.playable.Hero;
 import com.mygdx.game.playable.Spider;
+import com.mygdx.game.terrain.TerrainPack;
 import com.mygdx.game.tools.*;
 import com.mygdx.game.weaponry.rangeweapon.Arrow;
 import com.mygdx.game.weaponry.rangeweapon.Bow;
@@ -51,7 +50,7 @@ public class GameScreen implements Screen, InputProcessor {
     final Matrix4 matrix = new Matrix4();
     PriorityQueue queque;//sorted by initiative
     Room room;
-    Location location;
+   // Location location;
     LocationGenerator locationGenerator;
     GameObject enemy, enemy1, enemy2;
     GameObject current;
@@ -74,23 +73,27 @@ public class GameScreen implements Screen, InputProcessor {
 
         batch = new SpriteBatch();
         this.texturePack = texturePack;
-       // roomGenerator = new RoomGenerator(texturePack);
-        locationGenerator = new LocationGenerator(texturePack, this);
-        location = locationGenerator.generate(5);
 
-        worldWidth = 5 + Dice.d10();
-        worldHeight = 5 + Dice.d10();
+        room = new RoomIntrance(new TerrainPack(texturePack));
+
+
+       // roomGenerator = new RoomGenerator(texturePack);
+       // locationGenerator = new LocationGenerator(texturePack, this);
+      //  location = locationGenerator.generate(5);
+
+      //  worldWidth = 5 + Dice.d10();
+      //  worldHeight = 5 + Dice.d10();
 
 
        // room =  roomGenerator.generateRoom(worldWidth, worldHeight);
        // genRoom = roomGenerator.generateRoom(10, 10);
-        room = location.getMainRoom();
-        turn = room.getTurn();
+       // room = location.getMainRoom();
+      //  turn = room.getTurn();
 
         //Код для теста
-        trigger = new TestTrigger(room, 2);
-        trigger.addPoint(new Point(5,5));
-        room.addTrigger(trigger);
+       // trigger = new TestTrigger(room, 2);
+      //  trigger.addPoint(new Point(5,5));
+      //  room.addTrigger(trigger);
         //
 
         enemyGenerator = new EnemyGenerator(texturePack);
@@ -113,8 +116,8 @@ public class GameScreen implements Screen, InputProcessor {
         sprite.flip(false, true);
 
 
-        enemy = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
-        enemy1 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());;
+       // enemy = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
+       // enemy1 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());;
         //enemy2 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon(), buffPool);
 
         sprite = new Sprite(texturePack.getPlayer());
@@ -130,12 +133,12 @@ public class GameScreen implements Screen, InputProcessor {
         wall = new Entity("Wall", sprite);
 
 
-        room.setObject(wall);
-        room.setObject(enemy);
-        room.setObject(enemy1);
-        room.setObject(enemy2);
+       // room.setObject(wall);
+       // room.setObject(enemy);
+       // room.setObject(enemy1);
+       // room.setObject(enemy2);
         room.setObject(player);
-        room.setObject(door);
+       // room.setObject(door);
         queque = room.getInitiativeQueue();
 
         hud = new HUD(batch, this, texturePack.getSkin(), width, height, worldWidth, worldHeight);

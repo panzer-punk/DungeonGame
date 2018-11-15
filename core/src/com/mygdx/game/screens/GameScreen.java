@@ -10,11 +10,6 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Plane;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
@@ -22,6 +17,10 @@ import com.mygdx.game.build.*;
 import com.mygdx.game.generators.*;
 import com.mygdx.game.levels.RoomIntrance;
 import com.mygdx.game.scene.HUD;
+import com.mygdx.game.build.Map;
+import com.mygdx.game.build.Room;
+import com.mygdx.game.systems.DialogManager;
+import com.mygdx.game.systems.RoomManager;
 import com.mygdx.game.terrain.Terrain;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
@@ -85,6 +84,9 @@ public class GameScreen implements Screen, InputProcessor {
       //  worldHeight = 5 + Dice.d10();
 
 
+
+
+
        // room =  roomGenerator.generateRoom(worldWidth, worldHeight);
        // genRoom = roomGenerator.generateRoom(10, 10);
        // room = location.getMainRoom();
@@ -144,6 +146,7 @@ public class GameScreen implements Screen, InputProcessor {
         hud = new HUD(batch, this, texturePack.getSkin(), width, height, worldWidth, worldHeight);
         Printer.setHud(hud);
 
+
       //  queque.display();
         Printer.show(room);
 
@@ -151,10 +154,20 @@ public class GameScreen implements Screen, InputProcessor {
         Gdx.input.setInputProcessor(this);
         this.game = game;
 
+        initSystems();
+
+
     }
 
     @Override
     public void show() {
+
+    }
+
+    private void initSystems(){
+
+        DialogManager.init(hud);
+        RoomManager.init(this);
 
     }
 
@@ -298,6 +311,7 @@ public class GameScreen implements Screen, InputProcessor {
     public void resize(int width, int height) {
 
         viewport.update(width, height);
+        viewport.apply(true);
         hud.resize(width, height);
 
     }
@@ -364,9 +378,9 @@ public class GameScreen implements Screen, InputProcessor {
         return false;
     }
 
-    public void moveToRoom(Door door){
+    public void moveToRoom(Room room){
 
-        room = door.getNextRoom(room);
+        this.room = room;
         worldWidth = room.getL();
         worldHeight = room.getC();
         turn = room.getTurn();

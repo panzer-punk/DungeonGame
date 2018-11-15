@@ -24,21 +24,23 @@ public class MainMenuScreen implements Screen, InputProcessor {
     private Skin skin;
     private GameScreen gameScreen;
     private EditorScreen editorScreen;
+    private TexturePack texturePack;
     private Stage stage;
     private MyGdxGame myGdxGame;
     private Table table;
     private Viewport viewport;
 
-    public MainMenuScreen(final MyGdxGame myGdxGame, TexturePack texturePack) {
+    public MainMenuScreen(final MyGdxGame myGdxGame, TexturePack pack) {
         this.myGdxGame = myGdxGame;
-        skin = texturePack.getSkin();
-        viewport = new FillViewport(Gdx.graphics.getWidth() * 1.5f, Gdx.graphics.getHeight(), new OrthographicCamera());
+        skin = pack.getSkin();
+        this.texturePack = pack;
+        viewport = new ScreenViewport();
         stage = new Stage(viewport);
         table = new Table();
         table.top();
         table.setFillParent(true);
-        gameScreen = new GameScreen(myGdxGame, texturePack, viewport.getScreenWidth(), viewport.getScreenHeight());
-        editorScreen = new EditorScreen(myGdxGame, texturePack);
+
+
         final TextButton playButton = new TextButton("Play", skin, "default");
         final TextButton editorButton = new TextButton("Editor", skin, "default");
         final TextButton exitButton = new TextButton("Exit", skin, "default");
@@ -46,6 +48,7 @@ public class MainMenuScreen implements Screen, InputProcessor {
             @Override
             public void clicked(InputEvent event, float x, float y){
 
+                gameScreen = new GameScreen(myGdxGame, texturePack, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
                 myGdxGame.setScreen(gameScreen);
                 InputMultiplexer inputMultiplexer = new InputMultiplexer();
                 inputMultiplexer.addProcessor(gameScreen);
@@ -59,6 +62,7 @@ public class MainMenuScreen implements Screen, InputProcessor {
             @Override
             public void clicked(InputEvent event, float x, float y){
 
+                editorScreen = new EditorScreen(myGdxGame, texturePack);
                 myGdxGame.setScreen(editorScreen);
                 Gdx.input.setInputProcessor(editorScreen);
 
@@ -137,7 +141,7 @@ public class MainMenuScreen implements Screen, InputProcessor {
     @Override
     public void resize(int width, int height) {
 
-        viewport.update(width, height);
+        viewport.update(width, height, true);
 
     }
 

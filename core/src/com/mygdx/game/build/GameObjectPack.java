@@ -38,7 +38,7 @@ public class GameObjectPack {
                 break;
 
             case 4:
-                gameObject = new Door(texturePack.getDoor(), null,null, null );
+
                 break;
 
                 default:

@@ -1,6 +1,7 @@
 package com.mygdx.game.playable;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.ai.controller.SimpleTestController;
 import com.mygdx.game.armor.LeatherArmor;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
@@ -11,6 +12,7 @@ import com.mygdx.game.weaponry.meleeweapon.IronSword;
 public class Skeleton extends Doll {
     public Skeleton(String name, int hp, int capacity, Sprite sprite, int movementsPoints, int level, int experience, int strength, int dexterity, int constitution, int initiativebonus, Classification classification) {
         super(name, hp, capacity, sprite, movementsPoints, level, experience, strength, dexterity, constitution, initiativebonus, classification);
+        setController(null);
     }
     public Skeleton(Sprite sprite){
 
@@ -21,7 +23,7 @@ public class Skeleton extends Doll {
 
         equipArmor(new LeatherArmor());
         equipWeapon(new IronSword());
-
+        setController(new SimpleTestController(this));
     }
 
     @Override

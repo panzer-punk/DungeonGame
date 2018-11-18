@@ -2,6 +2,7 @@ package com.mygdx.game.levels;
 
 import com.mygdx.game.build.Map;
 import com.mygdx.game.build.Room;
+import com.mygdx.game.playable.Orc;
 import com.mygdx.game.terrain.Terrain;
 import com.mygdx.game.terrain.TerrainPack;
 

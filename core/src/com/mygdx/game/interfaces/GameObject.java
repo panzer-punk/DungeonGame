@@ -2,6 +2,7 @@ package com.mygdx.game.interfaces;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.ai.controller.AIController;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.enumerations.Direction;
 import com.mygdx.game.enumerations.Status;
@@ -45,6 +46,7 @@ public interface GameObject {
      BuffPool getBuffPool();
      void addBuff(Buff buff);
      Direction getWatchDirection();
+     AIController getController();
      String getName();
      int getStrength();
      int getDexterity();

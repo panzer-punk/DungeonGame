@@ -16,6 +16,8 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.build.*;
 import com.mygdx.game.generators.*;
 import com.mygdx.game.levels.RoomIntrance;
+import com.mygdx.game.playable.Orc;
+import com.mygdx.game.playable.Skeleton;
 import com.mygdx.game.scene.HUD;
 import com.mygdx.game.build.Map;
 import com.mygdx.game.build.Room;
@@ -118,9 +120,10 @@ public class GameScreen implements Screen, InputProcessor {
         sprite.flip(false, true);
 
 
-       // enemy = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
-       // enemy1 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());;
-        //enemy2 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon(), buffPool);
+        enemy = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
+        enemy1 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
+        enemy2 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
+
 
         sprite = new Sprite(texturePack.getPlayer());
         Bow bow = new Bow();
@@ -136,7 +139,10 @@ public class GameScreen implements Screen, InputProcessor {
 
 
        // room.setObject(wall);
-       // room.setObject(enemy);
+        room.setObject(enemy);
+        room.setObject(enemy1);
+        room.setObject(enemy2);
+        room.move(0,0,5,5);
        // room.setObject(enemy1);
        // room.setObject(enemy2);
         room.setObject(player);
@@ -195,9 +201,9 @@ public class GameScreen implements Screen, InputProcessor {
         hud.stage.getViewport().apply();
         hud.stage.draw();
 
-
-        checkTileTouched();
         checkTurnEnded();
+        checkTileTouched();
+
 
 
     }
@@ -218,65 +224,76 @@ public class GameScreen implements Screen, InputProcessor {
 
     private void checkTileTouched() {
 
-        if(Gdx.input.justTouched()) {
+        if(current != null && current.getController() == null) {
+
+            if (Gdx.input.justTouched()) {
 
 
-
-            Ray pickRay = cam.getPickRay(Gdx.input.getX(), Gdx.input.getY());
-            Intersector.intersectRayPlane(pickRay, xzPlane, intersection);
-            int x = (int) intersection.x ;
-            int z = (int) intersection.z;
-            Sprite sprite;
+                Ray pickRay = cam.getPickRay(Gdx.input.getX(), Gdx.input.getY());
+                Intersector.intersectRayPlane(pickRay, xzPlane, intersection);
+                int x = (int) intersection.x;
+                int z = (int) intersection.z;
+                Sprite sprite;
 
            /* Printer.print("\n" + "L: " + room.getL() + " C: " + room.getC() + "\n"
                     + "x: " + x + " y: "+ z + "\n"
                     + "wW: " + worldWidth + " wH: "+ worldHeight + "\n");*/
 
-            if (x >= 0 && x <= room.getL() && z >= 0 && z <= room.getC()) {
-                if (lastSelectedTile != null)
-                    lastSelectedTile.setColor(1, 1, 1, 1);
+                if (x >= 0 && x <= room.getL() && z >= 0 && z <= room.getC()) {
+                    if (lastSelectedTile != null)
+                        lastSelectedTile.setColor(1, 1, 1, 1);
 
 
-                if ((x >= 0 && z >= 0 )&& (x <= room.getL() - 1 && z <= room.getC() - 1)) {
-                    if (room.getObject(x, z) != null && room.getObject(x, z).getClass() != Entity.class) {
-                        sprite = room.getObject(x, z).getSprite();
-                        Printer.show(room.getObject(x,z));
-                        hud.show(room.getObject(x,z));
+                    if ((x >= 0 && z >= 0) && (x <= room.getL() - 1 && z <= room.getC() - 1)) {
+                        if (room.getObject(x, z) != null && room.getObject(x, z).getClass() != Entity.class) {
+                            sprite = room.getObject(x, z).getSprite();
+                            Printer.show(room.getObject(x, z));
+                            hud.show(room.getObject(x, z));
 
-                        if(lastSelectedObject != null && lastSelectedObject != room.getObject(x,z) && lastSelectedObject.getMP() > 0 && lastSelectedObject == current && isInRange(lastSelectedObject, room.getObject(x,z))){
-                            lastSelectedObject.makeStep(1000);//1000 чтобы закончить ход
-                            lastSelectedObject.getWeapon().makeDamage(lastSelectedObject, room.getObject(x,z));
-                            unselect();
+                            if (lastSelectedObject != null && lastSelectedObject != room.getObject(x, z) && lastSelectedObject.getMP() > 0 && lastSelectedObject == current && isInRange(lastSelectedObject, room.getObject(x, z))) {
+                                lastSelectedObject.makeStep(1000);//1000 чтобы закончить ход
+                                lastSelectedObject.getWeapon().makeDamage(lastSelectedObject, room.getObject(x, z));
+                                unselect();
 
-                        }else {
-                            if(room.getObject(x, z) == current) {
-                                lastSelectedObject = room.getObject(x, z);
-                                lastSelectedObject.getBuffPool().use();
-                                PathFinder.drawWays(batch, room, x, z, room.getL(), room.getC());
+                            } else {
+                                if (room.getObject(x, z) == current) {
+                                    lastSelectedObject = room.getObject(x, z);
+                                    lastSelectedObject.getBuffPool().use();
+                                    PathFinder.drawWays(batch, room, x, z, room.getL(), room.getC());
+                                }
                             }
+                        } else {
+                            Map map = room.getTileMap();
+                            sprite = map.getTiles()[x][z].getSprite();
+                            if (lastSelectedObject != null && lastSelectedObject.getMP() > 0 && lastSelectedObject == current) {
+                                if (room.getTileMap().getTiles()[x][z].flag == true && room.move(lastSelectedObject.getX(), lastSelectedObject.getY(), x, z)) {
+                                    lastSelectedObject.makeStep(room.getTileMap().getTiles()[x][z].getMovementPrice());
+                                    unselect();
+                                }
+                            }
+
+                            //  Printer.print("" + map.getTiles()[x][z].getMovementCost()+"\n"  + map.getTiles()[x][z].getMovementPrice() + "\n");
+                        }
+                        if (sprite != null) {
+                            sprite.setColor(1, 1, 5, 25);
+                            lastSelectedTile = sprite;
                         }
                     } else {
-                        Map map = room.getTileMap();
-                        sprite = map.getTiles()[x][z].getSprite();
-                        if(lastSelectedObject != null && lastSelectedObject.getMP() > 0 && lastSelectedObject == current){
-                            if(room.getTileMap().getTiles()[x][z].flag == true && room.move(lastSelectedObject.getX(), lastSelectedObject.getY(), x, z)) {
-                                lastSelectedObject.makeStep(room.getTileMap().getTiles()[x][z].getMovementPrice());
-                                unselect();
-                            }
-                        }
-
-                      //  Printer.print("" + map.getTiles()[x][z].getMovementCost()+"\n"  + map.getTiles()[x][z].getMovementPrice() + "\n");
-                    }if(sprite != null) {
-                        sprite.setColor(1,1,5,25);
-                        lastSelectedTile = sprite;
+                        unselect();
                     }
-                }else{
-                    unselect();
+
                 }
 
-            }
 
-            update();
+                update();
+
+            }
+        }else if(current != null){
+
+            Printer.show(current);
+            PathFinder.drawWays(batch, room, current.getX(), current.getY(), room.getL(), room.getC());
+            current.getController().makeTurn(room);
+
 
         }
     }

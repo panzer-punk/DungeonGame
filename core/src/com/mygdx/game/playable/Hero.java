@@ -22,6 +22,7 @@ public class Hero extends Doll {
                 int initiativebonus, Classification classification) {
 
         super(name, hp, capacity, sprite, movementsPoints, level, experience, strength, dexterity, constitution, initiativebonus, classification);
+        setController(null);
 
     }
 

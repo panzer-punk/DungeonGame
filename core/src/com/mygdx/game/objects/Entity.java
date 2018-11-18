@@ -2,6 +2,7 @@ package com.mygdx.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.ai.controller.AIController;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.enumerations.Direction;
 import com.mygdx.game.enumerations.Status;
@@ -139,6 +140,11 @@ public class Entity implements GameObject {
 
     @Override
     public Direction getWatchDirection() {return null;}
+
+    @Override
+    public AIController getController() {
+        return null;
+    }
 
     @Override
     public String getName() {return name;}

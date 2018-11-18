@@ -18,6 +18,8 @@ public class PathFinder {
     public static void drawWays(SpriteBatch batch, Room room, int x, int z , int lin, int col){
 
         GameObject gameObject = room.getObject(x,z);
+        if(gameObject == null)
+            return;
         int movementPoints = gameObject.getMP();
         reset = movementPoints;
         c = col;

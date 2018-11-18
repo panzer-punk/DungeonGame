@@ -2,6 +2,7 @@ package com.mygdx.game.playable;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.ai.controller.AIController;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.enumerations.Direction;
 import com.mygdx.game.enumerations.Status;
@@ -39,6 +40,7 @@ public abstract class Doll implements GameObject {
     private Weapon weapon;
     private Armor armor;
     private Item[] backpack;
+    private AIController controller;
 
     public Doll(String name, int hp, int capacity, Sprite sprite,
                 int movementsPoints, int level, int experience,
@@ -76,6 +78,11 @@ public abstract class Doll implements GameObject {
 
     }
 
+
+    void setController(AIController controller){this.controller = controller;}
+
+    @Override
+    public final AIController getController(){return controller;}
 
     @Override
     public void draw(SpriteBatch batch) {

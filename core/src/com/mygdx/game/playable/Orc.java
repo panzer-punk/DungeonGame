@@ -1,6 +1,7 @@
 package com.mygdx.game.playable;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.ai.controller.SimpleTestController;
 import com.mygdx.game.armor.LeatherArmor;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.weaponry.meleeweapon.Club;
@@ -15,7 +16,7 @@ public class Orc extends Doll {
                int level, int experience, int strength, int dexterity,
                int constitution, int initiativebonus, Classification classification) {
         super(name, hp, capacity, sprite, movementsPoints, level, experience, strength, dexterity, constitution, initiativebonus, classification);
-
+        setController(new SimpleTestController(this));
     }
 
     public Orc(Sprite sprite){
@@ -25,6 +26,7 @@ public class Orc extends Doll {
 
         equipArmor(new LeatherArmor());
         equipWeapon(new Club());
+        setController(new SimpleTestController(this));
     }
 
 }

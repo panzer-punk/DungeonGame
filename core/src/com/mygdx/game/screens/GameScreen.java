@@ -15,7 +15,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.build.*;
 import com.mygdx.game.generators.*;
+import com.mygdx.game.levels.DemoLevelsLocation;
 import com.mygdx.game.levels.RoomIntrance;
+import com.mygdx.game.levels.RoomOrcIntrance;
 import com.mygdx.game.playable.Orc;
 import com.mygdx.game.playable.Skeleton;
 import com.mygdx.game.scene.HUD;
@@ -53,7 +55,6 @@ public class GameScreen implements Screen, InputProcessor {
     Room room;
    // Location location;
     LocationGenerator locationGenerator;
-    GameObject enemy, enemy1, enemy2;
     GameObject current;
     GameObject player, wall;
     final Plane xzPlane = new Plane(new Vector3(0,1,0), 0);
@@ -64,6 +65,7 @@ public class GameScreen implements Screen, InputProcessor {
     Sprite lastSelectedTile = null;
     GameObject lastSelectedObject = null;
     Terrain lastSelectedTerrain = null;
+    DemoLevelsLocation demoLevelsLocation;
 
     MyGdxGame game;
 
@@ -71,11 +73,12 @@ public class GameScreen implements Screen, InputProcessor {
         WeaponGenerator weaponGenerator = new WeaponGenerator();
         ArmorGenerator armorGenerator = new ArmorGenerator();
 
+        demoLevelsLocation = new DemoLevelsLocation(texturePack, new TerrainPack(texturePack), new GameObjectPack(texturePack), this);
 
         batch = new SpriteBatch();
         this.texturePack = texturePack;
 
-        room = new RoomIntrance(new TerrainPack(texturePack));
+        room = demoLevelsLocation.getMainRoom();             //new RoomIntrance(new TerrainPack(texturePack));
 
 
        // roomGenerator = new RoomGenerator(texturePack);
@@ -120,9 +123,7 @@ public class GameScreen implements Screen, InputProcessor {
         sprite.flip(false, true);
 
 
-        enemy = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
-        enemy1 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
-        enemy2 = enemyGenerator.createEemy(armorGenerator.createArmor(), weaponGenerator.createWeapon());
+
 
 
         sprite = new Sprite(texturePack.getPlayer());
@@ -136,17 +137,8 @@ public class GameScreen implements Screen, InputProcessor {
 
         sprite = new Sprite(texturePack.getWall_1());
         wall = new Entity("Wall", sprite);
-
-
-       // room.setObject(wall);
-        room.setObject(enemy);
-        room.setObject(enemy1);
-        room.setObject(enemy2);
-        room.move(0,0,5,5);
-       // room.setObject(enemy1);
-       // room.setObject(enemy2);
         room.setObject(player);
-       // room.setObject(door);
+        room.move(0,0,3,3);
         queque = room.getInitiativeQueue();
 
         hud = new HUD(batch, this, texturePack.getSkin(), width, height, worldWidth, worldHeight);

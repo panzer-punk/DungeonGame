@@ -1,7 +1,9 @@
 package com.mygdx.game.levels;
 
+import com.mygdx.game.build.GameObjectPack;
 import com.mygdx.game.build.Map;
 import com.mygdx.game.build.Room;
+import com.mygdx.game.build.TexturePack;
 import com.mygdx.game.playable.Orc;
 import com.mygdx.game.terrain.Terrain;
 import com.mygdx.game.terrain.TerrainPack;
@@ -14,7 +16,7 @@ public class RoomIntrance extends Room {
     Map map;
 
 
-    public RoomIntrance(TerrainPack pack) {
+    public RoomIntrance(TerrainPack pack, TexturePack texturePack, GameObjectPack gameObjectPack) {
 
         super(10,7, new Map(10,7, null));
 

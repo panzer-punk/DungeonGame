@@ -2,6 +2,8 @@ package com.mygdx.game.build;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.interfaces.GameObject;
+import com.mygdx.game.objects.BlueFountain;
+import com.mygdx.game.objects.Column;
 import com.mygdx.game.objects.Door;
 import com.mygdx.game.objects.Entity;
 import com.mygdx.game.playable.Orc;
@@ -39,8 +41,15 @@ public class GameObjectPack {
 
             case 4:
 
+                gameObject = new BlueFountain(new Sprite((texturePack.getBlueFountain())));
+
                 break;
 
+            case 6:
+                gameObject = new Column(new Sprite(texturePack.getCrumbledColumn()));
+                break;
+
+            case 5:
                 default:
 
                     gameObject = new Entity("Wall", new Sprite(texturePack.getWall_1()));

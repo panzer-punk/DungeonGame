@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.build.*;
 import com.mygdx.game.generators.*;
+import com.mygdx.game.levels.ArtifactRoom;
 import com.mygdx.game.levels.DemoLevelsLocation;
 import com.mygdx.game.levels.RoomIntrance;
 import com.mygdx.game.levels.RoomOrcIntrance;
@@ -80,6 +81,7 @@ public class GameScreen implements Screen, InputProcessor {
 
         room = demoLevelsLocation.getMainRoom();             //new RoomIntrance(new TerrainPack(texturePack));
 
+      //  room = new ArtifactRoom(new TerrainPack(texturePack));
 
        // roomGenerator = new RoomGenerator(texturePack);
        // locationGenerator = new LocationGenerator(texturePack, this);

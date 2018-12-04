@@ -1,5 +1,6 @@
 package com.mygdx.game.spells;
 
+import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Item;
 
 /**
@@ -10,8 +11,8 @@ public class HealingSpell implements Item {
     int points = 10;
 
     @Override
-    public int use() {
-        return points;
+    public void use(GameObject gameObject) {
+
     }
 
     @Override

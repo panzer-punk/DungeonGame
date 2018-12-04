@@ -5,7 +5,7 @@ package com.mygdx.game.interfaces;
  */
 public interface Item {
 
-    public int use();
+    public void use(GameObject gameObject);
 
     public void show();
 }

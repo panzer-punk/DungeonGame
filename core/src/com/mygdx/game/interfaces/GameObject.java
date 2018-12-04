@@ -43,6 +43,7 @@ public interface GameObject {
      Weapon getWeapon();
      Armor getArmor();
      int getHP();
+     void setHp(int hp);
      BuffPool getBuffPool();
      void addBuff(Buff buff);
      Direction getWatchDirection();

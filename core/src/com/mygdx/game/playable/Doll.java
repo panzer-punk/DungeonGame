@@ -82,6 +82,9 @@ public abstract class Doll implements GameObject {
     void setController(AIController controller){this.controller = controller;}
 
     @Override
+    public void setHp(int hp){this.hp = hp;}
+
+    @Override
     public final AIController getController(){return controller;}
 
     @Override

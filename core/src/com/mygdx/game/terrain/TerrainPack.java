@@ -48,6 +48,10 @@ public class TerrainPack {
 
    }
 
+   public  Terrain getTomb(){
+       return new Tomb(texturePack.getTomb1());
+   }
+
     public Terrain getById(int id){
 
         Terrain t = null;

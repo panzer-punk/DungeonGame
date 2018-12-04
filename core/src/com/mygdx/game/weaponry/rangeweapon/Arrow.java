@@ -1,5 +1,7 @@
 package com.mygdx.game.weaponry.rangeweapon;
 
+import com.mygdx.game.build.Room;
+import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.tools.Dice;
 
 public class Arrow extends Shell {
@@ -20,5 +22,10 @@ public class Arrow extends Shell {
             System.out.println(bow.getLabel() + " has no rounds");
             return 0;
         }
+    }
+
+    @Override
+    public void drop(Room room, GameObject gameObject) {
+
     }
 }

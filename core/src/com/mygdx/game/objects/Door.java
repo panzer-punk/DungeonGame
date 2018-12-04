@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.build.Room;
+import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.systems.DialogManager;

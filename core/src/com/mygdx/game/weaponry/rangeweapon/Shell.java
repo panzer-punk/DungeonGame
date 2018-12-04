@@ -22,11 +22,11 @@ public abstract class Shell implements Item, Weapon {
     public final int getAmount(){return amount;}
 
     @Override
-    public int use() {
+    public void use(GameObject gameObject) {
 
         bow.setShell(this);//использовать через getWeapon
 
-        return 0;
+
     }
 
     @Override

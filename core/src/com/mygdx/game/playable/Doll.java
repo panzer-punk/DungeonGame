@@ -14,6 +14,8 @@ import com.mygdx.game.tools.BuffPool;
 import com.mygdx.game.tools.Printer;
 import com.mygdx.game.weaponry.buffs.Buff;
 
+import java.util.ArrayList;
+
 
 /**
  * Created by Даниил on 15.07.2018.
@@ -36,10 +38,10 @@ public abstract class Doll implements GameObject {
     private int experience;
     private int x, y;
     private int armorclass;
-    private int itemNumber;
+    private int capacity;
     private Weapon weapon;
     private Armor armor;
-    private Item[] backpack;
+    private ArrayList<Item> backpack;
     private AIController controller;
 
     public Doll(String name, int hp, int capacity, Sprite sprite,
@@ -64,10 +66,10 @@ public abstract class Doll implements GameObject {
         status = Status.OK;
         setClassification(classification);
 
-        buffPool = new BuffPool();
+        backpack = new ArrayList<Item>();
 
-        itemNumber = 0;
-        backpack = new Item[capacity];
+        buffPool = new BuffPool();
+        this.capacity = capacity;
 
         this.movementsPoints = movementsPoints;
         this.level = level;
@@ -80,6 +82,13 @@ public abstract class Doll implements GameObject {
 
 
     void setController(AIController controller){this.controller = controller;}
+
+    @Override
+    public void deleteItem(Item item){
+
+       backpack.remove(item);
+
+    }
 
     @Override
     public void setHp(int hp){this.hp = hp;}
@@ -218,8 +227,8 @@ public abstract class Doll implements GameObject {
     @Override
     public void putItem(Item item) {
 
-        if(itemNumber < backpack.length)
-            backpack[itemNumber++] = item;
+        if(backpack.size() < capacity)
+         backpack.add(item);
 
     }
 

@@ -245,6 +245,7 @@ public class GameScreen implements Screen, InputProcessor {
                             hud.show(room.getObject(x, z));
 
                             if (lastSelectedObject != null && lastSelectedObject != room.getObject(x, z) && lastSelectedObject.getMP() > 0 && lastSelectedObject == current && isInRange(lastSelectedObject, room.getObject(x, z))) {
+                                if(room.getObject(x,z).getClassification() != Classification.OBJECT)
                                 lastSelectedObject.makeStep(1000);//1000 чтобы закончить ход
                                 lastSelectedObject.getWeapon().makeDamage(lastSelectedObject, room.getObject(x, z));
                                 unselect();

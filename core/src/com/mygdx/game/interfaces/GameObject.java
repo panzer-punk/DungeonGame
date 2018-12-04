@@ -38,6 +38,7 @@ public interface GameObject {
      void equipWeapon(Weapon weapon);
      void equipArmor(Armor armor);
      void putItem(Item item);
+     void deleteItem(Item item);
      void takeDamage(GameObject dealer);//для создания дверей и ловушек использовать GameObject
      void takeDamage(Weapon weapon);
      Weapon getWeapon();

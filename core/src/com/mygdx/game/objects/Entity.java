@@ -21,15 +21,25 @@ public class Entity implements GameObject {
     protected Sprite sprite;
     protected String name;
     protected int x, y;
-    protected final Classification classification = Classification.OBJECT;
+    protected int hp;
+    protected Classification classification;
 
     public Entity(String n, Sprite s){
         name = n;
         s.setSize(1,1);
         s.flip(false,true);
-    sprite = s;
+        sprite = s;
+        hp = 1;
+        classification = Classification.OBJECT;
     }
-
+    public Entity(String n, Sprite s, int hp){
+        name = n;
+        s.setSize(1,1);
+        s.flip(false,true);
+        sprite = s;
+        this.hp = hp;
+        classification = Classification.OBJECT;
+    }
     @Override
     public void draw(SpriteBatch batch) {sprite.draw(batch);}
 
@@ -112,6 +122,11 @@ public class Entity implements GameObject {
     public void putItem(Item item) {}
 
     @Override
+    public void deleteItem(Item item) {
+
+    }
+
+    @Override
     public void takeDamage(GameObject gameObject) {}
 
     @Override
@@ -126,7 +141,14 @@ public class Entity implements GameObject {
     public Armor getArmor() {return null;}
 
     @Override
-    public int getHP() {return 1;}
+    public int getHP() {return hp;}
+
+    @Override
+    public void setHp(int hp) {
+
+        this.hp = hp;
+
+    }
 
     @Override
     public BuffPool getBuffPool() {

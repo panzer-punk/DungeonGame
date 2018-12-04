@@ -2,10 +2,8 @@ package com.mygdx.game.build;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.interfaces.GameObject;
-import com.mygdx.game.objects.BlueFountain;
-import com.mygdx.game.objects.Column;
-import com.mygdx.game.objects.Door;
-import com.mygdx.game.objects.Entity;
+import com.mygdx.game.items.CelticFire;
+import com.mygdx.game.objects.*;
 import com.mygdx.game.playable.Orc;
 import com.mygdx.game.playable.Skeleton;
 import com.mygdx.game.playable.Spider;
@@ -49,6 +47,12 @@ public class GameObjectPack {
                 gameObject = new Column(new Sprite(texturePack.getCrumbledColumn()));
                 break;
 
+            case 7:
+                gameObject = new CelticFire(new Sprite(texturePack.getCelticFire()));
+                break;
+            case 8:
+                gameObject = new Chest(new Sprite(texturePack.getChestClosed()), new Sprite(texturePack.getChestOpen()));
+                break;
 
             case 5:
                 default:

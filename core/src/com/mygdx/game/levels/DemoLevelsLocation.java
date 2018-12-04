@@ -4,6 +4,7 @@ import com.mygdx.game.build.GameObjectPack;
 import com.mygdx.game.build.Location;
 import com.mygdx.game.build.Room;
 import com.mygdx.game.build.TexturePack;
+import com.mygdx.game.objects.Chest;
 import com.mygdx.game.objects.Door;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.terrain.TerrainPack;
@@ -32,6 +33,7 @@ public class DemoLevelsLocation{
 
         orcIntrance.setObject(0,2,new Door(texturePack.getDoor(),roomFountain, orcIntrance));
         orcIntrance.setObject(0,3,new Door(texturePack.getDoor(),roomFountain, orcIntrance));
+        orcIntrance.setObject(5,0, gameObjectPack.getObjectById(8));
 
         orcIntrance.setObject(0,0, gameObjectPack.getObjectById(5));
         orcIntrance.setObject(0,1, gameObjectPack.getObjectById(5));
@@ -87,7 +89,9 @@ public class DemoLevelsLocation{
         artifactRoom.setObject(0,3, new Door(texturePack.getDoor(), roomFountain, artifactRoom));
         artifactRoom.setObject(4,2, gameObjectPack.getObjectById(6));
         artifactRoom.setObject(4,5, gameObjectPack.getObjectById(6));
+        artifactRoom.setObject(4,4, gameObjectPack.getObjectById(7));
         roomIntrance.setObject(3,0, new Door(texturePack.getDoor(), orcIntrance, roomIntrance));
+
     }
 
     public Room getMainRoom(){return roomIntrance;}

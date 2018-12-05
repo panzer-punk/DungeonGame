@@ -226,9 +226,12 @@ public abstract class Doll implements GameObject {
 
     @Override
     public void putItem(Item item) {
+        System.out.println("You've picked:");
+        item.show();
+        if(backpack.size() < capacity) {
+            backpack.add(item);
 
-        if(backpack.size() < capacity)
-         backpack.add(item);
+        }
 
     }
 

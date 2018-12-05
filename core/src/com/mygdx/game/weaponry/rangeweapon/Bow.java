@@ -1,8 +1,13 @@
 package com.mygdx.game.weaponry.rangeweapon;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.build.TexturePack;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.objects.Entity;
+import com.mygdx.game.particles.ArrowParticle;
+import com.mygdx.game.systems.GameScreenManager;
 import com.mygdx.game.tools.Dice;
 import com.mygdx.game.weaponry.WeaponryStuff;
 
@@ -16,6 +21,11 @@ public class Bow extends WeaponryStuff {
 
         @Override
         public  void makeDamage(GameObject dealer, GameObject gainer){
+
+            GameScreenManager.addParticle(new ArrowParticle(new Sprite(TexturePack.arrow),
+                    new Vector2(dealer.getSprite().getX(), dealer.getSprite().getY()),
+                    new Vector2(gainer.getSprite().getX(), gainer.getSprite().getY())));
+
             //реализация по умолчанию
             if((dealer.getDEX() + Dice.d20()) >= gainer.getArmorClass()) {
                 if(gainer.getClassification() == Classification.OBJECT) {
@@ -23,9 +33,10 @@ public class Bow extends WeaponryStuff {
                 }
                 else
                 gainer.takeDamage(shell);
-            }else
+            }else {
+                getDamage();//стрельнули вхолостую
                 System.out.println("Miss");
-
+            }
         }
 
 

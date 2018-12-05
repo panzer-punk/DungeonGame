@@ -1,7 +1,11 @@
 package com.mygdx.game.weaponry.rangeweapon;
 
 import com.mygdx.game.build.Room;
+import com.mygdx.game.build.TexturePack;
 import com.mygdx.game.interfaces.GameObject;
+import com.mygdx.game.particles.ArrowParticle;
+import com.mygdx.game.screens.GameScreen;
+import com.mygdx.game.systems.GameScreenManager;
 import com.mygdx.game.tools.Dice;
 
 public class Arrow extends Shell {

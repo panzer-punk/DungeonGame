@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.build.*;
 import com.mygdx.game.generators.*;
+import com.mygdx.game.interfaces.Particle;
 import com.mygdx.game.levels.ArtifactRoom;
 import com.mygdx.game.levels.DemoLevelsLocation;
 import com.mygdx.game.levels.RoomIntrance;
@@ -25,6 +26,7 @@ import com.mygdx.game.scene.HUD;
 import com.mygdx.game.build.Map;
 import com.mygdx.game.build.Room;
 import com.mygdx.game.systems.DialogManager;
+import com.mygdx.game.systems.GameScreenManager;
 import com.mygdx.game.systems.RoomManager;
 import com.mygdx.game.terrain.Terrain;
 import com.mygdx.game.enumerations.Classification;
@@ -71,6 +73,9 @@ public class GameScreen implements Screen, InputProcessor {
     MyGdxGame game;
 
     public GameScreen(MyGdxGame game, TexturePack texturePack, int width, int height) {
+
+        GameScreenManager.init(this);
+
         WeaponGenerator weaponGenerator = new WeaponGenerator();
         ArmorGenerator armorGenerator = new ArmorGenerator();
 
@@ -125,7 +130,8 @@ public class GameScreen implements Screen, InputProcessor {
         sprite.flip(false, true);
 
 
-
+        GameObject orc = new Orc(new Sprite(texturePack.getOrc()));
+        orc.setHp(500);
 
 
         sprite = new Sprite(texturePack.getPlayer());
@@ -140,6 +146,7 @@ public class GameScreen implements Screen, InputProcessor {
         sprite = new Sprite(texturePack.getWall_1());
         wall = new Entity("Wall", sprite);
         room.setObject(player);
+        room.setObject(orc);
         room.move(0,0,3,3);
         queque = room.getInitiativeQueue();
 
@@ -190,6 +197,7 @@ public class GameScreen implements Screen, InputProcessor {
         viewport.apply();
         room.drawMap(batch);
         room.drawObjects(batch);
+        room.drawPatricles(batch);
         batch.end();
         //batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.getViewport().apply();
@@ -445,4 +453,18 @@ public class GameScreen implements Screen, InputProcessor {
     public boolean scrolled(int amount) {
         return false;
     }
+
+    public void addParticle(Particle particle){
+
+        room.addParticle(particle);
+
+    }
+
+    public void removeParticle(Particle particle){
+
+        room.removeParticle(particle);
+
+    }
+
 }
+

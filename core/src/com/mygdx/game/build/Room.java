@@ -1,11 +1,14 @@
 package com.mygdx.game.build;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
+import com.mygdx.game.interfaces.Particle;
 import com.mygdx.game.tools.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -19,6 +22,7 @@ public class Room implements Serializable {
    private int l = 3, c = 3;
    private int currentSizePO;
    private PriorityQueue priorityQueue;
+   private ArrayList<Particle> particles;
    private int turn;
 
     private GameObject map[][];
@@ -47,6 +51,7 @@ public class Room implements Serializable {
         triggers = new Trigger[l][c];
         priorityQueue = new PriorityQueue(map.length);
         pObjects = new LinkedList<GameObject>();
+        particles = new ArrayList<Particle>();
 
     }
 
@@ -213,7 +218,34 @@ public class Room implements Serializable {
             }
         }
 
+
+
     }
+
+   public void drawPatricles(Batch batch){
+
+        for(Particle p : particles) {
+            p.draw(batch);
+        }
+
+        checkUnactiveParticles();
+
+    }
+
+    private void checkUnactiveParticles(){
+
+       for(int i = 0; i < particles.size(); i++){
+
+           Particle p = particles.get(i);
+
+           if(!p.isActive())
+               removeParticle(p);
+
+       }
+
+    }
+
+    public void removeParticle(Particle particle){particles.remove(particle); particle.dispose();}
 
     public void drawMap(SpriteBatch batch){
         tileMap.draw(batch);
@@ -240,5 +272,6 @@ public class Room implements Serializable {
     }
     public GameObject[][] getMap(){return map;}
     public Map getTileMap(){return tileMap;}
+    public void addParticle(Particle particle){particles.add(particle);}
 
 }

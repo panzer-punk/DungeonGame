@@ -19,6 +19,7 @@ public class TexturePack {
                     blueFountain, celticFire, chestClosed,
                     chestOpen, crumbledColumn, tomb1,
                     orcishIdol;
+    public static Texture arrow = new Texture(Gdx.files.internal("arrow.png"));
     private Image inventory;
     private Skin skin;
 

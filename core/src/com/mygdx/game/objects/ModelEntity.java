@@ -11,12 +11,11 @@ import com.mygdx.game.ai.controller.AIController;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.enumerations.Direction;
 import com.mygdx.game.enumerations.Status;
-import com.mygdx.game.interfaces.Armor;
-import com.mygdx.game.interfaces.GameObject;
-import com.mygdx.game.interfaces.Item;
-import com.mygdx.game.interfaces.Weapon;
+import com.mygdx.game.interfaces.*;
 import com.mygdx.game.tools.BuffPool;
 import com.mygdx.game.weaponry.buffs.Buff;
+
+import java.util.ArrayList;
 
 /**
  * Created by Даниил on 27.04.2018.
@@ -46,6 +45,11 @@ public class ModelEntity implements GameObject {
 
          modelBatch.render(model);
 
+
+    }
+
+    @Override
+    public void addProperty(Property property) {
 
     }
 
@@ -146,6 +150,16 @@ public class ModelEntity implements GameObject {
     }
 
     @Override
+    public void takeDamage(int dmg) {
+
+    }
+
+    @Override
+    public ArrayList<Property> getProperties() {
+        return null;
+    }
+
+    @Override
     public Weapon getWeapon() {return null;}
 
     @Override
@@ -181,6 +195,11 @@ public class ModelEntity implements GameObject {
 
     @Override
     public String getName() {return name;}
+
+    @Override
+    public int getDamage() {
+        return 0;
+    }
 
     @Override
     public int getStrength() {

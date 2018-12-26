@@ -5,18 +5,21 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.build.TexturePack;
 import com.mygdx.game.enumerations.Classification;
+import com.mygdx.game.enumerations.WeaponType;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.particles.ArrowParticle;
 import com.mygdx.game.systems.GameScreenManager;
 import com.mygdx.game.tools.Dice;
 import com.mygdx.game.weaponry.WeaponryStuff;
 
+import static com.mygdx.game.enumerations.WeaponType.*;
+
 public class Bow extends WeaponryStuff {
 
     private Shell shell;
 
     public Bow() {
-        super("Bow", 1, 4);
+        super("Bow", STABBING, 4);
         }
 
         @Override

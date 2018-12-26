@@ -1,5 +1,6 @@
 package com.mygdx.game.weaponry.rangeweapon;
 
+import com.mygdx.game.enumerations.WeaponType;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Item;
 import com.mygdx.game.interfaces.Weapon;
@@ -8,11 +9,11 @@ import com.mygdx.game.tools.Printer;
 public abstract class Shell implements Item, Weapon {
 
     protected int amount;
-    private int type;
+    private WeaponType type;
     private String label;
     protected Bow bow;
 
-    public Shell(String label,int amount, int type, Bow holder) {
+    public Shell(String label,int amount, WeaponType type, Bow holder) {
         this.amount = amount;
         this.label = label;
         this.type = type;
@@ -45,7 +46,7 @@ public abstract class Shell implements Item, Weapon {
     }
 
     @Override
-    public int getType() {
+    public WeaponType getType() {
         return type;
     }
 

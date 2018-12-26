@@ -25,6 +25,7 @@ import com.mygdx.game.armor.IronArmor;
 import com.mygdx.game.build.*;
 import com.mygdx.game.generators.*;
 import com.mygdx.game.interfaces.Particle;
+import com.mygdx.game.interfaces.Property;
 import com.mygdx.game.items.CelticFire;
 import com.mygdx.game.levels.ArtifactRoom;
 import com.mygdx.game.levels.DemoLevelsLocation;
@@ -33,6 +34,7 @@ import com.mygdx.game.objects.BlueFountain;
 import com.mygdx.game.objects.Column;
 import com.mygdx.game.objects.ModelEntity;
 import com.mygdx.game.scene.HUD;
+import com.mygdx.game.systems.Damager;
 import com.mygdx.game.systems.DialogManager;
 import com.mygdx.game.systems.GameScreenManager;
 import com.mygdx.game.systems.RoomManager;
@@ -51,6 +53,7 @@ import com.mygdx.game.weaponry.rangeweapon.Shell;
 
 
 import javax.swing.text.html.parser.Entity;
+import java.util.ArrayList;
 
 public class GameScreen implements Screen, InputProcessor {
     DecalBatch batch;
@@ -110,7 +113,11 @@ public class GameScreen implements Screen, InputProcessor {
         inputBlock = false;
 
 
-        player = new Hero("Donny", 18, 10, Decal.newDecal(1,1, new TextureRegion(new Texture(Gdx.files.internal("player.png"))), true), 10,1,1,14,14,14,1, Classification.Playable);
+        player = new Hero("Donny", 100, 10,
+                Decal.newDecal(1,1,
+                        new TextureRegion(new Texture(Gdx.files.internal("player.png"))),
+                        true), 10,1,1,14,14,
+                14,1, Classification.Playable, new ArrayList<Property>());
         player.equipWeapon(new IronSword());
         player.equipArmor(new IronArmor());
 
@@ -253,7 +260,8 @@ public class GameScreen implements Screen, InputProcessor {
                             if (lastSelectedObject != null && lastSelectedObject != room.getObject(x, z) && lastSelectedObject.getMP() > 0 && lastSelectedObject == current && isInRange(lastSelectedObject, room.getObject(x, z))) {
                                 if(room.getObject(x,z).getClassification() != Classification.OBJECT)
                                  lastSelectedObject.makeStep(1000);//1000 чтобы закончить ход
-                                lastSelectedObject.getWeapon().makeDamage(lastSelectedObject, room.getObject(x, z));
+                               // lastSelectedObject.getWeapon().makeDamage(lastSelectedObject, room.getObject(x, z));
+                                Damager.makeDamage(lastSelectedObject, room.getObject(x,z));
                                 unselect();
 
                             } else {

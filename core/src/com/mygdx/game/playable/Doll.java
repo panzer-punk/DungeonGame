@@ -9,10 +9,7 @@ import com.mygdx.game.ai.controller.AIController;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.enumerations.Direction;
 import com.mygdx.game.enumerations.Status;
-import com.mygdx.game.interfaces.Armor;
-import com.mygdx.game.interfaces.GameObject;
-import com.mygdx.game.interfaces.Item;
-import com.mygdx.game.interfaces.Weapon;
+import com.mygdx.game.interfaces.*;
 import com.mygdx.game.tools.BuffPool;
 import com.mygdx.game.tools.Printer;
 import com.mygdx.game.weaponry.buffs.Buff;
@@ -46,11 +43,12 @@ public abstract class Doll implements GameObject {
     private Armor armor;
     private ArrayList<Item> backpack;
     private AIController controller;
+    private ArrayList<Property> properties;
 
     public Doll(String name, int hp, int capacity, Decal sprite,
                 int movementsPoints, int level, int experience,
                 int strength, int dexterity, int constitution,
-                int initiativebonus, Classification classification){
+                int initiativebonus, Classification classification, ArrayList <Property> properties){
 
         this.name = name;
         this.hp = hp;
@@ -78,6 +76,7 @@ public abstract class Doll implements GameObject {
         toReset = movementsPoints;
         //debug code
         this.initiativebonus = initiativebonus + DEX;
+        this.properties = properties;
 
     }
 
@@ -244,12 +243,13 @@ public abstract class Doll implements GameObject {
     @Override
     public  void takeDamage(GameObject dealer) {
 
-        //реализация по умолчанию
-       takeDamage(dealer.getWeapon());
+        //используется для дверей и ловушек
+
 
 
     }
 
+    @Deprecated
     @Override
     public void takeDamage(Weapon weapon) {
 
@@ -260,6 +260,18 @@ public abstract class Doll implements GameObject {
        Printer.print(this.getName() + " took " + d + " damage" + " from " + weapon.getLabel());
 
 
+    }
+
+    @Override
+    public final void takeDamage(int dmg) {
+
+        hp -= dmg;
+
+    }
+
+    @Override
+    public ArrayList<Property> getProperties() {
+        return properties;
     }
 
     @Override
@@ -298,6 +310,11 @@ public abstract class Doll implements GameObject {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int getDamage() {
+        return weapon.getDamage();
     }
 
     @Override
@@ -340,4 +357,8 @@ public abstract class Doll implements GameObject {
     decalBatch.add(sprite);
 
     }
+
+    @Override
+    public void addProperty(Property property)
+    {properties.add(property);}
 }

@@ -7,7 +7,7 @@ public abstract class Poison extends WeaponryStuff {
 
     public Poison(String name){
 
-        super(name,-1,0);
+        super(name,null,0);
 
     }
 

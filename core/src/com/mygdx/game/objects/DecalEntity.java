@@ -8,13 +8,14 @@ import com.mygdx.game.ai.controller.AIController;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.enumerations.Direction;
 import com.mygdx.game.enumerations.Status;
-import com.mygdx.game.interfaces.Armor;
-import com.mygdx.game.interfaces.GameObject;
-import com.mygdx.game.interfaces.Item;
-import com.mygdx.game.interfaces.Weapon;
+import com.mygdx.game.interfaces.*;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.tools.BuffPool;
 import com.mygdx.game.weaponry.buffs.Buff;
+
+import java.util.ArrayList;
+
+import static com.mygdx.game.enumerations.Classification.*;
 
 /**
  * Created by Даниил on 09.12.2018.
@@ -74,7 +75,7 @@ public class DecalEntity implements GameObject {
 
     @Override
     public Classification getClassification() {
-        return null;
+        return OBJECT;
     }
 
     @Override
@@ -176,6 +177,16 @@ public class DecalEntity implements GameObject {
     }
 
     @Override
+    public void takeDamage(int dmg) {
+
+    }
+
+    @Override
+    public ArrayList<Property> getProperties() {
+        return null;
+    }
+
+    @Override
     public Weapon getWeapon() {
         return null;
     }
@@ -222,6 +233,11 @@ public class DecalEntity implements GameObject {
     }
 
     @Override
+    public int getDamage() {
+        return 0;
+    }
+
+    @Override
     public int getStrength() {
         return 0;
     }
@@ -261,6 +277,11 @@ public class DecalEntity implements GameObject {
 
        decal.lookAt(GameScreen.perspectiveCamera.position, GameScreen.perspectiveCamera.up);
         decalBatch.add(decal);
+
+    }
+
+    @Override
+    public void addProperty(Property property) {
 
     }
 }

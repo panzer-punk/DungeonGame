@@ -87,7 +87,7 @@ public class Printer {//debug class
 
     public static void print(String message){
 
-        hud.print(message + "\n");
+        hud.print(message);
 
     }
 

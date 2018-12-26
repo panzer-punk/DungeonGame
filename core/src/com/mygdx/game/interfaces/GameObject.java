@@ -12,6 +12,8 @@ import com.mygdx.game.enumerations.Status;
 import com.mygdx.game.tools.BuffPool;
 import com.mygdx.game.weaponry.buffs.Buff;
 
+import java.util.ArrayList;
+
 /**
  * Created by Даниил on 09.09.2017.
  */
@@ -44,6 +46,8 @@ public interface GameObject {
      void deleteItem(Item item);
      void takeDamage(GameObject dealer);//для создания дверей и ловушек использовать GameObject
      void takeDamage(Weapon weapon);
+     void takeDamage(int dmg);
+     ArrayList<Property> getProperties();
      Weapon getWeapon();
      Armor getArmor();
      int getHP();
@@ -53,6 +57,7 @@ public interface GameObject {
      Direction getWatchDirection();
      AIController getController();
      String getName();
+     int getDamage();
      int getStrength();
      int getDexterity();
      int getConstitution();
@@ -61,5 +66,6 @@ public interface GameObject {
      int getSTR();
      int getCON();
      void draw(ModelBatch modelBatch, DecalBatch decalBatch);
+     void addProperty(Property property);
 
 }

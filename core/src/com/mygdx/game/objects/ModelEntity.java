@@ -2,6 +2,11 @@ package com.mygdx.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.Model;
+import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.ModelInstance;
+import com.badlogic.gdx.graphics.g3d.decals.Decal;
+import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.mygdx.game.ai.controller.AIController;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.enumerations.Direction;
@@ -16,32 +21,38 @@ import com.mygdx.game.weaponry.buffs.Buff;
 /**
  * Created by Даниил on 27.04.2018.
  */
-public class Entity implements GameObject {
+public class ModelEntity implements GameObject {
 
-    protected Sprite sprite;
+    protected ModelInstance model;
     protected String name;
     protected int x, y;
     protected int hp;
     protected Classification classification;
 
-    public Entity(String n, Sprite s){
+    public ModelEntity(String n, Model s){
         name = n;
-        s.setSize(1,1);
-        s.flip(false,true);
-        sprite = s;
+        model = new ModelInstance(s);
         hp = 1;
         classification = Classification.OBJECT;
     }
-    public Entity(String n, Sprite s, int hp){
+    public ModelEntity(String n, Model m, int hp){
         name = n;
-        s.setSize(1,1);
-        s.flip(false,true);
-        sprite = s;
+        model = new ModelInstance(m);
         this.hp = hp;
         classification = Classification.OBJECT;
     }
     @Override
-    public void draw(SpriteBatch batch) {sprite.draw(batch);}
+    public void draw(ModelBatch modelBatch, DecalBatch decalBatch) {
+
+         modelBatch.render(model);
+
+
+    }
+
+    @Override
+    public void draw(SpriteBatch batch) {
+
+    }
 
     @Override
     public void setInitiative(int i) {
@@ -84,10 +95,10 @@ public class Entity implements GameObject {
     public void setStatus(Status status) {}
 
     @Override
-    public Sprite getSprite() {return sprite;}
+    public Decal getSprite() {return null;}
 
     @Override
-    public void setSprite(Sprite sprite) {this.sprite = sprite;}
+    public void setSprite(Decal decal) {}
 
     @Override
     public int getX() {return x;}
@@ -96,17 +107,17 @@ public class Entity implements GameObject {
     public int getY() {return y;}
 
     @Override
-    public void setX(int x) {sprite.setX(x); this.x = x;}
+    public void setX(int x) {this.x = x;}
 
     @Override
-    public void setY(int y) {sprite.setY(y); this.y = y;}
+    public void setY(int y) {this.y = y;}
 
     @Override
     public void setXY(int x, int y) {
 
         this.x = x;
         this. y = y;
-        sprite.setPosition(x,y);
+        model.transform.translate(x,0,y);
 
     }
 

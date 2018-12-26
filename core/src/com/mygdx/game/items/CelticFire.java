@@ -1,29 +1,26 @@
 package com.mygdx.game.items;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.ai.controller.AIController;
+import com.badlogic.gdx.graphics.g3d.Model;
+import com.badlogic.gdx.graphics.g3d.decals.Decal;
+import com.mygdx.game.build.NewTexturePack;
 import com.mygdx.game.build.Room;
-import com.mygdx.game.enumerations.Classification;
-import com.mygdx.game.enumerations.Direction;
-import com.mygdx.game.enumerations.Status;
-import com.mygdx.game.interfaces.Armor;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Item;
-import com.mygdx.game.interfaces.Weapon;
-import com.mygdx.game.objects.Entity;
-import com.mygdx.game.playable.Doll;
-import com.mygdx.game.tools.BuffPool;
-import com.mygdx.game.weaponry.buffs.Buff;
+import com.mygdx.game.objects.DecalEntity;
+import com.mygdx.game.objects.ModelEntity;
 
 /**
  * Created by Даниил on 04.12.2018.
  */
-public class CelticFire extends Entity implements  Item {
+public class CelticFire extends DecalEntity implements  Item {
 
 
-    public CelticFire(Sprite sprite) {
-        super("Celtic Fire Amulet", sprite);
+    public CelticFire() {
+        super(Decal.newDecal(0.45f, 0.45f, NewTexturePack.celticFire, true), "Celtic fire");
+    }
+
+    public CelticFire(Decal decal, String name) {
+        super(decal, name);
     }
 
     @Override
@@ -32,19 +29,18 @@ public class CelticFire extends Entity implements  Item {
     }
 
     @Override
-    public void drop(Room room, GameObject gameObject) {
+    public void takeDamage(GameObject gameObject){
 
-        gameObject.deleteItem(this);
-        room.setObject(this);
+        setHp(-100);
+        gameObject.putItem(this);
+
 
     }
 
     @Override
-    public void takeDamage(GameObject gameObject){
-
-        setHp(0);
-        gameObject.putItem(this);
-
+    public void drop(Room room, GameObject gameObject) {
+        setHp(1);
+        gameObject.deleteItem(this);
+        room.setObject(this);
     }
-
 }

@@ -2,6 +2,9 @@ package com.mygdx.game.playable;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.decals.Decal;
+import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.mygdx.game.ai.controller.AIController;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.enumerations.Direction;
@@ -22,7 +25,7 @@ import java.util.ArrayList;
  */
 public abstract class Doll implements GameObject {
 
-    private Sprite sprite;
+    private Decal sprite;
     private BuffPool buffPool;
     private int initiativebonus;
     private String name;
@@ -44,15 +47,13 @@ public abstract class Doll implements GameObject {
     private ArrayList<Item> backpack;
     private AIController controller;
 
-    public Doll(String name, int hp, int capacity, Sprite sprite,
+    public Doll(String name, int hp, int capacity, Decal sprite,
                 int movementsPoints, int level, int experience,
                 int strength, int dexterity, int constitution,
                 int initiativebonus, Classification classification){
 
         this.name = name;
         this.hp = hp;
-        sprite.setSize(1,1 );
-        sprite.flip(false,true);
         this.sprite = sprite;
         this.strength = strength;
         this.dexterity = dexterity;
@@ -91,18 +92,23 @@ public abstract class Doll implements GameObject {
     }
 
     @Override
+    public void draw(SpriteBatch batch) {
+
+    }
+
+    @Override
     public void setHp(int hp){this.hp = hp;}
 
     @Override
     public final AIController getController(){return controller;}
 
-    @Override
+   /* @Override
     public void draw(SpriteBatch batch) {
         if(movementsPoints == 0)
             sprite.setColor(1,1,9,80);
         sprite.draw(batch);
 
-    }
+    }*/
 
     @Override
     public void setInitiative(int i){
@@ -161,12 +167,12 @@ public abstract class Doll implements GameObject {
     }
 
     @Override
-    public Sprite getSprite() {
+    public Decal getSprite() {
         return sprite;
     }
 
     @Override
-    public void setSprite(Sprite sprite) {
+    public void setSprite(Decal sprite) {
         this.sprite = sprite;
     }
 
@@ -199,7 +205,7 @@ public abstract class Doll implements GameObject {
 
         this.x = x;
         this. y = y;
-        sprite.setPosition(x,y);
+        sprite.setPosition(x,0, y + 0.5f);
 
     }
 
@@ -325,5 +331,13 @@ public abstract class Doll implements GameObject {
     @Override
     public int getCON() {
         return CON;
+    }
+
+    @Override
+    public void draw(ModelBatch modelBatch, DecalBatch decalBatch){
+
+   // sprite.setPosition(x,0, y + 0.5f);
+    decalBatch.add(sprite);
+
     }
 }

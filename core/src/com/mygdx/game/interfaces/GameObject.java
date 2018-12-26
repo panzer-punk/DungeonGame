@@ -2,6 +2,9 @@ package com.mygdx.game.interfaces;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.decals.Decal;
+import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.mygdx.game.ai.controller.AIController;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.enumerations.Direction;
@@ -27,8 +30,8 @@ public interface GameObject {
      void setDirection(Direction direction);
      void setClassification(Classification classification);
      void setStatus(Status status);
-     Sprite getSprite();
-     void setSprite(Sprite sprite);
+     Decal getSprite();
+     void setSprite(Decal sprite);
      int getX();
      int getY();
      void setX(int x);
@@ -57,5 +60,6 @@ public interface GameObject {
      int getDEX();
      int getSTR();
      int getCON();
+     void draw(ModelBatch modelBatch, DecalBatch decalBatch);
 
 }

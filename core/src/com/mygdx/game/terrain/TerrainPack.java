@@ -14,37 +14,37 @@ public class TerrainPack {
 
     public Terrain getLava(){
 
-        return new Lava(texturePack.getHole());
+        return new Lava();
 
     }
 
     public Terrain getFloor_min(){
 
-        return new Floor_min(texturePack.getFloor_min());
+        return new Floor_min();
 
     }
 
     public  Terrain getFloor_mid(){
 
-        return new Floor_mid(texturePack.getFloor_mid());
+        return new Floor_mid();
 
     }
 
    public Terrain getSand(){
 
-        return new Sand(texturePack.getSand());
+        return new Sand();
 
    }
 
    public Terrain getWater(){
 
-       return new Water(texturePack.getWater());
+       return new Water();
 
    }
 
    public Terrain getDirt(){
 
-       return new Dirt(texturePack.getDirt());
+       return new Dirt();
 
    }
 

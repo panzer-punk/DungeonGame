@@ -1,30 +1,38 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g3d.Model;
+import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.ModelInstance;
+import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
+import com.badlogic.gdx.graphics.g3d.decals.Decal;
+import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
+import com.badlogic.gdx.graphics.g3d.utils.MeshPartBuilder;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Plane;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.armor.ChainArmor;
+import com.mygdx.game.armor.IronArmor;
 import com.mygdx.game.build.*;
 import com.mygdx.game.generators.*;
 import com.mygdx.game.interfaces.Particle;
+import com.mygdx.game.items.CelticFire;
 import com.mygdx.game.levels.ArtifactRoom;
 import com.mygdx.game.levels.DemoLevelsLocation;
-import com.mygdx.game.levels.RoomIntrance;
-import com.mygdx.game.levels.RoomOrcIntrance;
-import com.mygdx.game.playable.Orc;
-import com.mygdx.game.playable.Skeleton;
-import com.mygdx.game.scene.HUD;
-import com.mygdx.game.build.Map;
 import com.mygdx.game.build.Room;
+import com.mygdx.game.objects.BlueFountain;
+import com.mygdx.game.objects.Column;
+import com.mygdx.game.objects.ModelEntity;
+import com.mygdx.game.scene.HUD;
 import com.mygdx.game.systems.DialogManager;
 import com.mygdx.game.systems.GameScreenManager;
 import com.mygdx.game.systems.RoomManager;
@@ -32,19 +40,29 @@ import com.mygdx.game.terrain.Terrain;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.objects.Door;
-import com.mygdx.game.objects.Entity;
 import com.mygdx.game.playable.Hero;
-import com.mygdx.game.playable.Spider;
 import com.mygdx.game.terrain.TerrainPack;
 import com.mygdx.game.tools.*;
+import com.mygdx.game.weaponry.meleeweapon.IronSword;
+import com.mygdx.game.weaponry.meleeweapon.Spear;
 import com.mygdx.game.weaponry.rangeweapon.Arrow;
 import com.mygdx.game.weaponry.rangeweapon.Bow;
+import com.mygdx.game.weaponry.rangeweapon.Shell;
+
+
+import javax.swing.text.html.parser.Entity;
 
 public class GameScreen implements Screen, InputProcessor {
-    SpriteBatch batch;
-    OrthographicCamera cam;
-    HUD hud;
-    TestTrigger trigger;
+    DecalBatch batch;
+    AssetManager assetManager;
+    Decal testBg;
+    MeshPartBuilder meshBuilder;
+    ModelBatch modelBatch;
+    Array<Decal> decals = new Array<Decal>();
+    PerspectiveCamera camera;
+    FPSLogger logger = new FPSLogger();
+    public Model model, model2;
+    public ModelInstance instance, instance2;
     Viewport viewport;
     TexturePack texturePack;
     RoomGenerator roomGenerator;
@@ -52,6 +70,7 @@ public class GameScreen implements Screen, InputProcessor {
     Door door;
     int turn;
     int worldWidth;
+    Decal decal;
     int worldHeight;
     final Matrix4 matrix = new Matrix4();
     PriorityQueue queque;//sorted by initiative
@@ -65,10 +84,13 @@ public class GameScreen implements Screen, InputProcessor {
     final Vector3 curr = new Vector3();
     final Vector3 last = new Vector3(-1,-1,-1);
     final Vector3 delta = new Vector3();
-    Sprite lastSelectedTile = null;
+    Decal lastSelectedTile = null;
     GameObject lastSelectedObject = null;
     Terrain lastSelectedTerrain = null;
     DemoLevelsLocation demoLevelsLocation;
+    HUD hud;
+    public static  PerspectiveCamera perspectiveCamera;
+    private  volatile boolean inputBlock;
 
     MyGdxGame game;
 
@@ -76,93 +98,67 @@ public class GameScreen implements Screen, InputProcessor {
 
         GameScreenManager.init(this);
 
-        WeaponGenerator weaponGenerator = new WeaponGenerator();
-        ArmorGenerator armorGenerator = new ArmorGenerator();
+        assetManager = new AssetManager();
+        assetManager.load("wall.obj", Model.class);
+        assetManager.load("door.obj", Model.class);
+        assetManager.finishLoading();
 
-        demoLevelsLocation = new DemoLevelsLocation(texturePack, new TerrainPack(texturePack), new GameObjectPack(texturePack), this);
+        RoomManager.init(this);
 
-        batch = new SpriteBatch();
-        this.texturePack = texturePack;
+        NewTexturePack.init();
 
-        room = demoLevelsLocation.getMainRoom();             //new RoomIntrance(new TerrainPack(texturePack));
-
-      //  room = new ArtifactRoom(new TerrainPack(texturePack));
-
-       // roomGenerator = new RoomGenerator(texturePack);
-       // locationGenerator = new LocationGenerator(texturePack, this);
-      //  location = locationGenerator.generate(5);
-
-      //  worldWidth = 5 + Dice.d10();
-      //  worldHeight = 5 + Dice.d10();
+        inputBlock = false;
 
 
+        player = new Hero("Donny", 18, 10, Decal.newDecal(1,1, new TextureRegion(new Texture(Gdx.files.internal("player.png"))), true), 10,1,1,14,14,14,1, Classification.Playable);
+        player.equipWeapon(new IronSword());
+        player.equipArmor(new IronArmor());
 
+        demoLevelsLocation = new DemoLevelsLocation(texturePack, new TerrainPack(texturePack), new GameObjectPack(texturePack, assetManager), this, assetManager);
 
-
-       // room =  roomGenerator.generateRoom(worldWidth, worldHeight);
-       // genRoom = roomGenerator.generateRoom(10, 10);
-       // room = location.getMainRoom();
-      //  turn = room.getTurn();
-
-        //Код для теста
-       // trigger = new TestTrigger(room, 2);
-      //  trigger.addPoint(new Point(5,5));
-      //  room.addTrigger(trigger);
-        //
-
-        enemyGenerator = new EnemyGenerator(texturePack);
-       // door = new Door(texturePack.getDoor(), room, roomGenerator.generateRoom(10,10), this);
-
-        cam = new OrthographicCamera(10 * 1.3f, 10 *(Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()));
-        cam.position.set(5,5,5);
-        cam.direction.set(0,-1,-1);
-        cam.near = 1;
-        cam.far = 500;
-        matrix.setToRotation(new Vector3(1,0,0), 90);
-        viewport = new ScreenViewport();
-        viewport.apply(true);
-
-        Sprite sprite = new Sprite(texturePack.getFloor_min());
-        sprite.setSize(1,1 );
-        Terrain terrain = new Terrain(2,"test", texturePack.getHole(), true);
-        sprite = terrain.getSprite();
-        sprite.setSize(1,1);
-        sprite.flip(false, true);
-
-
-        GameObject orc = new Orc(new Sprite(texturePack.getOrc()));
-        orc.setHp(500);
-
-
-        sprite = new Sprite(texturePack.getPlayer());
-        Bow bow = new Bow();
-        bow.setShell(new Arrow(10, bow));
-        player = new Hero("Donny", 10000, 10,sprite,5, 1,
-                0, 10, 16, 14,
-                0, Classification.Playable);
-        player.equipWeapon(bow);
-        player.equipArmor(armorGenerator.createArmor());
-
-        sprite = new Sprite(texturePack.getWall_1());
-        wall = new Entity("Wall", sprite);
-        room.setObject(player);
-        room.setObject(orc);
-        room.move(0,0,3,3);
-        queque = room.getInitiativeQueue();
-
-        hud = new HUD(batch, this, texturePack.getSkin(), width, height, worldWidth, worldHeight);
+        hud = new HUD(this, texturePack.getSkin(), Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), player);
         Printer.setHud(hud);
 
+        DialogManager.init(hud);
 
-      //  queque.display();
-        Printer.show(room);
+        camera = new PerspectiveCamera(25, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.near = 1;
+        camera.far = 100;
+        camera.position.set(5, 6, 10);
+        camera.direction.set(-1,-1,-1);
 
+        camera.rotate(camera.combined);
+
+        room = demoLevelsLocation.getMainRoom();
+
+       // CelticFire celticFire = new CelticFire("Celtic fire", Decal.newDecal(0.45f,0.45f, new TextureRegion(new Texture(Gdx.files.internal("celtic_fire.png"))), true));
+
+       // Column column = new Column(Decal.newDecal(2,2, new TextureRegion(new Texture(Gdx.files.internal("crumbled_column.png"))), true));
+      //  BlueFountain blueFountain = new BlueFountain(Decal.newDecal(0.8f, 0.8f, new TextureRegion(new Texture(Gdx.files.internal("blue_fountain.png"))), true));
+
+      // ModelEntity wall = new ModelEntity("Wall", assetManager.get("wall.obj", Model.class));
+
+
+        queque = room.getInitiativeQueue();
+
+        testBg = Decal.newDecal(room.getL(), room.getC(), new TextureRegion(new Texture(Gdx.files.internal("background.jpg"))));
+        testBg.setPosition(4.5f,3f, 0f);
 
         Gdx.input.setInputProcessor(this);
-        this.game = game;
+        batch = new DecalBatch(new CameraGroupStrategy(camera));
 
-        initSystems();
+        room.setObject(player);
 
+
+        modelBatch = new ModelBatch();
+        camera.lookAt(-1, -1, -1);
+        camera.update();
+        initcamera(camera);
+    }
+
+    static  void initcamera(PerspectiveCamera camera){
+
+        perspectiveCamera = camera;
 
     }
 
@@ -173,7 +169,6 @@ public class GameScreen implements Screen, InputProcessor {
 
     private void initSystems(){
 
-        DialogManager.init(hud);
         RoomManager.init(this);
 
     }
@@ -187,26 +182,20 @@ public class GameScreen implements Screen, InputProcessor {
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        cam.update();
-        batch.setProjectionMatrix(cam.combined);
-        batch.setTransformMatrix(matrix);
-
-        batch.begin();
-        viewport.apply();
-        room.drawMap(batch);
-        room.drawObjects(batch);
-        room.drawPatricles(batch);
-        batch.end();
-        //batch.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.stage.getViewport().apply();
-        hud.stage.draw();
-
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+        Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
+        camera.update();
+        modelBatch.begin(camera);
+        batch.add(testBg);//DEMO TEST
+        room.draw(modelBatch, batch);
+        //modelBatch.render(instance2);
+        modelBatch.end();
+        batch.flush();
         checkTurnEnded();
         checkTileTouched();
-
-
+        camera.transform(matrix);
+        hud.show();
+        hud.stage.draw();
 
     }
 
@@ -220,26 +209,35 @@ public class GameScreen implements Screen, InputProcessor {
             turn++;
             room.setTurn(turn);
             hud.showTurn(turn);
-         
+
         }
+
     }
 
     private void checkTileTouched() {
 
-        if(current != null && current.getController() == null) {
+        if(!inputBlock && player.getHP() > 0)
+       if(current != null && current.getController() == null ) {
 
             if (Gdx.input.justTouched()) {
 
 
-                Ray pickRay = cam.getPickRay(Gdx.input.getX(), Gdx.input.getY());
+                Ray pickRay = perspectiveCamera.getPickRay(Gdx.input.getX(), Gdx.input.getY());
                 Intersector.intersectRayPlane(pickRay, xzPlane, intersection);
-                int x = (int) intersection.x;
-                int z = (int) intersection.z;
-                Sprite sprite;
 
-           /* Printer.print("\n" + "L: " + room.getL() + " C: " + room.getC() + "\n"
-                    + "x: " + x + " y: "+ z + "\n"
-                    + "wW: " + worldWidth + " wH: "+ worldHeight + "\n");*/
+                System.out.println(intersection.x +" " +intersection.z);
+                System.out.println("fixed: " + (intersection.x + 0.1f) +" " + (intersection.z - 0.7f));
+
+
+
+                int x = (int) (intersection.x + 0.1f);//погрешности измерений
+                int z = (int) (intersection.z - 0.7f);
+
+                Decal sprite;
+
+                System.out.println(x +" " +z);
+
+
 
                 if (x >= 0 && x <= room.getL() && z >= 0 && z <= room.getC()) {
                     if (lastSelectedTile != null)
@@ -247,14 +245,14 @@ public class GameScreen implements Screen, InputProcessor {
 
 
                     if ((x >= 0 && z >= 0) && (x <= room.getL() - 1 && z <= room.getC() - 1)) {
-                        if (room.getObject(x, z) != null && room.getObject(x, z).getClass() != Entity.class) {
+                        if (room.getObject(x, z) != null && room.getObject(x, z).getClass() != ModelEntity.class) {
                             sprite = room.getObject(x, z).getSprite();
                             Printer.show(room.getObject(x, z));
-                            hud.show(room.getObject(x, z));
+
 
                             if (lastSelectedObject != null && lastSelectedObject != room.getObject(x, z) && lastSelectedObject.getMP() > 0 && lastSelectedObject == current && isInRange(lastSelectedObject, room.getObject(x, z))) {
                                 if(room.getObject(x,z).getClassification() != Classification.OBJECT)
-                                lastSelectedObject.makeStep(1000);//1000 чтобы закончить ход
+                                 lastSelectedObject.makeStep(1000);//1000 чтобы закончить ход
                                 lastSelectedObject.getWeapon().makeDamage(lastSelectedObject, room.getObject(x, z));
                                 unselect();
 
@@ -272,21 +270,22 @@ public class GameScreen implements Screen, InputProcessor {
                                 if (room.getTileMap().getTiles()[x][z].flag == true && room.move(lastSelectedObject.getX(), lastSelectedObject.getY(), x, z)) {
                                     lastSelectedObject.makeStep(room.getTileMap().getTiles()[x][z].getMovementPrice());
                                     unselect();
-                                }
+                                }else
+                                    unselect();
                             }
 
                             //  Printer.print("" + map.getTiles()[x][z].getMovementCost()+"\n"  + map.getTiles()[x][z].getMovementPrice() + "\n");
                         }
                         if (sprite != null) {
-                            sprite.setColor(1, 1, 5, 25);
+                            sprite.setColor(1, 1, 1, 25);
                             lastSelectedTile = sprite;
+
                         }
                     } else {
                         unselect();
                     }
 
                 }
-
 
                 update();
 
@@ -299,7 +298,12 @@ public class GameScreen implements Screen, InputProcessor {
 
 
         }
+
     }
+
+    public synchronized void blockInput(){inputBlock = true;}
+
+    public synchronized void unblockInput(){inputBlock = false;}
 
     private boolean isInRange(GameObject lastSelectedObject, GameObject object) {
 
@@ -330,9 +334,13 @@ public class GameScreen implements Screen, InputProcessor {
     @Override
     public void resize(int width, int height) {
 
-        viewport.update(width, height);
-        viewport.apply(true);
-        hud.resize(width, height);
+    if(camera != null){
+        camera.viewportWidth = width;
+        camera.viewportHeight = height;
+        camera.update();
+    }
+
+    hud.resize(width, height);
 
     }
 
@@ -409,7 +417,8 @@ public class GameScreen implements Screen, InputProcessor {
         lastSelectedObject = null;
         room.resetMp();
         checkTurnEnded();
-
+        testBg.setHeight(room.getL());
+        testBg.setWidth(room.getC());
 
     }
 
@@ -431,16 +440,18 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        Ray pickRay = cam.getPickRay(screenX, screenY);
-        Intersector.intersectRayPlane(pickRay, xzPlane, curr);
 
-        if(!(last.x == -1 && last.y == -1 && last.z == -1)) {
-            pickRay = cam.getPickRay(last.x, last.y);
-            Intersector.intersectRayPlane(pickRay, xzPlane, delta);
-            delta.sub(curr);
-            cam.position.add(delta.x, delta.y, delta.z);
-        }
-        last.set(screenX, screenY, 0);
+            Ray pickRay = camera.getPickRay(screenX, screenY);
+            Intersector.intersectRayPlane(pickRay, xzPlane, curr);
+
+            if (!(last.x == -1 && last.y == -1 && last.z == -1)) {
+                pickRay = camera.getPickRay(last.x, last.y);
+                Intersector.intersectRayPlane(pickRay, xzPlane, delta);
+                delta.sub(curr);
+                camera.position.add(delta.x, delta.y, delta.z);
+            }
+            last.set(screenX, screenY, 0);
+
         return false;
     }
 
@@ -451,6 +462,7 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public boolean scrolled(int amount) {
+        camera.fieldOfView -= -amount * Gdx.graphics.getDeltaTime() * 100;
         return false;
     }
 

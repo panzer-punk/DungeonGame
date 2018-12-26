@@ -1,5 +1,6 @@
 package com.mygdx.game.scene;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 
 
@@ -8,21 +9,33 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
  */
 public class SimpleDialog extends com.badlogic.gdx.scenes.scene2d.ui.Dialog {
 
-    public SimpleDialog(String title, Skin skin) {
+    private HUD hud;
+
+    public SimpleDialog(String title, Skin skin, HUD hud) {
         super(title, skin);
+        getContentTable().padTop(15);
+        getButtonTable().padTop(20);
+        this.hud = hud;
     }
 
     @Override
     public Dialog text(String text) {
-
-        Label label = new Label(text,getSkin());
-        label.setBounds(0,0,250,250);
-
-        getContentTable().reset();
-        text(label);
-
-
+        super.text(text);
         return this;
+
+    }
+
+    @Override
+    public Dialog show(Stage stage){
+        hud.blockGameScreen();
+        return super.show(stage);
+    }
+
+    @Override
+    public void result(Object o){
+
+        hud.unblockGameScreen();
+        this.remove();
 
     }
 }

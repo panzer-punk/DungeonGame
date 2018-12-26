@@ -24,26 +24,17 @@ public class DialogManager {
 
     }
 
-    public static void showObjectMessage(String name, String text){//от вызова метода зависит тема применяемая к диалогу
+    public static void showObjectMessage(String text, String name){//от вызова метода зависит тема применяемая к диалогу
         final SimpleDialog simpleDialog;
-       simpleDialog = new SimpleDialog(text, hud.skin);
-       simpleDialog.text(name).show(hud.stage);
-
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-
-                simpleDialog.remove();
-
-            }
-        },3);
+       simpleDialog = new SimpleDialog(name, hud.skin, hud);
+       simpleDialog.text(text).show(hud.stage);
+       hud.blockGameScreen();
+       simpleDialog.button("Ok", true);
 
     }
 
-    public static void showLettering(String title, String text){
+    public static void showTitleDialog(String title, String text, int delay){}
 
-
-    }
 
 
 

@@ -26,7 +26,7 @@ public class TexturePack {
     public TexturePack(TextureAtlas textureAtlas){
 
         textures = textureAtlas;
-        skin = new Skin(Gdx.files.internal("rusty-robot-ui.json"));
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
 
     }
 
@@ -59,7 +59,7 @@ public class TexturePack {
         crumbledColumn = new Texture(Gdx.files.internal("crumbled_column.png"));
         orcishIdol = new Texture(Gdx.files.internal("orcish_idol.png"));
         tomb1 = new Texture(Gdx.files.internal("tomb1.png"));
-        skin = new Skin(Gdx.files.internal("rusty-robot-ui.json"));
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
 
     }
 
@@ -153,7 +153,7 @@ public class TexturePack {
     }
 
     public Texture getHole(){return hole;}//debug code
-    //Entity
+    //ModelEntity
     public Texture getWall_1(){return wall;}//debug code
     public Texture getWall_2(){return null;}
     public Texture getDoor(){return door;}

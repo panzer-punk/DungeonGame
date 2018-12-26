@@ -2,7 +2,7 @@ package com.mygdx.game.tools;
 
 import com.mygdx.game.scene.HUD;
 import com.mygdx.game.enumerations.Classification;
-import com.mygdx.game.objects.Entity;
+import com.mygdx.game.objects.ModelEntity;
 import com.mygdx.game.build.Room;
 import com.mygdx.game.interfaces.Armor;
 import com.mygdx.game.interfaces.GameObject;
@@ -18,7 +18,9 @@ public class Printer {//debug class
 
     public static void show(GameObject gameObject){
 
-        if(gameObject.getClass() == Entity.class || gameObject.getClassification() == Classification.OBJECT) {
+        System.out.println(gameObject.getX() + " : " + gameObject.getY());
+
+/*        if(gameObject.getClass() == ModelEntity.class || gameObject.getClassification() == Classification.OBJECT) {
             System.out.println(gameObject.getName() + "\n X;Y: " + gameObject.getX() + ";" + gameObject.getY());
         }
         else {
@@ -29,7 +31,7 @@ public class Printer {//debug class
                     "\n STR: " + gameObject.getSTR() + " DEX: " + gameObject.getDEX() + " CON: " + gameObject.getCON() +
                     "\n X;Y: " + gameObject.getX() + ";" + gameObject.getY() +
                     "\n In: " + gameObject.getInitiative());
-        }
+        }*/
 
     }
 
@@ -85,8 +87,7 @@ public class Printer {//debug class
 
     public static void print(String message){
 
-        System.out.print(message);
-        hud.print(message);
+        hud.print(message + "\n");
 
     }
 

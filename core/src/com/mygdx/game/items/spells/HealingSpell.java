@@ -7,7 +7,7 @@ import com.mygdx.game.interfaces.Item;
 /**
  * Created by Даниил on 09.09.2017.
  */
-public class HealingSpell implements Item {//TODO добавить спрайт и наследование от Doll или Entity
+public class HealingSpell implements Item {//TODO добавить спрайт и наследование от Doll или ModelEntity
 
     int points = 10;
 

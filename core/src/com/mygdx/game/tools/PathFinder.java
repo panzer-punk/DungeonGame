@@ -1,6 +1,8 @@
 package com.mygdx.game.tools;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.decals.Decal;
+import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.mygdx.game.build.Room;
 import com.mygdx.game.terrain.Terrain;
 import com.mygdx.game.interfaces.GameObject;
@@ -15,7 +17,7 @@ public class PathFinder {
     static int reset;
     static int c, l;
 
-    public static void drawWays(SpriteBatch batch, Room room, int x, int z , int lin, int col){
+    public static void drawWays(DecalBatch batch, Room room, int x, int z , int lin, int col){
 
         GameObject gameObject = room.getObject(x,z);
         if(gameObject == null)
@@ -53,7 +55,7 @@ public class PathFinder {
     }
 
 
-    private static void draw(int mp, int x, int z, GameObject[][] map, Terrain[][] tileMap, SpriteBatch batch, int testP){
+    private static void draw(int mp, int x, int z, GameObject[][] map, Terrain[][] tileMap, DecalBatch batch, int testP){
         //up
         if(mp >= 0 && (x <= l && z <= c) ){
 

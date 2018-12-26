@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.armor.ChainArmor;
 import com.mygdx.game.armor.IronArmor;
+import com.mygdx.game.armor.LeatherArmor;
 import com.mygdx.game.build.*;
 import com.mygdx.game.generators.*;
 import com.mygdx.game.interfaces.Particle;
@@ -113,11 +114,11 @@ public class GameScreen implements Screen, InputProcessor {
         inputBlock = false;
 
 
-        player = new Hero("Donny", 100, 10,
+        player = new Hero("Donny", 13, 10,
                 Decal.newDecal(1,1,
                         new TextureRegion(new Texture(Gdx.files.internal("player.png"))),
-                        true), 10,1,1,14,14,
-                14,1, Classification.Playable, new ArrayList<Property>());
+                        true), 10,1,1,15,18,
+                14,4, Classification.Playable, new ArrayList<Property>());
         player.equipWeapon(new IronSword());
         player.equipArmor(new IronArmor());
 
@@ -209,6 +210,7 @@ public class GameScreen implements Screen, InputProcessor {
     private void checkTurnEnded() {
         if(!queque.isEmpty() && (current == null || current.getMP() <= 0 || current.getHP() <= 0)) {
             current = queque.remove();
+            current.getBuffPool().use();
             hud.showCurrent(current);
         }else if (queque.isEmpty()){
             room.resetMp();
@@ -260,14 +262,13 @@ public class GameScreen implements Screen, InputProcessor {
                             if (lastSelectedObject != null && lastSelectedObject != room.getObject(x, z) && lastSelectedObject.getMP() > 0 && lastSelectedObject == current && isInRange(lastSelectedObject, room.getObject(x, z))) {
                                 if(room.getObject(x,z).getClassification() != Classification.OBJECT)
                                  lastSelectedObject.makeStep(1000);//1000 чтобы закончить ход
-                               // lastSelectedObject.getWeapon().makeDamage(lastSelectedObject, room.getObject(x, z));
+                               // lastSelectedObject.getWeapon().makeSpecialDamage(lastSelectedObject, room.getObject(x, z));
                                 Damager.makeDamage(lastSelectedObject, room.getObject(x,z));
                                 unselect();
 
                             } else {
                                 if (room.getObject(x, z) == current) {
                                     lastSelectedObject = room.getObject(x, z);
-                                    lastSelectedObject.getBuffPool().use();
                                     PathFinder.drawWays(batch, room, x, z, room.getL(), room.getC());
                                 }
                             }

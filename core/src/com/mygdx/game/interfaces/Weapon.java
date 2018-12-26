@@ -16,7 +16,9 @@ public interface Weapon {
 
     public WeaponType getType();//1 for stabbing weapon; 0 for blunt weapon
 
-    public int getDamage();
+    //public int getDamage();
+
+    Attack getAttack();
 
     public int getDistance();
 

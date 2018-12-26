@@ -11,6 +11,7 @@ import com.mygdx.game.particles.ArrowParticle;
 import com.mygdx.game.systems.GameScreenManager;
 import com.mygdx.game.tools.Dice;
 import com.mygdx.game.weaponry.WeaponryStuff;
+import com.mygdx.game.weaponry.attacks.D4Attack;
 
 import static com.mygdx.game.enumerations.WeaponType.*;
 
@@ -19,7 +20,7 @@ public class Bow extends WeaponryStuff {
     private Shell shell;
 
     public Bow() {
-        super("Bow", STABBING, 4);
+        super("Bow", STABBING, 4, new D4Attack());
         }
 
         @Override
@@ -46,8 +47,5 @@ public class Bow extends WeaponryStuff {
         this.shell = shell;
     }
 
-    @Override
-    public int getDamage() {
-        return 1;
-    }
+
 }

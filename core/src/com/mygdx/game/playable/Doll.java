@@ -253,11 +253,6 @@ public abstract class Doll implements GameObject {
     @Override
     public void takeDamage(Weapon weapon) {
 
-        int d = weapon.getDamage();
-
-        hp -= d;
-
-       Printer.print(this.getName() + " took " + d + " damage" + " from " + weapon.getLabel());
 
 
     }
@@ -314,7 +309,7 @@ public abstract class Doll implements GameObject {
 
     @Override
     public int getDamage() {
-        return weapon.getDamage();
+        return-1;
     }
 
     @Override

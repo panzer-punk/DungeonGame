@@ -1,5 +1,6 @@
 package com.mygdx.game.interfaces;
 
+import com.mygdx.game.enumerations.WeaponType;
 import com.mygdx.game.interfaces.GameObject;
 
 /**
@@ -13,7 +14,7 @@ public interface Weapon {
 
     String getLabel();
 
-    public int getType();//1 for stabbing weapon; 0 for blunt weapon
+    public WeaponType getType();//1 for stabbing weapon; 0 for blunt weapon
 
     public int getDamage();
 

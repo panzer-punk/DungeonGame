@@ -1,6 +1,7 @@
 package com.mygdx.game.weaponry.meleeweapon;
 
 import com.mygdx.game.enumerations.Classification;
+import com.mygdx.game.enumerations.WeaponType;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.tools.BuffPool;
 import com.mygdx.game.tools.Dice;
@@ -10,16 +11,18 @@ import com.mygdx.game.weaponry.poisons.Poison;
 import com.mygdx.game.weaponry.poisons.SpiderPoison;
 import com.mygdx.game.weaponry.WeaponryStuff;
 
+import static com.mygdx.game.enumerations.WeaponType.*;
+
 public class SpiderBite extends WeaponryStuff {
     private Poison poison;
 
-    public SpiderBite(String label, int type, int distance) {
+    public SpiderBite(String label, WeaponType type, int distance) {
         super(label, type, distance);
         poison = new SpiderPoison();
     }
 
     public SpiderBite(){
-        super("SpiderBite",1,1);
+        super("SpiderBite", STABBING,1);
         poison = new SpiderPoison();
     }
 

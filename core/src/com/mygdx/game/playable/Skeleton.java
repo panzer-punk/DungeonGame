@@ -29,9 +29,9 @@ public class Skeleton extends Doll {
 
         super("Skeleton", 4,0, Decal.newDecal(1,1,
                 NewTexturePack.skeleton, true),
-                7, 1, 0,
-                12,8,10,
-                2, Classification.Nonplayable, new ArrayList<Property>());
+                7, 1, 135,
+                14,14,0,
+                6, Classification.Nonplayable, new ArrayList<Property>());
 
         equipArmor(new LeatherArmor());
         equipWeapon(new IronSword());

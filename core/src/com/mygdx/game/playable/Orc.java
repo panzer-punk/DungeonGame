@@ -25,8 +25,8 @@ public class Orc extends Doll {
     }
 
     public Orc(){
-        super("Orc", 6,2,Decal.newDecal(1,1, NewTexturePack.orc, true),3,1,
-                0,14,8,12,
+        super("Orc", 6,2,Decal.newDecal(1,1, NewTexturePack.orc, true),6,1,
+                136,16,10,12,
                 0, Classification.Nonplayable, new ArrayList<Property>());
 
         equipArmor(new LeatherArmor());

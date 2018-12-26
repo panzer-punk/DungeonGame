@@ -21,9 +21,9 @@ public class Spider extends Doll {
 
     public Spider (){
 
-        super("Spider", 10, 0, Decal.newDecal(1,1,
-                NewTexturePack.spider, true), 10, 1,
-                0, 16, 14,14,
+        super("Spider", 16, 0, Decal.newDecal(1,1,
+                NewTexturePack.spider, true), 6, 1,
+                400, 10, 16,12,
                 3, Classification.Nonplayable, new ArrayList<Property>());
         this.equipWeapon(new SpiderBite());
         equipArmor(new LeatherArmor());

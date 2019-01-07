@@ -95,6 +95,7 @@ public class GameScreen implements Screen, InputProcessor {
     HUD hud;
     public static  PerspectiveCamera perspectiveCamera;
     private  volatile boolean inputBlock;
+    int cameraDirFlag = 0;
 
     MyGdxGame game;
 
@@ -132,7 +133,7 @@ public class GameScreen implements Screen, InputProcessor {
         camera = new PerspectiveCamera(25, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.near = 1;
         camera.far = 100;
-        camera.position.set(5, 6, 10);
+        camera.position.set(5, 9, 10);
         camera.direction.set(-1,-1,-1);
 
         camera.rotate(camera.combined);
@@ -160,6 +161,7 @@ public class GameScreen implements Screen, InputProcessor {
 
         modelBatch = new ModelBatch();
         camera.lookAt(-1, -1, -1);
+        camera.rotate(camera.position, -4);
         camera.update();
         initcamera(camera);
     }
@@ -410,10 +412,16 @@ public class GameScreen implements Screen, InputProcessor {
                 Printer.show(room);
                 break;
 
+            case Input.Keys.E:
+                break;
+
+            case Input.Keys.Q:
+                break;
 
         }
         return false;
     }
+
 
     public void moveToRoom(Room room){
 

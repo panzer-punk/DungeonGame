@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.systems.DialogManager;
+import com.rafaskoberg.gdx.typinglabel.TypingLabel;
 
 
 public class HUD {
@@ -57,6 +58,7 @@ public class HUD {
             playerName,
             hp,
             mp;
+
     /* Label initiative;
      Label armorclass;
      Label name, turn;*/

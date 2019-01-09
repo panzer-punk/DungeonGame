@@ -23,7 +23,7 @@ public class BlueFountain extends DialogDecalEntity {
     public void takeDamage(GameObject gameObject){
 
         if(gameObject.getDEX() + Dice.d20() >= 15)
-            DialogManager.showObjectMessage(name, text);
-
+           // DialogManager.showObjectMessage(name, text);
+            DialogManager.showObjectDialog(text, "{SLOW}{WAVE}Hello," + gameObject.getName());
     }
 }

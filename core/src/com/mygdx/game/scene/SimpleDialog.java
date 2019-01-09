@@ -16,6 +16,7 @@ public class SimpleDialog extends com.badlogic.gdx.scenes.scene2d.ui.Dialog {
         getContentTable().padTop(15);
         getButtonTable().padTop(20);
         this.hud = hud;
+      //  getContentTable().setDebug(true);
     }
 
     @Override

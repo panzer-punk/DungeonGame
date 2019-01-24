@@ -1,24 +1,17 @@
 package com.mygdx.game.playable;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.mygdx.game.ai.controller.SimpleTestController;
 import com.mygdx.game.armor.LeatherArmor;
 import com.mygdx.game.build.NewTexturePack;
 import com.mygdx.game.enumerations.Classification;
-import com.mygdx.game.enumerations.WeaponType;
-import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Property;
-import com.mygdx.game.interfaces.Weapon;
 import com.mygdx.game.property.BluntResistProperty;
-import com.mygdx.game.tools.Printer;
 import com.mygdx.game.weaponry.meleeweapon.IronSword;
 
 import java.util.ArrayList;
 
-import static com.mygdx.game.enumerations.WeaponType.*;
-
-public class Skeleton extends Doll {
+public class Skeleton extends DollDecal {
     public Skeleton(String name, int hp, int capacity, Decal sprite, int movementsPoints, int level,
                     int experience, int strength, int dexterity, int constitution, int initiativebonus,
                     Classification classification, ArrayList<Property> properties) {

@@ -141,6 +141,14 @@ public class Room implements Serializable {
 
     }
 
+    public Trigger[][] getTriggers() {
+        return triggers;
+    }
+
+    public ArrayList<Particle> getParticles() {
+        return particles;
+    }
+
     public boolean move(int from_line, int from_column, int to_line, int to_column){
 
         if(to_line < l && to_column < c) {
@@ -163,6 +171,7 @@ public class Room implements Serializable {
                 Printer.print("Не могу перейти\n");
 
                 return false;
+
             }
         }
 
@@ -205,54 +214,6 @@ public class Room implements Serializable {
         return temp;
     }
 
-    public void drawObjects(SpriteBatch batch){
-        for (int i = 0; i < l; i++) {
-            for (int j = 0; j < c; j++) {
-
-                if(map[i][j] != null) {
-                    if(map[i][j].getHP() <= 0)
-                       // if (map[i][j].getClass() != ModelEntity.class) ModelEntity should be checked by it's class, not by HP
-                            delete(i, j);
-                    else
-                    map[i][j].draw(batch);
-                }
-
-
-            }
-        }
-
-
-
-    }
-
-    public void drawObjects(ModelBatch modelBatch, DecalBatch decalBatch){
-        for (int i = 0; i < l; i++) {
-            for (int j = 0; j < c; j++) {
-
-                if(map[i][j] != null) {
-                    if(map[i][j].getHP() <= 0)
-                        delete(i, j);
-                    else
-                        map[i][j].draw(modelBatch,decalBatch);
-                }
-
-
-            }
-        }
-
-
-
-    }
-
-    public void draw(ModelBatch modelBatch, DecalBatch decalBatch){
-
-        drawMap(decalBatch);
-        drawObjects(modelBatch, decalBatch);
-        drawPatricles(decalBatch);
-
-
-    }
-
    public void drawPatricles(DecalBatch batch){
 
         for(Particle p : particles) {
@@ -276,14 +237,22 @@ public class Room implements Serializable {
 
     }
 
+    public void checkUnactiveObjects() {
+        for (int i = 0; i < l; i++) {
+            for (int j = 0; j < c; j++) {
+                if (map[i][j] != null) {
+                    if (map[i][j].getHP() <= 0)
+                        delete(i, j);
+                }
+            }
+        }
+    }
+
     public void removeParticle(Particle particle){particles.remove(particle); particle.dispose();}
 
    /* public void drawMap(SpriteBatch batch){
         tileMap.draw(batch);
     }*/
-    public void drawMap(DecalBatch batch){
-        tileMap.draw(batch);
-    }
 
     public void clearTiles(){
 

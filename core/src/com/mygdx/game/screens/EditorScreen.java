@@ -158,7 +158,6 @@ public class EditorScreen implements Screen, InputProcessor {
         batch.setTransformMatrix(matrix);
 
         batch.begin();
-        room.drawObjects(batch);
         batch.end();
 
         checkTileTouched();

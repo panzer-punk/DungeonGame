@@ -1,7 +1,6 @@
 package com.mygdx.game.playable;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
@@ -9,9 +8,9 @@ import com.mygdx.game.ai.controller.AIController;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.enumerations.Direction;
 import com.mygdx.game.enumerations.Status;
+import com.mygdx.game.graphics.RenderType3D;
 import com.mygdx.game.interfaces.*;
 import com.mygdx.game.tools.BuffPool;
-import com.mygdx.game.tools.Printer;
 import com.mygdx.game.weaponry.buffs.Buff;
 
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 /**
  * Created by Даниил on 15.07.2018.
  */
-public abstract class Doll implements GameObject {
+public abstract class DollDecal implements GameObject, RenderType3D {
 
     private Decal sprite;
     private BuffPool buffPool;
@@ -45,10 +44,10 @@ public abstract class Doll implements GameObject {
     private AIController controller;
     private ArrayList<Property> properties;
 
-    public Doll(String name, int hp, int capacity, Decal sprite,
-                int movementsPoints, int level, int experience,
-                int strength, int dexterity, int constitution,
-                int initiativebonus, Classification classification, ArrayList <Property> properties){
+    public DollDecal(String name, int hp, int capacity, Decal sprite,
+                     int movementsPoints, int level, int experience,
+                     int strength, int dexterity, int constitution,
+                     int initiativebonus, Classification classification, ArrayList <Property> properties){
 
         this.name = name;
         this.hp = hp;
@@ -90,10 +89,6 @@ public abstract class Doll implements GameObject {
 
     }
 
-    @Override
-    public void draw(SpriteBatch batch) {
-
-    }
 
     @Override
     public void setHp(int hp){this.hp = hp;}
@@ -346,12 +341,7 @@ public abstract class Doll implements GameObject {
     }
 
     @Override
-    public void draw(ModelBatch modelBatch, DecalBatch decalBatch){
-
-   // sprite.setPosition(x,0, y + 0.5f);
-    decalBatch.add(sprite);
-
-    }
+    public void draw(ModelBatch modelBatch, DecalBatch decalBatch, Environment environment) {decalBatch.add(sprite);}
 
     @Override
     public void addProperty(Property property)

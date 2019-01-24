@@ -11,5 +11,8 @@ public interface Particle {
     void draw(DecalBatch decalBatch);
     boolean isActive();
     void dispose();
+    float getX();
+    float getY();
+    float getZ();
 
 }

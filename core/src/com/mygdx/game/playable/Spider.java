@@ -1,6 +1,5 @@
 package com.mygdx.game.playable;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.mygdx.game.ai.controller.SimpleTestController;
 import com.mygdx.game.armor.LeatherArmor;
@@ -11,7 +10,7 @@ import com.mygdx.game.weaponry.meleeweapon.SpiderBite;
 
 import java.util.ArrayList;
 
-public class Spider extends Doll {
+public class Spider extends DollDecal {
     public Spider(String name, int hp, int capacity, Decal sprite, int movementsPoints, int level,
                   int experience, int strength, int dexterity, int constitution, int initiativebonus,
                   Classification classification, ArrayList<Property> properties) {

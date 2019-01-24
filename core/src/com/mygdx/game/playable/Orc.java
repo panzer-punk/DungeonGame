@@ -1,6 +1,5 @@
 package com.mygdx.game.playable;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.mygdx.game.ai.controller.SimpleTestController;
 import com.mygdx.game.armor.LeatherArmor;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by Даниил on 09.09.2017.
  */
-public class Orc extends Doll {
+public class Orc extends DollDecal {
 
 
     public Orc(String name, int hp, int capacity, Decal sprite, int movementsPoints,

@@ -57,6 +57,8 @@ public abstract class MovingParticle implements Particle {//TODO добавит�
 
     }
 
+
+
     @Override
     public final boolean isActive(){
 
@@ -65,6 +67,7 @@ public abstract class MovingParticle implements Particle {//TODO добавит�
 
     public float getX(){return sprite.getX();}
     public float getY(){return sprite.getZ();}
+    public float getZ() {return sprite.getY();}
 
     public Decal getSprite(){return sprite;}
 

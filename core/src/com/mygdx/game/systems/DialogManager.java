@@ -1,10 +1,8 @@
 package com.mygdx.game.systems;
 
-import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.scene.HUD;
 import com.mygdx.game.scene.NPCDialog;
 import com.mygdx.game.scene.SimpleDialog;
-import com.rafaskoberg.gdx.typinglabel.TypingLabel;
 
 /**
  * Created by Даниил on 10.10.2018.

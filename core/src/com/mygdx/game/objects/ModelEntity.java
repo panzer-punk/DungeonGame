@@ -1,7 +1,6 @@
 package com.mygdx.game.objects;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
@@ -11,6 +10,7 @@ import com.mygdx.game.ai.controller.AIController;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.enumerations.Direction;
 import com.mygdx.game.enumerations.Status;
+import com.mygdx.game.graphics.RenderType3D;
 import com.mygdx.game.interfaces.*;
 import com.mygdx.game.tools.BuffPool;
 import com.mygdx.game.weaponry.buffs.Buff;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 /**
  * Created by Даниил on 27.04.2018.
  */
-public class ModelEntity implements GameObject {
+public class ModelEntity implements GameObject, RenderType3D {
 
     protected ModelInstance model;
     protected String name;
@@ -40,21 +40,9 @@ public class ModelEntity implements GameObject {
         this.hp = hp;
         classification = Classification.OBJECT;
     }
-    @Override
-    public void draw(ModelBatch modelBatch, DecalBatch decalBatch) {
-
-         modelBatch.render(model);
-
-
-    }
 
     @Override
     public void addProperty(Property property) {
-
-    }
-
-    @Override
-    public void draw(SpriteBatch batch) {
 
     }
 
@@ -235,4 +223,8 @@ public class ModelEntity implements GameObject {
     public int getCON() {
         return 0;
     }
+
+    @Override
+    public void draw(ModelBatch modelBatch, DecalBatch decalBatch, Environment environment)
+    {modelBatch.render(model, environment);}
 }

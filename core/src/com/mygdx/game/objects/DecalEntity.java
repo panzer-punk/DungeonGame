@@ -1,6 +1,6 @@
 package com.mygdx.game.objects;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
@@ -8,6 +8,7 @@ import com.mygdx.game.ai.controller.AIController;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.enumerations.Direction;
 import com.mygdx.game.enumerations.Status;
+import com.mygdx.game.graphics.RenderType3D;
 import com.mygdx.game.interfaces.*;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.tools.BuffPool;
@@ -20,22 +21,19 @@ import static com.mygdx.game.enumerations.Classification.*;
 /**
  * Created by Даниил on 09.12.2018.
  */
-public class DecalEntity implements GameObject {
+public class DecalEntity implements GameObject,
+        RenderType3D {
 
     Decal decal;
     String name;
     private int hp;
     int x, y;
 
+
     public DecalEntity(Decal decal, String name) {
         this.decal = decal;
         this.name = name;
         hp = 1;
-    }
-
-    @Override
-    public void draw(SpriteBatch batch) {
-
     }
 
     @Override
@@ -273,15 +271,13 @@ public class DecalEntity implements GameObject {
     }
 
     @Override
-    public void draw(ModelBatch modelBatch, DecalBatch decalBatch) {
-
-       decal.lookAt(GameScreen.perspectiveCamera.position, GameScreen.perspectiveCamera.up);
-        decalBatch.add(decal);
+    public void addProperty(Property property) {
 
     }
 
     @Override
-    public void addProperty(Property property) {
-
+    public void draw(ModelBatch modelBatch, DecalBatch decalBatch, Environment environment) {
+        decal.lookAt(GameScreen.perspectiveCamera.position, GameScreen.perspectiveCamera.up);
+        decalBatch.add(decal);
     }
 }

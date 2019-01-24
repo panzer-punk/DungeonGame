@@ -3,14 +3,17 @@ package com.mygdx.game.screens;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
+import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
+import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
+import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.graphics.g3d.utils.MeshPartBuilder;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Matrix4;
@@ -20,25 +23,18 @@ import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.armor.ChainArmor;
 import com.mygdx.game.armor.IronArmor;
-import com.mygdx.game.armor.LeatherArmor;
 import com.mygdx.game.build.*;
 import com.mygdx.game.generators.*;
+import com.mygdx.game.graphics.Render;
+import com.mygdx.game.graphics.Render3D;
 import com.mygdx.game.interfaces.Particle;
 import com.mygdx.game.interfaces.Property;
-import com.mygdx.game.items.CelticFire;
-import com.mygdx.game.levels.ArtifactRoom;
 import com.mygdx.game.levels.DemoLevelsLocation;
 import com.mygdx.game.build.Room;
-import com.mygdx.game.objects.BlueFountain;
-import com.mygdx.game.objects.Column;
 import com.mygdx.game.objects.ModelEntity;
 import com.mygdx.game.scene.HUD;
-import com.mygdx.game.systems.Damager;
-import com.mygdx.game.systems.DialogManager;
-import com.mygdx.game.systems.GameScreenManager;
-import com.mygdx.game.systems.RoomManager;
+import com.mygdx.game.systems.*;
 import com.mygdx.game.terrain.Terrain;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
@@ -47,18 +43,14 @@ import com.mygdx.game.playable.Hero;
 import com.mygdx.game.terrain.TerrainPack;
 import com.mygdx.game.tools.*;
 import com.mygdx.game.weaponry.meleeweapon.IronSword;
-import com.mygdx.game.weaponry.meleeweapon.Spear;
-import com.mygdx.game.weaponry.rangeweapon.Arrow;
-import com.mygdx.game.weaponry.rangeweapon.Bow;
-import com.mygdx.game.weaponry.rangeweapon.Shell;
 
 
-import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 
 public class GameScreen implements Screen, InputProcessor {
     DecalBatch batch;
     AssetManager assetManager;
+    Render3D render;
     Decal testBg;
     MeshPartBuilder meshBuilder;
     ModelBatch modelBatch;
@@ -97,7 +89,6 @@ public class GameScreen implements Screen, InputProcessor {
     private  volatile boolean inputBlock;
     int cameraDirFlag = 0;
 
-    MyGdxGame game;
 
     public GameScreen(MyGdxGame game, TexturePack texturePack, int width, int height) {
 
@@ -140,13 +131,6 @@ public class GameScreen implements Screen, InputProcessor {
 
         room = demoLevelsLocation.getMainRoom();
 
-       // CelticFire celticFire = new CelticFire("Celtic fire", Decal.newDecal(0.45f,0.45f, new TextureRegion(new Texture(Gdx.files.internal("celtic_fire.png"))), true));
-
-       // Column column = new Column(Decal.newDecal(2,2, new TextureRegion(new Texture(Gdx.files.internal("crumbled_column.png"))), true));
-      //  BlueFountain blueFountain = new BlueFountain(Decal.newDecal(0.8f, 0.8f, new TextureRegion(new Texture(Gdx.files.internal("blue_fountain.png"))), true));
-
-      // ModelEntity wall = new ModelEntity("Wall", assetManager.get("wall.obj", Model.class));
-
 
         queque = room.getInitiativeQueue();
 
@@ -164,6 +148,12 @@ public class GameScreen implements Screen, InputProcessor {
         camera.rotate(camera.position, -4);
         camera.update();
         initcamera(camera);
+        Environment environment = new Environment();
+        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 0.0f));
+        environment.add(new DirectionalLight().set(Color.RED, 0f, 0f, 0f));
+        environment.add(new PointLight().set(Color.CORAL, 0,2,0,5));
+        environment.set(new ColorAttribute(ColorAttribute.Fog, Color.WHITE));
+        render = new Render3D(environment, room, batch, modelBatch, camera);
     }
 
     static  void initcamera(PerspectiveCamera camera){
@@ -194,13 +184,9 @@ public class GameScreen implements Screen, InputProcessor {
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
-        camera.update();
-        modelBatch.begin(camera);
-        batch.add(testBg);//DEMO TEST
-        room.draw(modelBatch, batch);
-        //modelBatch.render(instance2);
-        modelBatch.end();
-        batch.flush();
+
+       // batch.add(testBg);//DEMO TEST
+        render.render();
         checkTurnEnded();
         checkTileTouched();
         camera.transform(matrix);
@@ -436,6 +422,7 @@ public class GameScreen implements Screen, InputProcessor {
         checkTurnEnded();
         testBg.setHeight(room.getL());
         testBg.setWidth(room.getC());
+        render.setRoom(room);
 
     }
 

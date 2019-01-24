@@ -2,6 +2,7 @@ package com.mygdx.game.objects;
 
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
+import com.mygdx.game.graphics.RenderType3D;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Item;
 import com.mygdx.game.interfaces.Weapon;
@@ -10,7 +11,7 @@ import com.mygdx.game.systems.DialogManager;
 /**
  * Created by Даниил on 03.12.2018.
  */
-public class DialogDecalEntity extends DecalEntity {
+public class DialogDecalEntity extends DecalEntity implements RenderType3D {
 
 
     protected String title, text;

@@ -148,12 +148,7 @@ public class GameScreen implements Screen, InputProcessor {
         camera.rotate(camera.position, -4);
         camera.update();
         initcamera(camera);
-        Environment environment = new Environment();
-        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 0.0f));
-        environment.add(new DirectionalLight().set(Color.RED, 0f, 0f, 0f));
-        environment.add(new PointLight().set(Color.CORAL, 0,2,0,5));
-        environment.set(new ColorAttribute(ColorAttribute.Fog, Color.WHITE));
-        render = new Render3D(environment, room, batch, modelBatch, camera);
+        render = new Render3D(null, room, batch, modelBatch, camera);
     }
 
     static  void initcamera(PerspectiveCamera camera){

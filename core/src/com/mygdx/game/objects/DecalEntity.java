@@ -24,7 +24,7 @@ import static com.mygdx.game.enumerations.Classification.*;
 public class DecalEntity implements GameObject,
         RenderType3D {
 
-    Decal decal;
+    protected Decal decal;
     String name;
     private int hp;
     int x, y;

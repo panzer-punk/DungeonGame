@@ -32,6 +32,7 @@ import com.mygdx.game.interfaces.Particle;
 import com.mygdx.game.interfaces.Property;
 import com.mygdx.game.levels.DemoLevelsLocation;
 import com.mygdx.game.build.Room;
+import com.mygdx.game.levels.TestBossFightArena;
 import com.mygdx.game.objects.ModelEntity;
 import com.mygdx.game.scene.HUD;
 import com.mygdx.game.systems.*;
@@ -75,7 +76,7 @@ public class GameScreen implements Screen, InputProcessor {
     LocationGenerator locationGenerator;
     GameObject current;
     GameObject player, wall;
-    final Plane xzPlane = new Plane(new Vector3(0,1,0), 0);
+    final Plane xzPlane = new Plane(new Vector3(0,1,0), 1);
     final Vector3 intersection = new Vector3();
     final Vector3 curr = new Vector3();
     final Vector3 last = new Vector3(-1,-1,-1);
@@ -124,12 +125,14 @@ public class GameScreen implements Screen, InputProcessor {
         camera = new PerspectiveCamera(25, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.near = 1;
         camera.far = 100;
-        camera.position.set(5, 9, 10);
-        camera.direction.set(-1,-1,-1);
+        camera.position.set(5, 7, 7);
+        camera.fieldOfView -= -4 * Gdx.graphics.getDeltaTime() * 100;
+        camera.direction.set(0, 0, 0);
+        camera.fieldOfView -= -5 * 100 * Gdx.graphics.getDeltaTime();
 
         camera.rotate(camera.combined);
 
-        room = demoLevelsLocation.getMainRoom();
+        room = demoLevelsLocation.getMainRoom();//new TestBossFightArena(); //demoLevelsLocation.getMainRoom();
 
 
         queque = room.getInitiativeQueue();
@@ -145,7 +148,6 @@ public class GameScreen implements Screen, InputProcessor {
 
         modelBatch = new ModelBatch();
         camera.lookAt(-1, -1, -1);
-        camera.rotate(camera.position, -4);
         camera.update();
         initcamera(camera);
         render = new Render3D(null, room, batch, modelBatch, camera);
@@ -180,7 +182,8 @@ public class GameScreen implements Screen, InputProcessor {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
 
-       // batch.add(testBg);//DEMO TEST
+      //  batch.add(testBg);//DEMO TEST
+      //  batch.add(testBg);//DEMO TEST
         render.render();
         checkTurnEnded();
         checkTileTouched();
@@ -218,12 +221,12 @@ public class GameScreen implements Screen, InputProcessor {
                 Intersector.intersectRayPlane(pickRay, xzPlane, intersection);
 
                 System.out.println(intersection.x +" " +intersection.z);
-                System.out.println("fixed: " + (intersection.x + 0.1f) +" " + (intersection.z - 0.7f));
+                System.out.println("fixed: " + (intersection.x) +" " + (intersection.z ));
 
 
 
-                int x = (int) (intersection.x + 0.1f);//погрешности измерений
-                int z = (int) (intersection.z - 0.7f);
+                int x = (Math.round(intersection.x ));//погрешности измерений
+                int z =  (Math.round(intersection.z));
 
                 Decal sprite;
 

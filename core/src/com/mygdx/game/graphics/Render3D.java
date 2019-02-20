@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
+import com.mygdx.game.build.Map;
 import com.mygdx.game.build.Room;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Particle;
@@ -31,19 +32,28 @@ public class Render3D implements Render {
         this.camera = camera;
     }
 
-    private  void drawTerrain(Terrain terrain[][], DecalBatch decalBatch,
+    private  void drawTerrain(Map map, DecalBatch decalBatch,
                               int xSize, int ySize, PerspectiveCamera camera){
+        if(map.getTiles() != null) {
+            Terrain terrain[][] = map.getTiles();
+            for (int i = 0; i < ySize; i++) {
+                for (int j = 0; j < xSize; j++) {//TODO добавить рассчёт по Vector3
+                    if (camera.frustum.pointInFrustum(i + terrain[i][j].getSprite().getWidth(), 0, j + terrain[i][j].getSprite().getHeight())
+                            || camera.frustum.pointInFrustum(i - terrain[i][j].getSprite().getWidth(), 0, j - terrain[i][j].getSprite().getHeight())
+                            || camera.frustum.pointInFrustum(i + terrain[i][j].getSprite().getWidth(), 0, j)
+                            || camera.frustum.pointInFrustum(i, 0, j + terrain[i][j].getSprite().getHeight() * 2.2f)) {
+                        if (terrain[i][j] != null)
+                            decalBatch.add(terrain[i][j].getSprite());
+                    }
+                }
 
-        for(int i = 0; i < ySize; i++){
-            for(int j = 0; j < xSize; j++){
-                if(camera.frustum.pointInFrustum(i+ terrain[i][j].getSprite().getWidth(),0,j + terrain[i][j].getSprite().getHeight())
-                        || camera.frustum.pointInFrustum(i - terrain[i][j].getSprite().getWidth(),0,j - terrain[i][j].getSprite().getHeight())
-                        || camera.frustum.pointInFrustum(i + terrain[i][j].getSprite().getWidth(),0,j)
-                        ||  camera.frustum.pointInFrustum(i,0,j + terrain[i][j].getSprite().getHeight()*2.2f)){
-                    decalBatch.add(terrain[i][j].getSprite());
+            }
+        }else
+            for (int i = 0; i < ySize; i++) {
+                for (int j = 0; j < xSize; j++) {//TODO добавить рассчёт по Vector3
+                    decalBatch.add(map.getDefaultTerrain().getSprite());
                 }
             }
-        }
 
     }
 
@@ -89,7 +99,7 @@ public class Render3D implements Render {
     public void render() {
         camera.update();
         modelBatch.begin(camera);
-        drawTerrain(room.getTileMap().getTiles(), decalBatch, room.getC(), room.getL(), camera);
+        drawTerrain(room.getTileMap(), decalBatch, room.getC(), room.getL(), camera);
         drawGameObjects(room.getMap(), decalBatch, modelBatch, room.getC(), room.getL(), camera);
         room.drawPatricles(decalBatch);
         room.checkUnactiveObjects();

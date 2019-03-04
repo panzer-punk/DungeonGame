@@ -25,7 +25,7 @@ public class EnemyGenerator {
 
     }
 
-    public GameObject createEemy(Armor armor, Weapon weapon){
+   /* public GameObject createEemy(Armor armor, Weapon weapon){
 
 
         int r = (int)(Math.random()*3) + 1;
@@ -56,5 +56,5 @@ public class EnemyGenerator {
         }
 
         return  enemy;
-    }
+    }*/
 }

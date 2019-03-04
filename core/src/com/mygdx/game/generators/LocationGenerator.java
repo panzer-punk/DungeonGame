@@ -29,7 +29,7 @@ public class LocationGenerator {
         for(int i = 0; i <= size; i++){
 
 
-            roomStack.push(roomGenerator.generateRoom(5 + Dice.d10(), 5 + Dice.d10()));
+
 
         }
 

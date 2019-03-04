@@ -1,6 +1,8 @@
 package com.mygdx.game.tools;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.decals.Decal;
+import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.mygdx.game.build.Room;
 import com.mygdx.game.terrain.Terrain;
 import com.mygdx.game.interfaces.GameObject;

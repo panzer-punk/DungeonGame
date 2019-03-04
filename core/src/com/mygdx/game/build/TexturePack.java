@@ -15,14 +15,18 @@ public class TexturePack {
     TextureAtlas textures;
     private Texture wall, floor, floor1, hole, player, orc, skeleton,
                     spider, door, sand, sand1, sand2, water, water1,
-                    dirt, dirt1, dirt2, dirt3, dirt4;
+                    dirt, dirt1, dirt2, dirt3, dirt4,
+                    blueFountain, celticFire, chestClosed,
+                    chestOpen, crumbledColumn, tomb1,
+                    orcishIdol;
+    public static Texture arrow = new Texture(Gdx.files.internal("arrow.png"));
     private Image inventory;
     private Skin skin;
 
     public TexturePack(TextureAtlas textureAtlas){
 
         textures = textureAtlas;
-        skin = new Skin(Gdx.files.internal("rusty-robot-ui.json"));
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
 
     }
 
@@ -48,7 +52,14 @@ public class TexturePack {
         dirt2 = new Texture(Gdx.files.internal("dirt2.png"));
         dirt3 = new Texture(Gdx.files.internal("dirt3.png"));
         dirt4 = new Texture(Gdx.files.internal("dirt4.png"));
-        skin = new Skin(Gdx.files.internal("rusty-robot-ui.json"));
+        blueFountain = new Texture(Gdx.files.internal("blue_fountain.png"));
+        celticFire = new Texture(Gdx.files.internal("celtic_fire.png"));
+        chestClosed = new Texture(Gdx.files.internal("chest_closed.png"));
+        chestOpen = new Texture(Gdx.files.internal("chest_open.png"));
+        crumbledColumn = new Texture(Gdx.files.internal("crumbled_column.png"));
+        orcishIdol = new Texture(Gdx.files.internal("orcish_idol.png"));
+        tomb1 = new Texture(Gdx.files.internal("tomb1.png"));
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
 
     }
 
@@ -113,8 +124,36 @@ public class TexturePack {
 
     }
 
+    public Texture getBlueFountain() {
+        return blueFountain;
+    }
+
+    public Texture getCelticFire() {
+        return celticFire;
+    }
+
+    public Texture getChestClosed() {
+        return chestClosed;
+    }
+
+    public Texture getChestOpen() {
+        return chestOpen;
+    }
+
+    public Texture getCrumbledColumn() {
+        return crumbledColumn;
+    }
+
+    public Texture getTomb1() {
+        return tomb1;
+    }
+
+    public Texture getOrcishIdol() {
+        return orcishIdol;
+    }
+
     public Texture getHole(){return hole;}//debug code
-    //Entity
+    //ModelEntity
     public Texture getWall_1(){return wall;}//debug code
     public Texture getWall_2(){return null;}
     public Texture getDoor(){return door;}

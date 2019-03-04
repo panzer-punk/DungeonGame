@@ -3,4 +3,4 @@ package com.mygdx.game.enumerations;
 /**
  * Created by Даниил on 12.04.2018.
  */
-public enum Classification {Pickable, Nonpickable, Playable, Nonplayable, NPC, OBJECT}
+public enum Classification {Pickable, Nonpickable, Playable, Nonplayable, NPC, OBJECT}//TODO переименовать в GOClassification

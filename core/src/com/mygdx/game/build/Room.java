@@ -1,11 +1,16 @@
 package com.mygdx.game.build;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
+import com.mygdx.game.interfaces.Particle;
 import com.mygdx.game.tools.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -14,17 +19,17 @@ import java.util.LinkedList;
  */
 public class Room implements Serializable {
 
-   private int capacity = 9;
-   private Trigger[][] triggers;
-   private int l = 3, c = 3;
-   private int currentSizePO;
-   private PriorityQueue priorityQueue;
-   private int turn;
-
-    private GameObject map[][];
-    private GameObject[] playableObjects; // костыль!!!
-    private LinkedList<GameObject> pObjects;
-    private Map tileMap;
+   protected int capacity = 9;
+   protected Trigger[][] triggers;
+   protected int l = 3, c = 3;
+   protected int currentSizePO;
+   protected PriorityQueue priorityQueue;
+   protected ArrayList<Particle> particles;
+   protected int turn;
+   protected GameObject map[][];
+   protected GameObject[] playableObjects;
+   protected LinkedList<GameObject> pObjects;
+   protected Map tileMap;
 
     public Room(Map m){
        init(m);
@@ -47,8 +52,10 @@ public class Room implements Serializable {
         triggers = new Trigger[l][c];
         priorityQueue = new PriorityQueue(map.length);
         pObjects = new LinkedList<GameObject>();
+        particles = new ArrayList<Particle>();
 
     }
+
 
     public void setTurn(int t){
         turn = t;
@@ -133,6 +140,14 @@ public class Room implements Serializable {
 
     }
 
+    public Trigger[][] getTriggers() {
+        return triggers;
+    }
+
+    public ArrayList<Particle> getParticles() {
+        return particles;
+    }
+
     public boolean move(int from_line, int from_column, int to_line, int to_column){
 
         if(to_line < l && to_column < c) {
@@ -155,6 +170,7 @@ public class Room implements Serializable {
                 Printer.print("Не могу перейти\n");
 
                 return false;
+
             }
         }
 
@@ -197,27 +213,45 @@ public class Room implements Serializable {
         return temp;
     }
 
-    public void drawObjects(SpriteBatch batch){
-        for (int i = 0; i < l; i++) {
-            for (int j = 0; j < c; j++) {
+   public void drawPatricles(DecalBatch batch){
 
-                if(map[i][j] != null) {
-                    if(map[i][j].getHP() <= 0)
-                       // if (map[i][j].getClass() != Entity.class) Entity should be checked by it's class, not by HP
-                            delete(i, j);
-                    else
-                    map[i][j].draw(batch);
-                }
-
-
-            }
+        for(Particle p : particles) {
+            p.draw(batch);
         }
 
+        checkUnactiveParticles();
+
     }
 
-    public void drawMap(SpriteBatch batch){
-        tileMap.draw(batch);
+    private void checkUnactiveParticles(){
+
+       for(int i = 0; i < particles.size(); i++){
+
+           Particle p = particles.get(i);
+
+           if(!p.isActive())
+               removeParticle(p);
+
+       }
+
     }
+
+    public void checkUnactiveObjects() {
+        for (int i = 0; i < l; i++) {
+            for (int j = 0; j < c; j++) {
+                if (map[i][j] != null) {
+                    if (map[i][j].getHP() <= 0)
+                        delete(i, j);
+                }
+            }
+        }
+    }
+
+    public void removeParticle(Particle particle){particles.remove(particle); particle.dispose();}
+
+   /* public void drawMap(SpriteBatch batch){
+        tileMap.draw(batch);
+    }*/
 
     public void clearTiles(){
 
@@ -240,5 +274,6 @@ public class Room implements Serializable {
     }
     public GameObject[][] getMap(){return map;}
     public Map getTileMap(){return tileMap;}
+    public void addParticle(Particle particle){particles.add(particle);}
 
 }

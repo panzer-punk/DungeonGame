@@ -10,8 +10,5 @@ public class SpiderPoison extends Poison {
 
     }
 
-    @Override
-    public int getDamage() {
-        return Dice.d4();
-    }
+
 }

@@ -1,57 +1,52 @@
 package com.mygdx.game.playable;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.Environment;
+import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.decals.Decal;
+import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.mygdx.game.ai.controller.AIController;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.enumerations.Direction;
 import com.mygdx.game.enumerations.Status;
-import com.mygdx.game.interfaces.Armor;
-import com.mygdx.game.interfaces.GameObject;
-import com.mygdx.game.interfaces.Item;
-import com.mygdx.game.interfaces.Weapon;
+import com.mygdx.game.interfaces.*;
 import com.mygdx.game.tools.BuffPool;
-import com.mygdx.game.tools.Printer;
 import com.mygdx.game.weaponry.buffs.Buff;
 
+import java.util.ArrayList;
 
 /**
- * Created by Даниил on 15.07.2018.
+ * Created by Даниил on 20.02.2019.
  */
-public abstract class Doll implements GameObject {
-
-    private Sprite sprite;
-    private BuffPool buffPool;
-    private int initiativebonus;
-    private String name;
-    private Classification classification;
-    private Status status;
-    private Direction direction;
+public abstract class Doll  implements GameObject {
+    protected BuffPool buffPool;
+    protected int initiativebonus;
+    protected String name;
+    protected Classification classification;
+    protected Status status;
+    protected Direction direction;
     protected int hp;
-    private int initiative;
-    private int strength, dexterity, constitution;
-    private int STR, DEX, CON;
-    private int movementsPoints, toReset;
-    private int level;
-    private int experience;
-    private int x, y;
-    private int armorclass;
-    private int itemNumber;
-    private Weapon weapon;
-    private Armor armor;
-    private Item[] backpack;
-    private AIController controller;
+    protected int initiative;
+    protected int strength, dexterity, constitution;
+    protected int STR, DEX, CON;
+    protected int movementsPoints, toReset;
+    protected int level;
+    protected int experience;
+    protected int x, y;
+    protected int armorclass;
+    protected int capacity;
+    protected Weapon weapon;
+    protected Armor armor;
+    protected ArrayList<Item> backpack;
+    protected AIController controller;
+    protected ArrayList<Property> properties;
 
-    public Doll(String name, int hp, int capacity, Sprite sprite,
-                int movementsPoints, int level, int experience,
-                int strength, int dexterity, int constitution,
-                int initiativebonus, Classification classification){
+    public Doll(String name, int hp, int capacity,
+                     int movementsPoints, int level, int experience,
+                     int strength, int dexterity, int constitution,
+                     int initiativebonus, Classification classification, ArrayList <Property> properties){
 
         this.name = name;
         this.hp = hp;
-        sprite.setSize(1,1 );
-        sprite.flip(false,true);
-        this.sprite = sprite;
         this.strength = strength;
         this.dexterity = dexterity;
         this.constitution = constitution;
@@ -64,10 +59,10 @@ public abstract class Doll implements GameObject {
         status = Status.OK;
         setClassification(classification);
 
-        buffPool = new BuffPool();
+        backpack = new ArrayList<Item>();
 
-        itemNumber = 0;
-        backpack = new Item[capacity];
+        buffPool = new BuffPool();
+        this.capacity = capacity;
 
         this.movementsPoints = movementsPoints;
         this.level = level;
@@ -75,6 +70,7 @@ public abstract class Doll implements GameObject {
         toReset = movementsPoints;
         //debug code
         this.initiativebonus = initiativebonus + DEX;
+        this.properties = properties;
 
     }
 
@@ -82,15 +78,26 @@ public abstract class Doll implements GameObject {
     void setController(AIController controller){this.controller = controller;}
 
     @Override
-    public final AIController getController(){return controller;}
+    public void deleteItem(Item item){
+
+        backpack.remove(item);
+
+    }
+
 
     @Override
+    public void setHp(int hp){this.hp = hp;}
+
+    @Override
+    public final AIController getController(){return controller;}
+
+   /* @Override
     public void draw(SpriteBatch batch) {
         if(movementsPoints == 0)
             sprite.setColor(1,1,9,80);
         sprite.draw(batch);
 
-    }
+    }*/
 
     @Override
     public void setInitiative(int i){
@@ -148,48 +155,26 @@ public abstract class Doll implements GameObject {
         this.status = status;
     }
 
-    @Override
-    public Sprite getSprite() {
-        return sprite;
-    }
+
 
     @Override
-    public void setSprite(Sprite sprite) {
-        this.sprite = sprite;
-    }
-
-    @Override
-    public int getX() {
+    public float getX() {
         return x;
     }
 
     @Override
-    public int getY() {
+    public float getY() {
         return y;
     }
 
     @Override
-    public final void setX(int x) {
-
-        this.x = x;
-
-    }
+    public final void setX(int x) {this.x = x;}
 
     @Override
-    public final void setY(int y) {
-
-        this.y = y;
-
-    }
+    public final void setY(int y) {this.y = y;}
 
     @Override
-    public final void setXY(int x, int y) {
-
-        this.x = x;
-        this. y = y;
-        sprite.setPosition(x,y);
-
-    }
+    public abstract void setXY(int x, int y);
 
     @Override
     public void show() {
@@ -214,31 +199,41 @@ public abstract class Doll implements GameObject {
 
     @Override
     public void putItem(Item item) {
+        System.out.println("You've picked:");
+        item.show();
+        if(backpack.size() < capacity) {
+            backpack.add(item);
 
-        if(itemNumber < backpack.length)
-            backpack[itemNumber++] = item;
+        }
 
     }
 
     @Override
     public  void takeDamage(GameObject dealer) {
 
-        //реализация по умолчанию
-       takeDamage(dealer.getWeapon());
+        //используется для дверей и ловушек
+
+
+
+    }
+
+    @Deprecated
+    @Override
+    public void takeDamage(Weapon weapon) {
+
 
 
     }
 
     @Override
-    public void takeDamage(Weapon weapon) {
+    public final void takeDamage(int dmg) {
 
-        int d = weapon.getDamage();
+        hp -= dmg;
+    }
 
-        hp -= d;
-
-       Printer.print(this.getName() + " took " + d + " damage" + " from " + weapon.getLabel());
-
-
+    @Override
+    public ArrayList<Property> getProperties() {
+        return properties;
     }
 
     @Override
@@ -280,6 +275,11 @@ public abstract class Doll implements GameObject {
     }
 
     @Override
+    public int getDamage() {
+        return-1;
+    }
+
+    @Override
     public int getStrength() {
         return strength;
     }
@@ -311,4 +311,9 @@ public abstract class Doll implements GameObject {
     public int getCON() {
         return CON;
     }
+
+
+    @Override
+    public void addProperty(Property property)
+    {properties.add(property);}
 }

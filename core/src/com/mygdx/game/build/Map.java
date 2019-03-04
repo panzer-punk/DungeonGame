@@ -2,6 +2,8 @@ package com.mygdx.game.build;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.decals.Decal;
+import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.mygdx.game.terrain.Terrain;
 
 /**
@@ -48,9 +50,9 @@ public class Map{
 
     }
 
-    public void draw(SpriteBatch batch){
+   /* public void draw(SpriteBatch batch){
 
-        Sprite sprite;
+        Decal sprite;
 
         for(int i = 0; i < l; i++){
             for (int j = 0; j < c; j++) {
@@ -64,7 +66,7 @@ public class Map{
                     tiles[i][j].draw(batch);
                 }else {
                     sprite = tiles[i][j].getSprite();
-                    sprite.setPosition(i, j);
+                    sprite.setPosition(i,0, j);
                     tiles[i][j].setSprite(sprite);
                     tiles[i][j].draw(batch);
                 }
@@ -72,8 +74,34 @@ public class Map{
 
         }
 
+    }*/
+    public void draw(SpriteBatch batch){
+
+        Sprite sprite;
+
+        for(int i = 0; i < l; i++){
+            for (int j = 0; j < c; j++) {
+
+                if(tiles[i][j] == null) {
+                    //  defaultTerrain.draw(batch, i, j);
+                    tiles[i][j] = defaultTerrain;
+                    sprite = tiles[i][j].getSprite();
+                   // sprite.setPosition(i,0, j);
+                    //tiles[i][j].setSprite(sprite);
+                    tiles[i][j].draw( batch);
+                }else {
+                    //tiles[i][j].setSprite(sprite);//TODO удалить это
+                    tiles[i][j].draw( batch);
+                }
+            }
+
+        }
+
     }
-    public void addTile(Terrain t, int x, int y){tiles[x][y] = t;}
+    public void addTile(Terrain t, int x, int y){
+        tiles[x][y] = t;
+        t.setXY(x,y);
+    }
     public Terrain getDefaultTerrain(){return defaultTerrain;}
     public Terrain[][] getTiles(){return tiles;}
 

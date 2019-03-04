@@ -54,9 +54,9 @@ public class EditorScreen implements Screen, InputProcessor {
 
         //this.texturePack = texturePack;
         terrainPack = new TerrainPack(texturePack);
-        gameObjectPack = new GameObjectPack(texturePack);
+        gameObjectPack = new GameObjectPack(texturePack, null);
 
-        map = new Map(10,10, new Terrain(1000, "Lava",texturePack.getHole(), true));
+        map = new Map(10,10, null);
         room = new Room(10, 10, map);
         this.gdxGame = gdxGame;
         cam = new OrthographicCamera(10 * 1.3f, 10 *(Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()));
@@ -158,8 +158,6 @@ public class EditorScreen implements Screen, InputProcessor {
         batch.setTransformMatrix(matrix);
 
         batch.begin();
-        room.drawMap(batch);
-        room.drawObjects(batch);
         batch.end();
 
         checkTileTouched();

@@ -1,9 +1,12 @@
 package com.mygdx.game.weaponry.meleeweapon;
 
-import com.mygdx.game.interfaces.GameObject;
-import com.mygdx.game.interfaces.Weapon;
+import com.mygdx.game.enumerations.WeaponType;
+import com.mygdx.game.interfaces.Attack;
 import com.mygdx.game.tools.Dice;
 import com.mygdx.game.weaponry.WeaponryStuff;
+import com.mygdx.game.weaponry.attacks.D4Attack;
+
+import static com.mygdx.game.enumerations.WeaponType.*;
 
 /**
  * Created by Даниил on 19.09.2017.
@@ -11,17 +14,14 @@ import com.mygdx.game.weaponry.WeaponryStuff;
 public class Club extends WeaponryStuff {
 
 
-    public Club(String label, int type, int distance) {
-        super(label, type, distance);
+    public Club(String label, WeaponType type, int distance, Attack attack) {
+        super(label, type, distance, attack);
     }
 
     public Club(){
-        super("Club",0,1);
+        super("Club", BLUNT,1, new D4Attack());
     }
 
 
-    @Override
-    public int getDamage() {
-        return Dice.d4();
-    }
+
 }

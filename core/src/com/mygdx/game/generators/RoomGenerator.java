@@ -24,53 +24,5 @@ public class RoomGenerator {
 
     }
 
-    public Room generateRoom(int sizeX, int sizeY){
-
-        Map map = generateTileMap(sizeX, sizeY);
-
-
-        return new Room(sizeX, sizeY, map);
-    }
-
-    private Map generateTileMap(int sizeX, int sizeY){
-
-        Map mp = new Map(sizeX, sizeY,new Terrain(1, "test", new Sprite(texturePack.getFloor_min())));
-
-        for(int i = 0; i <= sizeX; i++){
-            for (int j = 0; j <= sizeY; j++){
-
-                int rand = (int)(Math.random()*13) + 1;
-
-                switch (rand){
-                    case 1:
-                    case 2:
-                        mp.addTile(terrainPack.getSand());
-                        break;
-                    case 3:
-                    case 4:
-                    case 5:
-                        mp.addTile(terrainPack.getFloor_min());
-                        break;
-                    case 6:
-                    case 7:
-                    case 8:
-                        mp.addTile(terrainPack.getFloor_mid());
-                        break;
-                    case 9:
-                        mp.addTile(terrainPack.getWater());
-                        break;
-                    case 10:
-                    case 11:
-                    case 12:
-                        mp.addTile(terrainPack.getDirt());
-                    case 13:
-                        mp.addTile(terrainPack.getLava());
-                }
-
-            }
-        }
-
-        return mp;
-    }
 
 }

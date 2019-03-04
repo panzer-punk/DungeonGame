@@ -1,5 +1,7 @@
 package com.mygdx.game.weaponry;
 
+import com.mygdx.game.enumerations.WeaponType;
+import com.mygdx.game.interfaces.Attack;
 import com.mygdx.game.interfaces.GameObject;
 import com.mygdx.game.interfaces.Weapon;
 import com.mygdx.game.tools.Dice;
@@ -11,18 +13,18 @@ import com.mygdx.game.tools.Printer;
 public abstract class WeaponryStuff implements Weapon {
 
     private String label;
-    private int type;
+    private WeaponType type;
     private int distance;
+    private Attack attack;
 
-    public WeaponryStuff(String label, int type, int distance) {
+    public WeaponryStuff(String label, WeaponType type, int distance, Attack attack) {
         this.label = label;
         this.type = type;
         this.distance = distance;
+        this.attack = attack;
     }
 
-    public WeaponryStuff(){
 
-    }
 
     @Override
     public final String getLabel(){
@@ -46,12 +48,12 @@ public abstract class WeaponryStuff implements Weapon {
     }
 
     @Override
-    public int getType() {
+    public WeaponType getType() {
         return type;
     }
 
-    @Override
-    public abstract int getDamage();
+   @Override
+   public  Attack getAttack(){return attack;}
 
     @Override
     public int getDistance() {

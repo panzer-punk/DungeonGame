@@ -1,27 +1,38 @@
 package com.mygdx.game.playable;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.mygdx.game.ai.controller.SimpleTestController;
 import com.mygdx.game.armor.LeatherArmor;
+import com.mygdx.game.build.NewTexturePack;
 import com.mygdx.game.enumerations.Classification;
+import com.mygdx.game.interfaces.Property;
 import com.mygdx.game.weaponry.meleeweapon.SpiderBite;
 
-public class Spider extends Doll {
-    public Spider(String name, int hp, int capacity, Sprite sprite, int movementsPoints, int level, int experience, int strength, int dexterity, int constitution, int initiativebonus, Classification classification) {
-        super(name, hp, capacity, sprite, movementsPoints, level, experience, strength, dexterity, constitution, initiativebonus, classification);
-        setController(null);
+import java.util.ArrayList;
+
+public class Spider extends DollDecal {
+    public Spider(String name, int hp, int capacity, Decal sprite, int movementsPoints, int level,
+                  int experience, int strength, int dexterity, int constitution, int initiativebonus,
+                  Classification classification, ArrayList<Property> properties) {
+        super(name, hp, capacity, sprite, movementsPoints, level, experience, strength, dexterity,
+                constitution, initiativebonus, classification, properties);
     }
 
-    public Spider (Sprite sprite){
+    public Spider (){
 
-        super("Spider", 10, 0, sprite, 10, 1,
-                0, 16, 14,14,
-                3, Classification.Nonplayable);
+        super("Spider", 16, 0, Decal.newDecal(1,1,
+                new TextureRegion(NewTexturePack.spider), true), 6, 1,
+                400, 10, 16,12,
+                3, Classification.Nonplayable, new ArrayList<Property>());
         this.equipWeapon(new SpiderBite());
         equipArmor(new LeatherArmor());
-        setController(new SimpleTestController(this));
+
 
     }
 
+    {//TODO контроллер паука
+        setController(new SimpleTestController(this));
+    }
 
 }

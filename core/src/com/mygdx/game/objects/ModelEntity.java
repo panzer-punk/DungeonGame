@@ -20,25 +20,20 @@ import java.util.ArrayList;
 /**
  * Created by Даниил on 27.04.2018.
  */
-public class ModelEntity implements GameObject, RenderType3D {
+public class ModelEntity extends Entity
+        implements RenderType3D {
 
     protected ModelInstance model;
-    protected String name;
-    protected int x, y;
-    protected int hp;
-    protected Classification classification;
+
 
     public ModelEntity(String n, Model s){
-        name = n;
+        super(n, 1, -1, -1);
         model = new ModelInstance(s);
-        hp = 1;
-        classification = Classification.OBJECT;
+
     }
     public ModelEntity(String n, Model m, int hp){
-        name = n;
+        super(n, hp, -1, -1);
         model = new ModelInstance(m);
-        this.hp = hp;
-        classification = Classification.OBJECT;
     }
 
     @Override
@@ -71,8 +66,6 @@ public class ModelEntity implements GameObject, RenderType3D {
     @Override
     public Status getStatus() {return null;}
 
-    @Override
-    public Classification getClassification() {return classification;}
 
     @Override
     public Direction getDirection() {return null;}
@@ -87,22 +80,10 @@ public class ModelEntity implements GameObject, RenderType3D {
     public void setStatus(Status status) {}
 
     @Override
-    public Decal getSprite() {return null;}
+    public float getX() {return x;}
 
     @Override
-    public void setSprite(Decal decal) {}
-
-    @Override
-    public int getX() {return x;}
-
-    @Override
-    public int getY() {return y;}
-
-    @Override
-    public void setX(int x) {this.x = x;}
-
-    @Override
-    public void setY(int y) {this.y = y;}
+    public float getY() {return y;}
 
     @Override
     public void setXY(int x, int y) {
@@ -227,4 +208,19 @@ public class ModelEntity implements GameObject, RenderType3D {
     @Override
     public void draw(ModelBatch modelBatch, DecalBatch decalBatch, Environment environment)
     {modelBatch.render(model, environment);}
+
+    @Override
+    public boolean isDecal() {
+        return false;
+    }
+
+    @Override
+    public Decal getDecal() {
+        return null;
+    }
+
+    @Override
+    public ModelInstance getModelInstance() {
+        return model;
+    }
 }

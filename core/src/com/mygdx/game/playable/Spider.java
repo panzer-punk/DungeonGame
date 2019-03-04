@@ -1,5 +1,6 @@
 package com.mygdx.game.playable;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.mygdx.game.ai.controller.SimpleTestController;
 import com.mygdx.game.armor.LeatherArmor;
@@ -21,7 +22,7 @@ public class Spider extends DollDecal {
     public Spider (){
 
         super("Spider", 16, 0, Decal.newDecal(1,1,
-                NewTexturePack.spider, true), 6, 1,
+                new TextureRegion(NewTexturePack.spider), true), 6, 1,
                 400, 10, 16,12,
                 3, Classification.Nonplayable, new ArrayList<Property>());
         this.equipWeapon(new SpiderBite());

@@ -20,8 +20,8 @@ public class SimpleTestController extends AbstractAIController{
 
             final int mr = actor.getMP();
             GameObject gameObjects[][] = room.getMap();
-            int x = actor.getX();
-            int y = actor.getY();
+            int x = (int)actor.getX();
+            int y = (int)actor.getY();
 
             GameObject closestPlayer = getPlayer();
 
@@ -81,11 +81,11 @@ public class SimpleTestController extends AbstractAIController{
         int xSize = room.getL(), ySize = room.getC();
        Terrain map[][] = tiles;
 
-        for(int i = player.getX(); i < xSize; i++){
-            for (int j = player.getY(); j < ySize; j++){
+        for(int i = (int) player.getX(); i < xSize; i++){
+            for (int j = (int) player.getY(); j < ySize; j++){
 
                 if (map[i][j].flag == true){
-                    room.move(getActor().getX(), getActor().getY(), i, j);
+                    room.move((int) getActor().getX(), (int) getActor().getY(), i, j);
                     return;
                 }
 
@@ -101,7 +101,7 @@ public class SimpleTestController extends AbstractAIController{
 
     public static boolean inRange(GameObject player, GameObject ai){
 
-        return countDistance(player.getX(), player.getY(), ai.getX(), ai.getY()) <= ai.getWeapon().getDistance();
+        return countDistance((int) player.getX(),(int) player.getY(),(int) ai.getX(),(int) ai.getY()) <= ai.getWeapon().getDistance();
 
     }
 
@@ -110,6 +110,7 @@ public class SimpleTestController extends AbstractAIController{
 
         if(inRange(getPlayer(), getActor()))
             Damager.makeDamage(getActor(), getPlayer());
+
 
     }
 

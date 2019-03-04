@@ -1,5 +1,6 @@
 package com.mygdx.game.playable;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.mygdx.game.ai.controller.SimpleTestController;
 import com.mygdx.game.armor.LeatherArmor;
@@ -21,7 +22,7 @@ public class Skeleton extends DollDecal {
     public Skeleton(){
 
         super("Skeleton", 4,0, Decal.newDecal(1,1,
-                NewTexturePack.skeleton, true),
+                new TextureRegion(NewTexturePack.skeleton), true),
                 7, 1, 135,
                 14,14,0,
                 6, Classification.Nonplayable, new ArrayList<Property>());

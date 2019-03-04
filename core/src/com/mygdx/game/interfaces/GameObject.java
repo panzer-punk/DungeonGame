@@ -32,10 +32,8 @@ public interface GameObject {
      void setDirection(Direction direction);
      void setClassification(Classification classification);
      void setStatus(Status status);
-     Decal getSprite();
-     void setSprite(Decal sprite);
-     int getX();
-     int getY();
+     float getX();
+     float getY();
      void setX(int x);
      void setY(int y);
      void setXY(int x, int y);

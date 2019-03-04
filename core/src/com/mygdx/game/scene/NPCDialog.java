@@ -67,7 +67,7 @@ public class NPCDialog extends Dialog {
     @Override
     public void result(Object o){
 
-        hud.unblockGameScreen();
+       // hud.unblockGameScreen();
         this.remove();
 
     }

@@ -19,7 +19,7 @@ public class GameScreenManager{
 
     public static void addParticle(Particle particle){
 
-        gs.addParticle(particle);
+       //p gs.addParticle(particle);
 
     }
 

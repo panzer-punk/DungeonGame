@@ -10,7 +10,7 @@ public class Lava extends Terrain {
         super(1000, "Lava", NewTexturePack.hole, true);
     }
 
-    public Lava(int m, String n, TextureRegion texture) {
+    public Lava(int m, String n, Texture texture) {
         super(m, n, texture, true);
     }
 }

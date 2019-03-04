@@ -19,18 +19,17 @@ import java.util.LinkedList;
  */
 public class Room implements Serializable {
 
-   private int capacity = 9;
-   private Trigger[][] triggers;
-   private int l = 3, c = 3;
-   private int currentSizePO;
-   private PriorityQueue priorityQueue;
-   private ArrayList<Particle> particles;
-   private int turn;
-
-    private GameObject map[][];
-    private GameObject[] playableObjects; // костыль!!!
-    private LinkedList<GameObject> pObjects;
-    private Map tileMap;
+   protected int capacity = 9;
+   protected Trigger[][] triggers;
+   protected int l = 3, c = 3;
+   protected int currentSizePO;
+   protected PriorityQueue priorityQueue;
+   protected ArrayList<Particle> particles;
+   protected int turn;
+   protected GameObject map[][];
+   protected GameObject[] playableObjects;
+   protected LinkedList<GameObject> pObjects;
+   protected Map tileMap;
 
     public Room(Map m){
        init(m);

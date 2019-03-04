@@ -13,7 +13,7 @@ public class Water extends Terrain {
         super(5, "Water", NewTexturePack.water, false);
     }
 
-    public Water(int m, String n, TextureRegion texture) {
+    public Water(int m, String n, Texture texture) {
         super(m, n, texture, false);
     }
 }

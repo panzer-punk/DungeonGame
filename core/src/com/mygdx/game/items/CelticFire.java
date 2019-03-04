@@ -1,6 +1,7 @@
 package com.mygdx.game.items;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
@@ -23,7 +24,7 @@ public class CelticFire extends DecalEntity implements  Item {
     private boolean up = true;
 
     public CelticFire() {
-        super(Decal.newDecal(0.45f, 0.45f, NewTexturePack.celticFire, true), "Celtic fire");
+        super(Decal.newDecal(0.45f, 0.45f, new TextureRegion(NewTexturePack.celticFire), true), "Celtic fire");
     }
 
     public CelticFire(Decal decal, String name) {
@@ -53,7 +54,7 @@ public class CelticFire extends DecalEntity implements  Item {
 
     @Override
     public void draw(ModelBatch modelBatch, DecalBatch decalBatch, Environment environment) {
-        decal.lookAt(GameScreen.perspectiveCamera.position, GameScreen.perspectiveCamera.up);
+        //decal.lookAt(GameScreen.perspectiveCamera.position, GameScreen.perspectiveCamera.up);
       //  decal.rotateY(60 * Gdx.graphics.getDeltaTime());
         if(decal.getY() > maxY)
             up = false;

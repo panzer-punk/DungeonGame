@@ -1,5 +1,6 @@
 package com.mygdx.game.objects;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.mygdx.game.build.NewTexturePack;
@@ -19,8 +20,8 @@ public class Chest extends DecalEntity {
 
     public Chest(){
 
-        super(Decal.newDecal(1,1, NewTexturePack.chestClosed, true), "Chest");
-        this.chestClosed = Decal.newDecal(1,1, NewTexturePack.chestOpen, true);
+        super(Decal.newDecal(1,1,  new TextureRegion(NewTexturePack.chestClosed), true), "Chest");
+        this.chestClosed = Decal.newDecal(1,1, new TextureRegion(NewTexturePack.chestOpen), true);
 
     }
     {

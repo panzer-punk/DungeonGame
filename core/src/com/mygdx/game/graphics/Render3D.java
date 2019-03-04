@@ -16,9 +16,9 @@ import java.util.ArrayList;
 /**
  * Created by Даниил on 23.01.2019.
  */
-public class Render3D implements Render {
+public class Render3D /*implements Render*/ {
 
-    protected Environment environment;
+   /* protected Environment environment;
     protected Room room;
     protected DecalBatch decalBatch;
     protected ModelBatch modelBatch;
@@ -105,5 +105,5 @@ public class Render3D implements Render {
         room.checkUnactiveObjects();
         modelBatch.end();
         decalBatch.flush();
-    }
+    }*/
 }

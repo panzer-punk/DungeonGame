@@ -9,7 +9,7 @@ public class Floor_min extends Terrain {
         super(1, "Floor ", NewTexturePack.floor, false);
     }
 
-    public Floor_min(int m, String n, TextureRegion texture) {
+    public Floor_min(int m, String n, Texture texture) {
         super(m, n, texture, false);
     }
 }

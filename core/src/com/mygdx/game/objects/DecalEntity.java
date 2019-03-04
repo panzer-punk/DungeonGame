@@ -1,7 +1,9 @@
 package com.mygdx.game.objects;
 
 import com.badlogic.gdx.graphics.g3d.Environment;
+import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.mygdx.game.ai.controller.AIController;
@@ -21,19 +23,17 @@ import static com.mygdx.game.enumerations.Classification.*;
 /**
  * Created by Даниил on 09.12.2018.
  */
-public class DecalEntity implements GameObject,
-        RenderType3D {
+public class DecalEntity extends Entity
+        implements RenderType3D {
 
     protected Decal decal;
-    String name;
-    private int hp;
-    int x, y;
+
 
 
     public DecalEntity(Decal decal, String name) {
+        super(name, 1, (int) decal.getX(), (int) decal.getY());
         this.decal = decal;
-        this.name = name;
-        hp = 1;
+
     }
 
     @Override
@@ -71,10 +71,6 @@ public class DecalEntity implements GameObject,
         return null;
     }
 
-    @Override
-    public Classification getClassification() {
-        return OBJECT;
-    }
 
     @Override
     public Direction getDirection() {
@@ -97,37 +93,13 @@ public class DecalEntity implements GameObject,
     }
 
     @Override
-    public Decal getSprite() {
-        return null;
-    }
-
-    @Override
-    public void setSprite(Decal sprite) {
-
-    }
-
-    @Override
-    public int getX() {
+    public float getX() {
         return x;
     }
 
     @Override
-    public int getY() {
+    public float getY() {
         return y;
-    }
-
-    @Override
-    public final void setX(int x) {
-
-        this.x = x;
-
-    }
-
-    @Override
-    public final void setY(int y) {
-
-        this.y = y;
-
     }
 
     @Override
@@ -277,7 +249,23 @@ public class DecalEntity implements GameObject,
 
     @Override
     public void draw(ModelBatch modelBatch, DecalBatch decalBatch, Environment environment) {
-        decal.lookAt(GameScreen.perspectiveCamera.position, GameScreen.perspectiveCamera.up);
+      //  decal.lookAt(GameScreen.perspectiveCamera.position, GameScreen.perspectiveCamera.up);
         decalBatch.add(decal);
     }
+
+    @Override
+    public boolean isDecal() {
+        return true;
+    }
+
+    @Override
+    public Decal getDecal() {
+        return decal;
+    }
+
+    @Override
+    public ModelInstance getModelInstance() {
+        return null;
+    }
+
 }

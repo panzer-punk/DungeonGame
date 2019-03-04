@@ -11,9 +11,10 @@ import com.mygdx.game.build.NewTexturePack;
 public class Dirt extends Terrain {
     public Dirt() {
         super(1, "Dirt", NewTexturePack.dirt, false);
+
     }
 
-    public Dirt(int m, String n, TextureRegion texture) {
+    public Dirt(int m, String n, Texture texture) {
         super(m, n, texture, false);
     }
 }

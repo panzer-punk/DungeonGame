@@ -1,5 +1,6 @@
 package com.mygdx.game.objects;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.mygdx.game.build.NewTexturePack;
@@ -12,7 +13,7 @@ import com.mygdx.game.tools.Dice;
  */
 public class BlueFountain extends DialogDecalEntity {
     public BlueFountain() {
-        super("Fountain", Decal.newDecal(0.8f, 0.8f, NewTexturePack.blueFountain, true), "Fountain says:", "Can you hear me?");
+        super("Fountain", Decal.newDecal(0.8f, 0.8f, new TextureRegion(NewTexturePack.blueFountain), true), "Fountain says:", "Can you hear me?");
     }
 
     public BlueFountain(String n, Decal s, String text, String title) {
@@ -23,7 +24,7 @@ public class BlueFountain extends DialogDecalEntity {
     public void takeDamage(GameObject gameObject){
 
         if(gameObject.getDEX() + Dice.d20() >= 15)
-           // DialogManager.showObjectMessage(name, text);
+            DialogManager.showObjectMessage(name, text);
             DialogManager.showObjectDialog(text, "{SLOW}{WAVE}Hello," + gameObject.getName());
     }
 }

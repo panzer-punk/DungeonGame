@@ -2,6 +2,7 @@ package com.mygdx.game.particles;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -15,7 +16,7 @@ import com.mygdx.game.particles.movingPatterns.Straight;
 public class ArrowParticle extends MovingParticle {
     Straight direction;
     public ArrowParticle(Vector3 from, Vector3 to) {
-        super(Decal.newDecal(0.35f, 0.35f, NewTexturePack.arrow, true), 0.05f, from, to);
+        super(Decal.newDecal(0.35f, 0.35f, new TextureRegion(NewTexturePack.arrow), true), 0.05f, from, to);
         direction = new Straight(this, to);
     }
 

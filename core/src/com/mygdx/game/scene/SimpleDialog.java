@@ -28,14 +28,14 @@ public class SimpleDialog extends com.badlogic.gdx.scenes.scene2d.ui.Dialog {
 
     @Override
     public Dialog show(Stage stage){
-        hud.blockGameScreen();
+       // hud.blockGameScreen();
         return super.show(stage);
     }
 
     @Override
     public void result(Object o){
 
-        hud.unblockGameScreen();
+       // hud.unblockGameScreen();
         this.remove();
 
     }

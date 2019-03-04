@@ -26,8 +26,8 @@ public class Bow extends WeaponryStuff {
         @Override
         public  void makeDamage(GameObject dealer, GameObject gainer){
 
-            GameScreenManager.addParticle(new ArrowParticle(new Vector3(dealer.getSprite().getX(), 0, dealer.getSprite().getZ()),
-                                                            new Vector3(gainer.getX(), 0, gainer.getY())));
+           // GameScreenManager.addParticle(new ArrowParticle(new Vector3(dealer.getSprite().getX(), 0, dealer.getSprite().getZ()),
+           //                                                 new Vector3(gainer.getX(), 0, gainer.getY())));
 
             //реализация по умолчанию
           /*  if((dealer.getDEX() + Dice.d20()) >= gainer.getArmorClass()) {

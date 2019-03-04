@@ -28,7 +28,7 @@ public class DialogManager {
         final SimpleDialog simpleDialog;
         simpleDialog = new SimpleDialog(name, hud.skin, hud);
         simpleDialog.text(text).show(hud.stage);
-        hud.blockGameScreen();
+      //  hud.blockGameScreen();
         simpleDialog.button("Ok", true);
 
     }
@@ -43,7 +43,7 @@ public class DialogManager {
         dialog = new NPCDialog(title, hud.skin, hud);
         dialog.text(text);
         dialog.show(hud.stage);
-        hud.blockGameScreen();
+      //  hud.blockGameScreen();
         dialog.button("*Leave*", true);
     }
 }

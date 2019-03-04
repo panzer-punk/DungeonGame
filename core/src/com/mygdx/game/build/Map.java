@@ -28,7 +28,7 @@ public class Map{
 
     public void addTile(Terrain t){
 
-        Decal sprite;
+        Sprite sprite;
 
         if(capacity > 0) {
             for (int i = 0; i < l; i++) {
@@ -37,7 +37,7 @@ public class Map{
                         tiles[i][j] = t;
                         t = null;
                         sprite = tiles[i][j].getSprite();
-                        sprite.setPosition(i,0, j);
+                        sprite.setPosition(i, j);
                         tiles[i][j].setSprite(sprite);
                         break;
                     }
@@ -75,9 +75,9 @@ public class Map{
         }
 
     }*/
-    public void draw(DecalBatch batch){
+    public void draw(SpriteBatch batch){
 
-        Decal sprite;
+        Sprite sprite;
 
         for(int i = 0; i < l; i++){
             for (int j = 0; j < c; j++) {
@@ -88,10 +88,10 @@ public class Map{
                     sprite = tiles[i][j].getSprite();
                    // sprite.setPosition(i,0, j);
                     //tiles[i][j].setSprite(sprite);
-                    tiles[i][j].draw(null, batch);
+                    tiles[i][j].draw( batch);
                 }else {
-                    //tiles[i][j].setSprite(sprite);
-                    tiles[i][j].draw(null, batch);
+                    //tiles[i][j].setSprite(sprite);//TODO удалить это
+                    tiles[i][j].draw( batch);
                 }
             }
 

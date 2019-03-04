@@ -1,5 +1,6 @@
 package com.mygdx.game.objects;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
@@ -16,7 +17,7 @@ import com.mygdx.game.screens.GameScreen;
 public class Column extends DialogDecalEntity {
     Vector3 direction;
     public Column() {
-        super("Column", Decal.newDecal(2,2, NewTexturePack.crumbledColumn, true), "Column says:", "I'm talking column, but it's fine to me.");
+        super("Column", Decal.newDecal(2,2, new TextureRegion(NewTexturePack.crumbledColumn), true), "Column says:", "I'm talking column, but it's fine to me.");
 
     }
 
@@ -34,8 +35,8 @@ public class Column extends DialogDecalEntity {
    @Override
    public void draw(ModelBatch modelBatch, DecalBatch decalBatch, Environment environment) {
 
-       direction.set(GameScreen.perspectiveCamera.up.x,0 , GameScreen.perspectiveCamera.up.z);
-       decal.setRotation(direction, GameScreen.perspectiveCamera.up);
+     //  direction.set(GameScreen.perspectiveCamera.up.x,0 , GameScreen.perspectiveCamera.up.z);
+     //  decal.setRotation(direction, GameScreen.perspectiveCamera.up);
        decalBatch.add(decal);
 
    }

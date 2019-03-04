@@ -24,6 +24,11 @@ public class TerrainPack {
 
     }
 
+    public Terrain getTest(){
+
+        return new Test2DDirt();
+    }
+
     public  Terrain getFloor_mid(){
 
         return new Floor_mid();

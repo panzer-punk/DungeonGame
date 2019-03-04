@@ -7,13 +7,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
+import com.mygdx.game.graphics.RenderType2D;
 
 /**
  * Created by Даниил on 13.04.2018.
  */
-public class Terrain{
+public class Terrain implements RenderType2D{
 
-    private Decal sprite;
+    private Sprite sprite;
     private int movementCost;
     private int movementPrice = 0;
     public String name;
@@ -21,19 +22,20 @@ public class Terrain{
     private  boolean killFlag;
     private float x, y;
 
-    public Terrain(int m, String n, TextureRegion texture, boolean k ){
+    public Terrain(int m, String n, Texture texture, boolean k ){
 
         movementCost = m;
-        sprite = Decal.newDecal(1,1,texture,false);
+        sprite = new Sprite(texture);
+        sprite.setSize(2,1);//TODO ISOMETRIC TERRAIN
+        sprite.flip(false, true);
       //  sprite.setSize(1,1);//debug code
         name = n;
-        sprite.rotateX(90);
         flag = false;
         killFlag = k;
 
     }
 
-    public Terrain(int m, String n, Decal sprite){
+    public Terrain(int m, String n, Sprite sprite){
 
         movementCost = m;
         this.sprite = sprite;
@@ -55,16 +57,36 @@ public class Terrain{
 
     }
     public int getMovementPrice(){return movementPrice;}
-    public Decal getSprite(){return sprite;}
-    public void setSprite(Decal sprite){this.sprite = sprite;}
+
+    @Override
+    public void draw(SpriteBatch spriteBatch) {
+
+        sprite.draw(spriteBatch);
+
+    }
+
+    @Override
+    public Sprite getSprite() {
+        return sprite;
+    }
+
+    @Override
+    public float getRealX() {
+        return x;
+    }
+
+    @Override
+    public float getRealY() {
+        return y;
+    }
+
+
+    public void setSprite(Sprite sprite){this.sprite = sprite;}
     public void setXY(int x, int y){
         this.x = x;
         this.y = y;
-        sprite.setPosition(x, -0.5f, y + 0.5f);
+        sprite.setPosition(x, y);
     }
 
-    public void draw(ModelBatch modelBatch, DecalBatch decalBatch){
-        decalBatch.add(sprite);
-    }
 
 }

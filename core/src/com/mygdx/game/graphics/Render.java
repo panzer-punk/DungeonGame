@@ -8,5 +8,5 @@ import com.mygdx.game.build.Room;
 public interface Render {
 
     void render();
-
+    void setRoom(Room room);
 }

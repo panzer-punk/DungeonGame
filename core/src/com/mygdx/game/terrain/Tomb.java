@@ -12,7 +12,7 @@ public class Tomb extends Terrain {
         super(3, "Tomb", NewTexturePack.tomb1, false);
     }
 
-    public Tomb(int m, String n, TextureRegion texture) {
+    public Tomb(int m, String n, Texture texture) {
         super(m, n, texture, false);
     }
 }

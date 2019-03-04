@@ -24,7 +24,7 @@ public class Door extends ModelEntity {
     public void takeDamage(GameObject gameObject){
 
 
-       GameObject temp = holder.remove(gameObject.getX(), gameObject.getY());
+       GameObject temp = holder.remove((int)gameObject.getX(), (int)gameObject.getY());
        link.setObject(temp);
         RoomManager.moveToRoom(link);
 

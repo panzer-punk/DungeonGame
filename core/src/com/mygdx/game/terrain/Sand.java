@@ -12,7 +12,7 @@ public class Sand extends Terrain {
         super(2, "Sand", NewTexturePack.sand, false);
     }
 
-    public Sand(int m, String n, TextureRegion texture) {
+    public Sand(int m, String n, Texture texture) {
         super(m, n, texture, false);
     }
 }

@@ -3,6 +3,7 @@ package com.mygdx.game.playable;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.graphics.IsometricRender;
 import com.mygdx.game.graphics.RenderType2D;
@@ -56,4 +57,5 @@ public class DollSprite extends Doll
         sprite.setX(x);
         sprite.setY(y);
     }
+
 }

@@ -219,6 +219,8 @@ public class GameScreen implements Screen, InputProcessor {
         checkTurnEnded();
         checkTileTouched();
 
+        //System.out.println(Gdx.input.getX() + " : " + Gdx.input.getY());
+
 
 
 

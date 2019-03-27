@@ -9,7 +9,7 @@ import com.mygdx.game.terrain.Terrain;
 /**
  * Created by Даниил on 13.04.2018.
  */
-public class Map{
+public class Map{//TODO extends stage
 
     private Terrain tiles[][];
     private Terrain defaultTerrain;//пустые поля должны быть закрашены по дефолту
@@ -75,6 +75,7 @@ public class Map{
         }
 
     }*/
+   @Deprecated
     public void draw(SpriteBatch batch){
 
         Sprite sprite;

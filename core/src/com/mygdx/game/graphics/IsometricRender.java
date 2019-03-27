@@ -116,6 +116,7 @@ public class IsometricRender implements Render {
         if(viewport != null)
         viewport.apply();
         drawTerrain(room.getTileMap().getTiles());
+        room.checkUnactiveObjects();
         drawGameObjects(room.getMap());
     }
 

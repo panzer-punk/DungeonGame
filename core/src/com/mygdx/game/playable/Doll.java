@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.ai.controller.AIController;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.enumerations.Direction;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by Даниил on 20.02.2019.
  */
-public abstract class Doll  implements GameObject {
+public abstract class Doll extends Actor implements GameObject {//TODO extends actor
     protected BuffPool buffPool;
     protected int initiativebonus;
     protected String name;
@@ -91,13 +92,13 @@ public abstract class Doll  implements GameObject {
     @Override
     public final AIController getController(){return controller;}
 
-   /* @Override
-    public void draw(SpriteBatch batch) {
-        if(movementsPoints == 0)
-            sprite.setColor(1,1,9,80);
-        sprite.draw(batch);
-
-    }*/
+    /*
+            @Override
+    public void draw(SpriteBatch batch)
+    {if(movementsPoints == 0)
+     sprite.setColor(1,1,9,80);
+     sprite.draw(batch);}
+     */
 
     @Override
     public void setInitiative(int i){

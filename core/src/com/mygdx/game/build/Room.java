@@ -17,7 +17,7 @@ import java.util.LinkedList;
 /**
  * Created by Даниил on 11.04.2018.
  */
-public class Room implements Serializable {
+public class Room implements Serializable {//TODO extends stage
 
    protected int capacity = 9;
    protected Trigger[][] triggers;
@@ -235,7 +235,6 @@ public class Room implements Serializable {
        }
 
     }
-
     public void checkUnactiveObjects() {
         for (int i = 0; i < l; i++) {
             for (int j = 0; j < c; j++) {

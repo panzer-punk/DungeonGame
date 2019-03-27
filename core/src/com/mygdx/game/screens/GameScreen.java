@@ -25,6 +25,7 @@ import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.*;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.armor.ChainArmor;
 import com.mygdx.game.armor.IronArmor;
 import com.mygdx.game.armor.LeatherArmor;
 import com.mygdx.game.build.*;
@@ -35,20 +36,21 @@ import com.mygdx.game.graphics.Render3D;
 import com.mygdx.game.graphics.RenderType2D;
 import com.mygdx.game.interfaces.Particle;
 import com.mygdx.game.interfaces.Property;
+import com.mygdx.game.items.CelticFire;
 import com.mygdx.game.levels.DemoLevelsLocation;
 import com.mygdx.game.build.Room;
 import com.mygdx.game.levels.RoomIntrance;
 import com.mygdx.game.levels.Test2DLevel;
 import com.mygdx.game.levels.TestBossFightArena;
-import com.mygdx.game.objects.Entity;
-import com.mygdx.game.objects.ModelEntity;
+import com.mygdx.game.objects.*;
 import com.mygdx.game.playable.Orc;
+import com.mygdx.game.playable.Skeleton;
+import com.mygdx.game.playable.Spider;
 import com.mygdx.game.scene.HUD;
 import com.mygdx.game.systems.*;
 import com.mygdx.game.terrain.Terrain;
 import com.mygdx.game.enumerations.Classification;
 import com.mygdx.game.interfaces.GameObject;
-import com.mygdx.game.objects.Door;
 import com.mygdx.game.playable.Hero;
 import com.mygdx.game.terrain.TerrainPack;
 import com.mygdx.game.tools.*;
@@ -107,12 +109,12 @@ public class GameScreen implements Screen, InputProcessor {
         this.texturePack = texturePack;
 
         room = new RoomIntrance(new TerrainPack(texturePack), texturePack, new GameObjectPack(texturePack, null));
-        player =  new Hero("D0nny", 14, 10, 10, 1,
-                0, 10,10,10,
-                10, Classification.Playable, new ArrayList<Property>(), new Sprite(NewTexturePack.player));
+        player =  new Hero("Linni Unnamed", 17, 10, 8, 3,
+                5000, 16,16,12,
+                7, Classification.Playable, new ArrayList<Property>(), new Sprite(NewTexturePack.player));
 
-        player.equipWeapon(new WoodenSword());
-        player.equipArmor(new LeatherArmor());
+        player.equipWeapon(new IronSword());
+        player.equipArmor(new ChainArmor());
 
         // roomGenerator = new RoomGenerator(texturePack);
         // locationGenerator = new LocationGenerator(texturePack, this);
@@ -163,8 +165,13 @@ public class GameScreen implements Screen, InputProcessor {
         // room.setObject(door);
         queque = room.getInitiativeQueue();
         room.setObject(player);
+        room.setObject(new Skeleton());
         room.setObject(new Orc());
-
+        room.setObject(new Spider());
+        room.setObject(new Column());
+        room.setObject(new BlueFountain());
+        room.setObject(new CelticFire());
+        room.setObject(new Chest());
         hud = new HUD(this, texturePack.getSkin(), width, height, player);
         Printer.setHud(hud);
 

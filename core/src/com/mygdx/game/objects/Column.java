@@ -1,5 +1,6 @@
 package com.mygdx.game.objects;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.Model;
@@ -14,30 +15,13 @@ import com.mygdx.game.screens.GameScreen;
 /**
  * Created by Даниил on 03.12.2018.
  */
-public class Column extends DialogDecalEntity {
-    Vector3 direction;
-    public Column() {
-        super("Column", Decal.newDecal(2,2, new TextureRegion(NewTexturePack.crumbledColumn), true), "Column says:", "I'm talking column, but it's fine to me.");
+public class Column extends DialogSpriteEntity {
 
+    public Column(String name, int hp, int x, int y, String title, String text, Sprite sprite) {
+        super(name, hp, x, y, title, text, sprite);
     }
-
-    public Column(String n, Decal s, String text, String title) {
-        super(n, s, text, title);
+    public Column(){
+        super("Columns", 20, 0, 0, "Writing on column",
+                "It's been a while", new Sprite(NewTexturePack.crumbledColumn));
     }
-
-    {
-        direction = new Vector3();
-    }
-
-   /* public Column(Sprite sprite) {
-        super("Column", sprite, "Column says:", "I'm talking column, but it's fine to me.");
-    }*/
-   @Override
-   public void draw(ModelBatch modelBatch, DecalBatch decalBatch, Environment environment) {
-
-     //  direction.set(GameScreen.perspectiveCamera.up.x,0 , GameScreen.perspectiveCamera.up.z);
-     //  decal.setRotation(direction, GameScreen.perspectiveCamera.up);
-       decalBatch.add(decal);
-
-   }
 }

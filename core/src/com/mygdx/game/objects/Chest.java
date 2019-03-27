@@ -1,5 +1,6 @@
 package com.mygdx.game.objects;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
@@ -10,18 +11,21 @@ import com.mygdx.game.systems.DialogManager;
 /**
  * Created by Даниил on 04.12.2018.
  */
-public class Chest extends DecalEntity {
-    Decal chestClosed;
+public class Chest extends DialogSpriteEntity {
+    Sprite chestClosed;
     boolean isOpen;
-    public Chest(Decal chestOpen, String name, Decal chestClosed ) {
-        super(chestOpen, name);
+
+    public Chest(String name, int hp, int x, int y, String title, String text, Sprite sprite, Sprite chestClosed, boolean isOpen) {
+        super(name, hp, x, y, title, text, sprite);
         this.chestClosed = chestClosed;
+        this.isOpen = isOpen;
     }
 
     public Chest(){
-
-        super(Decal.newDecal(1,1,  new TextureRegion(NewTexturePack.chestClosed), true), "Chest");
-        this.chestClosed = Decal.newDecal(1,1, new TextureRegion(NewTexturePack.chestOpen), true);
+        super("Chest", 10, 0, 0, "Title", "Text",new Sprite(NewTexturePack.chestClosed));
+        this.chestClosed = new Sprite(NewTexturePack.chestOpen);
+        chestClosed.setSize(1,1);
+        chestClosed.flip(false, true);
 
     }
     {
@@ -32,7 +36,7 @@ public class Chest extends DecalEntity {
 
         if(!isOpen) {
             replaceSprite();
-            DialogManager.showObjectMessage("Chest", "You open chest");
+            DialogManager.showObjectMessage(title, text);
         }
 
     }
@@ -40,15 +44,15 @@ public class Chest extends DecalEntity {
     @Override
     public void setXY(int x, int y){
         super.setXY(x,y);
-        chestClosed.setX(decal.getX());
-        chestClosed.setZ(decal.getZ());
+        chestClosed.setX(sprite.getX());
+        chestClosed.setY(sprite.getY());
 
     }
 
     private void replaceSprite(){
 
         isOpen = true;
-        decal = chestClosed;
+        sprite = chestClosed;
 
     }
 

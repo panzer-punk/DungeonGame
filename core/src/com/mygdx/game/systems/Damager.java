@@ -24,7 +24,7 @@ public class Damager {
             Attack attack = dealer.getWeapon().getAttack();
             int dmg;
             boolean special = true;
-            dmg = attack.getDamage();
+            dmg = attack.getDamage() + dealer.getSTR();
 
             if(!gainer.getProperties().isEmpty())
                 for (Property p : gainer.getProperties()) {

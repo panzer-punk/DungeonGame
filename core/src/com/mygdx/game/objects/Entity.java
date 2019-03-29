@@ -25,10 +25,12 @@ public abstract class Entity  implements GameObject {
     protected  String name;
     protected int hp;
     protected int x, y;
+    protected int maxHP;
 
     public Entity(String name, int hp, int x, int y) {
         this.name = name;
         this.hp = hp;
+        maxHP = hp;
         this.x = x;
         this.y = y;
     }
@@ -64,6 +66,12 @@ public abstract class Entity  implements GameObject {
 
     @Override
     public void setHp(int hp) {this.hp = hp;}
+
+    @Override
+    public int getMaxHP(){return maxHP;}
+
+    @Override
+    public int getMaxMP(){return 0;}
 
 
 }

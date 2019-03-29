@@ -24,7 +24,7 @@ public class Orc extends DollSprite {
     }
 
     public Orc(){
-        super("Orc", 6,2,6,1,
+        super("Orc", 6,2,4,1,
                 136,16,10,12,
                 0, Classification.Nonplayable, new ArrayList<Property>(), new Sprite(NewTexturePack.orc));
 

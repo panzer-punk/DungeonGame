@@ -156,8 +156,8 @@ public class HUD {
         con = new Label(""  + player.getCON(), playerParams);
         str = new Label(""  +player.getSTR(), playerParams);
         weapon = new Label(player.getWeapon().getLabel(), playerParams);
-        mp = new Label( "" + player.getMP(), mpStyle);
-        hp = new Label("" + player.getHP(),hpStyle);
+        mp = new Label( "" + player.getMP() + "/" + player.getMaxMP(), mpStyle);
+        hp = new Label("" + player.getHP() + "/" + player.getMaxHP(),hpStyle);
          /*initiative = new Label("Initiative", new Label.LabelStyle(new BitmapFont(), Color.GREEN));
         armorclass = new Label("Armor class", new Label.LabelStyle(new BitmapFont(), Color.YELLOW));
         name = new Label("Name", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -232,9 +232,9 @@ public class HUD {
 
     public void show(){
 
-        hp.setText("" + player.getHP());
+        hp.setText("" + player.getHP() + "/" + player.getMaxHP());
         // armorclass.setText("" + gameObject.getArmorClass());
-        mp.setText("" + player.getMP());
+        mp.setText("" + player.getMP() + "/" + player.getMaxMP());
        /* initiative.setText("" + gameObject.getInitiative());
         name.setText(gameObject.getName());*/
 

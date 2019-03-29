@@ -22,7 +22,7 @@ public class Spider extends DollSprite {
 
     public Spider (){
 
-        super("Spider", 16, 0,  6, 1,
+        super("Spider", 16, 3,  4, 1,
                 400, 10, 16,12,
                 3, Classification.Nonplayable,
                 new ArrayList<Property>(), new Sprite(NewTexturePack.spider));

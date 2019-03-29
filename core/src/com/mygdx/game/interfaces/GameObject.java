@@ -19,7 +19,6 @@ import java.util.ArrayList;
  */
 public interface GameObject {
 
-    // void draw(SpriteBatch batch);
      void setInitiative(int i);
      void makeStep(int c);
      int getMP();
@@ -63,7 +62,8 @@ public interface GameObject {
      int getDEX();
      int getSTR();
      int getCON();
-    // void draw(ModelBatch modelBatch, DecalBatch decalBatch);
+     int getMaxHP();
+     int getMaxMP();
      void addProperty(Property property);
 
 }

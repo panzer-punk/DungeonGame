@@ -25,7 +25,7 @@ public abstract class Doll extends Actor implements GameObject {//TODO extends a
     protected Classification classification;
     protected Status status;
     protected Direction direction;
-    protected int hp;
+    protected int hp, maxHP;
     protected int initiative;
     protected int strength, dexterity, constitution;
     protected int STR, DEX, CON;
@@ -46,8 +46,10 @@ public abstract class Doll extends Actor implements GameObject {//TODO extends a
                      int strength, int dexterity, int constitution,
                      int initiativebonus, Classification classification, ArrayList <Property> properties){
 
+        int HP, MP;
         this.name = name;
-        this.hp = hp;
+        HP = hp;
+        MP = movementsPoints;
         this.strength = strength;
         this.dexterity = dexterity;
         this.constitution = constitution;
@@ -55,6 +57,9 @@ public abstract class Doll extends Actor implements GameObject {//TODO extends a
         STR = (strength - 10)/2;
         DEX = (dexterity - 10)/2;
         CON = (constitution - 10)/2;
+
+        HP += CON;
+        MP += DEX;
 
         direction = null;
         status = Status.OK;
@@ -65,10 +70,13 @@ public abstract class Doll extends Actor implements GameObject {//TODO extends a
         buffPool = new BuffPool();
         this.capacity = capacity;
 
-        this.movementsPoints = movementsPoints;
+
+        this.hp = HP;
+        maxHP = HP;
+        this.movementsPoints = MP;
         this.level = level;
         this.experience = experience;
-        toReset = movementsPoints;
+        toReset = MP;
         //debug code
         this.initiativebonus = initiativebonus + DEX;
         this.properties = properties;
@@ -85,9 +93,17 @@ public abstract class Doll extends Actor implements GameObject {//TODO extends a
 
     }
 
+    @Override
+    public int getMaxMP(){return toReset;}
 
     @Override
-    public void setHp(int hp){this.hp = hp;}
+    public void setHp(int hp){
+        if(hp > maxHP)
+            this.hp = maxHP;
+        else
+            this.hp = hp;
+
+    }
 
     @Override
     public final AIController getController(){return controller;}
@@ -156,6 +172,8 @@ public abstract class Doll extends Actor implements GameObject {//TODO extends a
         this.status = status;
     }
 
+    @Override
+    public int getMaxHP(){return maxHP;}
 
 
     @Override

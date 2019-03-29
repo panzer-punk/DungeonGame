@@ -23,9 +23,9 @@ public class Skeleton extends DollSprite {
 
     public Skeleton(){
 
-        super("Skeleton", 4,0,
-                7, 1, 135,
-                14,14,0,
+        super("Skeleton", 5,5,
+                4, 1, 135,
+                14,14,8,
                 6, Classification.Nonplayable,
                 new ArrayList<Property>(), new Sprite(NewTexturePack.skeleton));
 

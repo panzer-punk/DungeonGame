@@ -109,9 +109,9 @@ public class GameScreen implements Screen, InputProcessor {
         this.texturePack = texturePack;
 
         room = new RoomIntrance(new TerrainPack(texturePack), texturePack, new GameObjectPack(texturePack, null));
-        player =  new Hero("Linni Unnamed", 17, 10, 8, 3,
+        player =  new Hero("Linni Unnamed", 8, 10, 4, 3,
                 5000, 16,16,12,
-                7, Classification.Playable, new ArrayList<Property>(), new Sprite(NewTexturePack.player));
+                3, Classification.Playable, new ArrayList<Property>(), new Sprite(NewTexturePack.player));
 
         player.equipWeapon(new IronSword());
         player.equipArmor(new ChainArmor());
@@ -165,13 +165,13 @@ public class GameScreen implements Screen, InputProcessor {
         // room.setObject(door);
         queque = room.getInitiativeQueue();
         room.setObject(player);
-        room.setObject(new Skeleton());
         room.setObject(new Orc());
-        room.setObject(new Spider());
-        room.setObject(new Column());
-        room.setObject(new BlueFountain());
-        room.setObject(new CelticFire());
-        room.setObject(new Chest());
+       // room.setObject(new Orc());
+     //   room.setObject(new Spider());
+      //  room.setObject(new Column());
+      //  room.setObject(new BlueFountain());
+     //   room.setObject(new CelticFire());
+     //   room.setObject(new Chest());
         hud = new HUD(this, texturePack.getSkin(), width, height, player);
         Printer.setHud(hud);
 

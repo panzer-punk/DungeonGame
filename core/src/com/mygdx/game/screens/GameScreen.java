@@ -165,13 +165,13 @@ public class GameScreen implements Screen, InputProcessor {
         // room.setObject(door);
         queque = room.getInitiativeQueue();
         room.setObject(player);
-        room.setObject(new Orc());
+       // room.setObject(new Skeleton());
        // room.setObject(new Orc());
      //   room.setObject(new Spider());
-      //  room.setObject(new Column());
-      //  room.setObject(new BlueFountain());
-     //   room.setObject(new CelticFire());
-     //   room.setObject(new Chest());
+        room.setObject(new Column());
+        room.setObject(new BlueFountain());
+        room.setObject(new CelticFire());
+        room.setObject(new Chest());
         hud = new HUD(this, texturePack.getSkin(), width, height, player);
         Printer.setHud(hud);
 
